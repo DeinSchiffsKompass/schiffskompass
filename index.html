@@ -792,6 +792,10 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
 .row dd.wx small{font-size:14px;font-weight:500;color:var(--muted)}
 .ship .foot a.wbtn{background:var(--accent);color:#fff;padding:10px 16px;border-radius:10px;min-height:44px;display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:700}
 .ship .foot a.wbtn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.ship .foot.f3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ship .foot.f3 a.wbtn{flex-direction:column;justify-content:center;gap:2px;padding:8px 4px;min-height:58px;font-size:14px;line-height:1.15;text-align:center}
+.ship .foot.f3 a.wbtn .wi{font-size:20px;line-height:1}
+.ship .foot .fcap{grid-column:1/-1;margin:0;font-size:13px;color:var(--muted);text-align:center}
 </style>
 <script id="wx-addon">
 (function(){try{
@@ -999,7 +1003,13 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
     var a=document.createElement("a");a.className="wbtn";a.textContent="📍 Live-Position";
     a.href="https://www.vesselfinder.com/de/vessels/details/"+imo;a.target="_blank";a.rel="noopener";
     a.setAttribute("aria-label","Live-Position von "+s.n+" bei VesselFinder öffnen");
-    f.insertBefore(a,f.firstChild)});
+    f.insertBefore(a,f.firstChild);
+    /* Drei Buttons nebeneinander: Symbol oben, kurzer Name darunter; „am Liegeplatz“/„im Seegebiet“ als Zeile darunter */
+    var wo="";Array.prototype.forEach.call(f.querySelectorAll("a.wbtn"),function(x){var t=x.textContent.trim(),m=t.match(/^(\S+)\s+(\S+)(?:\s+(.*))?$/);if(!m)return;
+      var nm=m[2]==="Live-Position"?"Position":m[2];if(m[3])wo=m[3];x.textContent="";
+      var ic=document.createElement("span");ic.className="wi";ic.setAttribute("aria-hidden","true");ic.textContent=m[1];x.appendChild(ic);x.appendChild(document.createTextNode(nm))});
+    f.classList.add("f3");
+    if(wo){var cp=document.createElement("p");cp.className="fcap";cp.textContent="Live bei VesselFinder · Wellen und Wetter "+wo+" bei Windy";f.appendChild(cp)}});
 }catch(e){}})();
 </script>
 <script id="update-addon">
