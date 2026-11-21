@@ -325,6 +325,42 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
   <div class="stats" id="stats"></div>
   <p class="lead" id="sthl" style="margin-top:14px"></p>
 </div></section>
+<!--GLOBUS-START-->
+<style id="globe3d-css">
+.g3sec{padding-block:28px 8px}
+.g3card{border-radius:22px;padding:22px 18px 18px;color:#fff;background:radial-gradient(700px 360px at 50% 0%,#123F8F 0%,transparent 70%),linear-gradient(180deg,#071A4F,#0A2A6E);box-shadow:0 14px 34px rgba(7,26,79,.25)}
+.g3card .eyebrow{color:#7DD6FF;margin:0}
+.g3card h2{margin:4px 0 6px;font:800 clamp(24px,5.6vw,34px)/1.12 var(--display);color:#fff}
+.g3card .g3sub{margin:0;color:#CFE0FF;font-size:16px;line-height:1.5}
+.g3stage{position:relative;max-width:560px;margin:14px auto 0}
+.g3stage canvas{display:block;width:100%;aspect-ratio:1/1;touch-action:pan-y;cursor:grab;-webkit-tap-highlight-color:transparent}
+.g3stage canvas:active{cursor:grabbing}
+.g3zoom{position:absolute;right:0;bottom:6px;display:flex;flex-direction:column;gap:6px}
+.g3zoom button{width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.35);background:rgba(7,26,79,.6);color:#fff;font:700 22px/1 var(--body);cursor:pointer}
+.g3chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:10px 0 0}
+.g3chips button{min-height:36px;padding:6px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;font:700 14px var(--body);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.g3chips button .d{width:10px;height:10px;border-radius:50%;border:1.5px solid #fff;flex:none}
+.g3chips button[aria-pressed="true"]{background:#fff;color:#0B2470}
+.g3info{margin:14px auto 0;max-width:560px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:14px 16px;min-height:72px}
+.g3info h3{margin:0 0 4px;font:800 20px/1.2 var(--display);color:#fff}
+.g3info p{margin:2px 0;color:#DCE8FF;font-size:15px;line-height:1.45}
+.g3info .g3go{display:inline-block;margin-top:8px;color:#7DD6FF;font-weight:700;text-decoration:none}
+.g3legend{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:10px 0 0;font-size:13px;color:#CFE0FF}
+.g3legend span{display:inline-flex;align-items:center;gap:6px}.g3legend i{width:10px;height:10px;border-radius:50%;border:1.5px solid #fff;display:inline-block}
+.g3note{margin:10px 0 0;text-align:center;font-size:13px;color:#9FB4E0}
+</style>
+<section class="g3sec" aria-labelledby="g3h"><div class="wrap"><div class="g3card" id="globe3d">
+  <p class="eyebrow">Die Flotte auf dem Globus</p>
+  <h2 id="g3h">Wo sind die Schiffe gerade?</h2>
+  <p class="g3sub">Dreh den Globus mit dem Finger und tippe auf ein Schiff.</p>
+  <div class="g3stage"><canvas role="img" aria-label="Drehbarer Globus mit den Positionen der Mein Schiff Flotte"></canvas>
+    <div class="g3zoom"><button type="button" data-z="1" aria-label="Heranzoomen">+</button><button type="button" data-z="-1" aria-label="Herauszoomen">−</button></div></div>
+  <div class="g3legend" aria-hidden="true"><span><i style="background:#F0A63A"></i>Hafen</span><span><i style="background:#2E9BFF"></i>Seetag</span><span><i style="background:#22A653"></i>Wechsel</span><span><i style="background:#E04848"></i>Ausfall/Werft</span></div>
+  <div class="g3chips" role="group" aria-label="Schiff auswählen"></div>
+  <div class="g3info" aria-live="polite"><p>Tippe auf ein Schiff, um zu sehen, wo es liegt und wohin es als Nächstes fährt.</p></div>
+  <p class="g3note">Positionen laut Fahrplan, an Seetagen geschätzt. Die dunkle Seite zeigt, wo gerade Nacht ist.</p>
+</div></div></section>
+<!--GLOBUS-END-->
 <section class="tilesec"><div class="wrap">
   <div class="tiles">
     <a class="tile main" href="#flotte"><canvas id="globe" class="gl" width="160" height="160" aria-hidden="true"></canvas><h3>Flotte und Crew</h3><p>Alle 9 Schiffe mit Zeiten, Wetter und Wellenhöhe live. Dazu siehst du, wer Kapitän und Kreuzfahrtdirektor ist und welche anderen Schiffe mit im Hafen liegen.</p><span class="go2">Ansehen →</span></a>
@@ -463,7 +499,7 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
   <p>Diese Seite verlinkt auf Seiten anderer Anbieter, zum Beispiel soziale Netzwerke, Schiffsortungsdienste wie VesselFinder und den Wetterdienst Windy.com. Auf deren Inhalte habe ich keinen Einfluss, verantwortlich ist der jeweilige Anbieter. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar. Werden mir Rechtsverletzungen bekannt, entferne ich solche Links umgehend.</p>
 
   <h2>Urheberrecht</h2>
-  <p>Texte, Gestaltung und Logo dieser Seite stammen von mir. Eine Verwendung außerhalb dieser Seite bitte nur nach Rücksprache. Die Schriften Bricolage Grotesque und Figtree stehen unter der SIL Open Font License. Kartendaten: amCharts Geodata, Satellitenbild: NASA GIBS (Blue Marble).</p>
+  <p>Texte, Gestaltung und Logo dieser Seite stammen von mir. Eine Verwendung außerhalb dieser Seite bitte nur nach Rücksprache. Die Schriften Bricolage Grotesque und Figtree stehen unter der SIL Open Font License. Kartendaten: amCharts Geodata und Natural Earth (gemeinfrei), Satellitenbild: NASA GIBS (Blue Marble). Der Globus nutzt die Programmbibliotheken d3-geo und d3-array (ISC-Lizenz), die wie die Landkarte auf diesem Server liegen.</p>
 
   <p><a href="#datenschutz">Zur Datenschutzerklärung</a></p>
   <p><a href="#start" class="btn p" style="background:var(--accent);color:#fff;margin-top:12px">Zur Startseite</a></p>
@@ -1013,6 +1049,91 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
     f.classList.add("f3");
     var hd=document.createElement("p");hd.className="fhd";hd.textContent="Live dabei: Position, Wellen & Wetter";f.insertBefore(hd,f.firstChild);
   });
+}catch(e){}})();
+</script>
+<script src="js/d3-array.min.js"></script>
+<script src="js/d3-geo.min.js"></script>
+<script id="globe3d-addon">
+/* 3D-Globus auf der Startseite: Landflächen Natural Earth (gemeinfrei, geo/land.json), Projektion d3-geo (ISC-Lizenz), alles auf diesem Server. */
+(function(){try{
+  var box=document.getElementById("globe3d");if(!box||!window.d3||!d3.geoOrthographic)return;
+  var cv=box.querySelector("canvas"),ctx=cv.getContext("2d"),info=box.querySelector(".g3info"),chips=box.querySelector(".g3chips");
+  var ships=(window.GL&&window.GL.ships)||[];
+  var SHORT=function(n){return n.replace("Mein Schiff ","MS ").replace(/^MS (Relax|Flow)$/,"$1")};
+  function col(s){return s.st==="ausfall"||s.type==="yard"?"#E04848":s.st==="wechsel"?"#22A653":s.type==="sea"?"#2E9BFF":"#F0A63A"}
+  var rm=false;try{rm=matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}
+  var proj=d3.geoOrthographic().clipAngle(90).precision(.5),path=d3.geoPath(proj,ctx),grat=d3.geoGraticule10();
+  var land=null,W=0,dpr=1,zoom=1,rot=[20,-22,0],sel=-1,idleUntil=0,anim=null,hits=[],visible=true,dirty=true;
+  fetch("geo/land.json").then(function(r){return r.json()}).then(function(j){land=j;dirty=true}).catch(function(){});
+  function size(){var w=cv.clientWidth||320;if(w===W&&dpr===Math.min(window.devicePixelRatio||1,2))return;W=w;dpr=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(W*dpr);cv.height=Math.round(W*dpr);dirty=true}
+  function sun(){var d=new Date(),n=(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())-Date.UTC(d.getUTCFullYear(),0,0))/864e5,
+      h=d.getUTCHours()+d.getUTCMinutes()/60,b=2*Math.PI*(n-81)/364,eot=9.87*Math.sin(2*b)-7.53*Math.cos(b)-1.5*Math.sin(b),
+      dec=23.44*Math.sin(2*Math.PI*(284+n)/365),lon=-(h-12)*15-eot/4;return[((lon+540)%360)-180,dec]}
+  function draw(){
+    size();var R=W/2*.9*zoom;proj.translate([W/2,W/2]).scale(R).rotate(rot);
+    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,W);
+    var g=ctx.createRadialGradient(W/2,W/2,R*.96,W/2,W/2,R*1.12);g.addColorStop(0,"rgba(125,214,255,.45)");g.addColorStop(1,"rgba(125,214,255,0)");
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(W/2,W/2,R*1.12,0,7);ctx.fill();
+    var oc=ctx.createRadialGradient(W/2-R*.35,W/2-R*.4,R*.1,W/2,W/2,R);oc.addColorStop(0,"#3FA2EE");oc.addColorStop(.55,"#1360C4");oc.addColorStop(1,"#082B78");
+    ctx.beginPath();path({type:"Sphere"});ctx.fillStyle=oc;ctx.fill();
+    ctx.beginPath();path(grat);ctx.strokeStyle="rgba(255,255,255,.13)";ctx.lineWidth=.7;ctx.stroke();
+    if(land){ctx.beginPath();path(land);ctx.fillStyle="#EFE6D2";ctx.fill();ctx.strokeStyle="rgba(70,58,35,.45)";ctx.lineWidth=.6;ctx.stroke()}
+    var s=sun(),anti=[s[0]>0?s[0]-180:s[0]+180,-s[1]];
+    ctx.beginPath();path(d3.geoCircle().center(anti).radius(90)());ctx.fillStyle="rgba(3,10,40,.42)";ctx.fill();
+    ctx.beginPath();path(d3.geoCircle().center(anti).radius(84)());ctx.fillStyle="rgba(3,10,40,.12)";ctx.fill();
+    var sd=ctx.createRadialGradient(W/2-R*.4,W/2-R*.45,R*.2,W/2,W/2,R*1.02);sd.addColorStop(0,"rgba(255,255,255,.16)");sd.addColorStop(.6,"rgba(0,0,0,0)");sd.addColorStop(1,"rgba(2,10,50,.5)");
+    ctx.beginPath();path({type:"Sphere"});ctx.fillStyle=sd;ctx.fill();
+    ctx.beginPath();path({type:"Sphere"});ctx.strokeStyle="rgba(190,235,255,.6)";ctx.lineWidth=1;ctx.stroke();
+    hits=[];var pts=[],cen=[-rot[0],-rot[1]],t=Date.now();
+    var order=ships.map(function(s,i){return i}).sort(function(a,b){return(a===sel)-(b===sel)});
+    order.forEach(function(i){var s=ships[i];if(s.lat==null)return;var ll=[+s.lon,+s.lat];if(d3.geoDistance(ll,cen)>Math.PI/2-.03)return;
+      var p=proj(ll),x=p[0],y=p[1],c=col(s),on=i===sel,r=on?8:6.5;
+      if(on){ctx.beginPath();ctx.arc(x,y,r+6+2*Math.sin(t/250),0,7);ctx.fillStyle="rgba(255,255,255,.25)";ctx.fill()}
+      ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fillStyle=c;ctx.fill();ctx.lineWidth=2;ctx.strokeStyle="#fff";ctx.stroke();
+      pts.push({i:i,x:x,y:y,r:r,on:on})});
+    /* Beschriftungen ohne Überlappung: ausgewähltes Schiff zuerst, dann je Schiff die erste freie Position rechts, links, oben oder unten */
+    var boxes=pts.map(function(q){return{x:q.x-q.r-2,y:q.y-q.r-2,w:2*q.r+4,h:2*q.r+4}});
+    function free(b){return b.x>=0&&b.x+b.w<=W&&b.y>=0&&b.y+b.h<=W&&!boxes.some(function(o){return b.x<o.x+o.w&&b.x+b.w>o.x&&b.y<o.y+o.h&&b.y+b.h>o.y})}
+    pts.slice().sort(function(a,b){return b.on-a.on}).forEach(function(q){var lb=SHORT(ships[q.i].n);ctx.font="700 "+(q.on?13:12)+"px Figtree,system-ui,sans-serif";
+      var w=ctx.measureText(lb).width+10,h=18,c=[[q.x+q.r+4,q.y-h/2],[q.x-q.r-4-w,q.y-h/2],[q.x-w/2,q.y-q.r-4-h],[q.x-w/2,q.y+q.r+4],[q.x+q.r+2,q.y-q.r-h],[q.x+q.r+2,q.y+q.r],[q.x-q.r-2-w,q.y-q.r-h],[q.x-q.r-2-w,q.y+q.r]],pos=null;
+      for(var k=0;k<c.length;k++){var bb={x:c[k][0],y:c[k][1],w:w,h:h};if(free(bb)){pos=bb;break}}
+      if(!pos&&q.on)pos={x:c[0][0],y:c[0][1],w:w,h:h};
+      if(pos){boxes.push(pos);ctx.fillStyle=q.on?"#fff":"rgba(7,26,79,.85)";ctx.beginPath();if(ctx.roundRect)ctx.roundRect(pos.x,pos.y,w,h,9);else ctx.rect(pos.x,pos.y,w,h);ctx.fill();
+        ctx.fillStyle=q.on?"#0B2470":"#fff";ctx.fillText(lb,pos.x+5,pos.y+13);hits.push({i:q.i,x:q.x,y:q.y,x2:pos.x,w:w,y2:pos.y})}
+      else hits.push({i:q.i,x:q.x,y:q.y,x2:-99,w:0,y2:-99})});
+    dirty=false}
+  function select(i,fly){sel=i;var s=ships[i];
+    Array.prototype.forEach.call(chips.children,function(b,k){b.setAttribute("aria-pressed",k===i?"true":"false")});
+    if(!s){return}
+    var st=s.st==="wechsel"?" · Passagierwechsel":s.st==="ausfall"?" · Ausfall":"";
+    info.innerHTML="";var h=document.createElement("h3");h.textContent=(s.type==="sea"?"🌊 ":s.flag?s.flag+" ":"")+s.n;info.appendChild(h);
+    [[s.ort+st],[s.zeit],[s.weiter?"Danach: "+s.weiter:""]].forEach(function(x){if(!x[0])return;var p=document.createElement("p");p.textContent=x[0];info.appendChild(p)});
+    var a=document.createElement("a");a.className="g3go";a.href="#flotte";a.textContent="Zur Schiffskarte →";
+    a.addEventListener("click",function(){setTimeout(function(){var c=document.querySelectorAll("#fleet .ship")[i];if(c)c.scrollIntoView({behavior:rm?"auto":"smooth",block:"start"})},350)});info.appendChild(a);
+    if(fly&&s.lat!=null)flyTo([-s.lon,-Math.max(-60,Math.min(60,s.lat))]);idleUntil=Date.now()+12000;dirty=true}
+  function flyTo(to){if(rm){rot=[to[0],to[1],0];dirty=true;return}
+    var from=rot.slice(),dl=((to[0]-from[0]+540)%360)-180,t0=performance.now();
+    anim=function(now){var k=Math.min(1,(now-t0)/900),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;rot=[from[0]+dl*e,from[1]+(to[1]-from[1])*e,0];dirty=true;if(k>=1)anim=null}}
+  ships.forEach(function(s,i){var b=document.createElement("button");b.type="button";b.setAttribute("aria-pressed","false");
+    var d=document.createElement("span");d.className="d";d.style.background=col(s);b.appendChild(d);b.appendChild(document.createTextNode(SHORT(s.n)));
+    b.addEventListener("click",function(){select(i,true)});chips.appendChild(b)});
+  box.querySelectorAll(".g3zoom button").forEach(function(b){b.addEventListener("click",function(){zoom=Math.max(1,Math.min(3,zoom*(b.getAttribute("data-z")==="1"?1.35:1/1.35)));idleUntil=Date.now()+12000;dirty=true})});
+  var drag=null;
+  cv.addEventListener("pointerdown",function(e){drag={x:e.clientX,y:e.clientY,r:rot.slice(),m:0,id:e.pointerId};anim=null});
+  cv.addEventListener("pointermove",function(e){if(!drag||e.pointerId!==drag.id)return;var dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.m=Math.max(drag.m,Math.abs(dx)+Math.abs(dy));
+    if(drag.m>4){try{cv.setPointerCapture(e.pointerId)}catch(x){}var k=90/(W/2*.9*zoom);rot=[drag.r[0]+dx*k,Math.max(-75,Math.min(75,drag.r[1]-dy*k)),0];idleUntil=Date.now()+8000;dirty=true}});
+  function up(e){if(!drag)return;var tap=drag.m<=6;drag=null;if(!tap)return;var rc=cv.getBoundingClientRect(),x=e.clientX-rc.left,y=e.clientY-rc.top,best=-1,bd=24;
+    hits.forEach(function(h){var d=Math.hypot(h.x-x,h.y-y);if(x>=h.x2&&x<=h.x2+h.w&&y>=h.y2&&y<=h.y2+18)d=0;if(d<bd){bd=d;best=h.i}});if(best>=0)select(best,true)}
+  cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",function(){drag=null});
+  try{new IntersectionObserver(function(es){visible=es[0].isIntersecting},{rootMargin:"100px"}).observe(cv)}catch(e){}
+  window.addEventListener("resize",function(){dirty=true});
+  var last=0;
+  function loop(now){requestAnimationFrame(loop);var v=document.getElementById("v-start");if(!visible||document.hidden||(v&&v.hidden))return;
+    if(anim)anim(now);else if(!rm&&!drag&&Date.now()>idleUntil){rot=[rot[0]+(now-(last||now))*.006,rot[1]+(-22-rot[1])*.01,0];dirty=true}
+    last=now;if(dirty||sel>=0)draw()}
+  var mid=ships.length?d3.geoCentroid({type:"MultiPoint",coordinates:ships.filter(function(s){return s.lat!=null}).map(function(s){return[+s.lon,+s.lat]})}):[-20,22];
+  rot=[-mid[0],-Math.max(-50,Math.min(50,mid[1])),0];
+  draw();requestAnimationFrame(loop);
 }catch(e){}})();
 </script>
 <script id="update-addon">
