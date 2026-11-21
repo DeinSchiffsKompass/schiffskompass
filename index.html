@@ -501,7 +501,7 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
   <p>Diese Seite verlinkt auf Seiten anderer Anbieter, zum Beispiel soziale Netzwerke, Schiffsortungsdienste wie VesselFinder und den Wetterdienst Windy.com. Auf deren Inhalte habe ich keinen Einfluss, verantwortlich ist der jeweilige Anbieter. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar. Werden mir Rechtsverletzungen bekannt, entferne ich solche Links umgehend.</p>
 
   <h2>Urheberrecht</h2>
-  <p>Texte, Gestaltung und Logo dieser Seite stammen von mir. Eine Verwendung außerhalb dieser Seite bitte nur nach Rücksprache. Die Schriften Bricolage Grotesque und Figtree stehen unter der SIL Open Font License. Kartendaten: amCharts Geodata und Natural Earth (gemeinfrei), Satellitenbild: NASA GIBS (Blue Marble). Der Globus nutzt die Programmbibliotheken d3-geo und d3-array (ISC-Lizenz), die wie die Landkarte auf diesem Server liegen.</p>
+  <p>Texte, Gestaltung und Logo dieser Seite stammen von mir. Eine Verwendung außerhalb dieser Seite bitte nur nach Rücksprache. Die Schriften Bricolage Grotesque und Figtree stehen unter der SIL Open Font License. Kartendaten: amCharts Geodata und Natural Earth (gemeinfrei), Satellitenbild: NASA GIBS (Blue Marble). Der Globus nutzt das Satellitenbild „Blue Marble“ der NASA (gemeinfrei) und die Programmbibliotheken d3-geo und d3-array (ISC-Lizenz); alles liegt auf diesem Server.</p>
 
   <p><a href="#datenschutz">Zur Datenschutzerklärung</a></p>
   <p><a href="#start" class="btn p" style="background:var(--accent);color:#fff;margin-top:12px">Zur Startseite</a></p>
@@ -1072,20 +1072,52 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
   function sun(){var d=new Date(),n=(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())-Date.UTC(d.getUTCFullYear(),0,0))/864e5,
       h=d.getUTCHours()+d.getUTCMinutes()/60,b=2*Math.PI*(n-81)/364,eot=9.87*Math.sin(2*b)-7.53*Math.cos(b)-1.5*Math.sin(b),
       dec=23.44*Math.sin(2*Math.PI*(284+n)/365),lon=-(h-12)*15-eot/4;return[((lon+540)%360)-180,dec]}
+  /* Satellitenbild (NASA Blue Marble, gemeinfrei, img/globus/) per WebGL auf die Kugel; ohne WebGL bleibt die gezeichnete Landkarte */
+  var glc=document.createElement("canvas"),gl=null,glp=null,glu={},tex=null,texOK=false,big=false;
+  function glInit(){try{gl=glc.getContext("webgl",{alpha:true,premultipliedAlpha:true,antialias:false})||glc.getContext("experimental-webgl");if(!gl)return false;
+    function sh(t,src){var o=gl.createShader(t);gl.shaderSource(o,src);gl.compileShader(o);if(!gl.getShaderParameter(o,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(o));return o}
+    glp=gl.createProgram();gl.attachShader(glp,sh(gl.VERTEX_SHADER,"attribute vec2 p;varying vec2 v;uniform float k;void main(){v=p*k;gl_Position=vec4(p,0.,1.);}"));
+    gl.attachShader(glp,sh(gl.FRAGMENT_SHADER,"precision highp float;varying vec2 v;uniform sampler2D t;uniform vec2 rot;uniform vec3 sun;uniform float px;"+
+      "void main(){float r=length(v);if(r>1.){gl_FragColor=vec4(0.);return;}float sz=sqrt(max(0.,1.-r*r));float c=cos(rot.y),s=sin(rot.y);"+
+      "float x=sz*c+v.y*s,y=v.x,z=v.y*c-sz*s;float lon=atan(y,x)-rot.x,lat=asin(clamp(z,-1.,1.));"+
+      "vec3 col=texture2D(t,vec2(fract((lon+3.14159265)/6.28318531),(1.57079633-lat)/3.14159265)).rgb;"+
+      "vec3 g=vec3(cos(lat)*cos(lon),cos(lat)*sin(lon),sin(lat));float day=smoothstep(-.12,.1,dot(g,sun));"+
+      "col*=mix(.3,1.18,day);col*=.66+.34*sz;float a=clamp((1.-r)/px,0.,1.);gl_FragColor=vec4(col*a,a);}"));
+    gl.linkProgram(glp);if(!gl.getProgramParameter(glp,gl.LINK_STATUS))return false;gl.useProgram(glp);
+    var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    var lp=gl.getAttribLocation(glp,"p");gl.enableVertexAttribArray(lp);gl.vertexAttribPointer(lp,2,gl.FLOAT,false,0,0);
+    ["k","t","rot","sun","px"].forEach(function(n){glu[n]=gl.getUniformLocation(glp,n)});return true}catch(e){gl=null;return false}}
+  function loadTex(src){var im=new Image();im.onload=function(){try{if(!gl&&!glInit())return;if(!tex)tex=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tex);
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,im);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+      texOK=true;dirty=true;wantBig()}catch(e){texOK=false}};im.src=src}
+  function glDraw(R,sn){if(!gl||!tex)return false;var D=Math.round(W*dpr);if(glc.width!==D){glc.width=D;glc.height=D}
+    gl.viewport(0,0,D,D);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
+    var la=sn[1]*Math.PI/180,lo=sn[0]*Math.PI/180;
+    gl.uniform1f(glu.k,(W/2)/R);gl.uniform1i(glu.t,0);gl.uniform2f(glu.rot,rot[0]*Math.PI/180,rot[1]*Math.PI/180);
+    gl.uniform3f(glu.sun,Math.cos(la)*Math.cos(lo),Math.cos(la)*Math.sin(lo),Math.sin(la));gl.uniform1f(glu.px,1.5/(R*dpr));
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);return true}
+  loadTex("img/globus/erde-2048.jpg");
+  function wantBig(){if(big||!texOK)return;if(zoom>1.3||W*dpr>1300){big=true;loadTex("img/globus/erde-4096.jpg")}}
   function draw(){
     size();var R=W/2*.9*zoom;proj.translate([W/2,W/2]).scale(R).rotate(rot);
     ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,W);
     var g=ctx.createRadialGradient(W/2,W/2,R*.96,W/2,W/2,R*1.12);g.addColorStop(0,"rgba(125,214,255,.45)");g.addColorStop(1,"rgba(125,214,255,0)");
     ctx.fillStyle=g;ctx.beginPath();ctx.arc(W/2,W/2,R*1.12,0,7);ctx.fill();
     var oc=ctx.createRadialGradient(W/2-R*.35,W/2-R*.4,R*.1,W/2,W/2,R);oc.addColorStop(0,"#3FA2EE");oc.addColorStop(.55,"#1360C4");oc.addColorStop(1,"#082B78");
+    var s=sun(),anti=[s[0]>0?s[0]-180:s[0]+180,-s[1]];
+    if(texOK&&glDraw(R,s)){ctx.drawImage(glc,0,0,W,W);
+      ctx.beginPath();path(grat);ctx.strokeStyle="rgba(255,255,255,.06)";ctx.lineWidth=.6;ctx.stroke()}
+    else{
     ctx.beginPath();path({type:"Sphere"});ctx.fillStyle=oc;ctx.fill();
     ctx.beginPath();path(grat);ctx.strokeStyle="rgba(255,255,255,.13)";ctx.lineWidth=.7;ctx.stroke();
     if(land){ctx.beginPath();path(land);ctx.fillStyle="#EFE6D2";ctx.fill();ctx.strokeStyle="rgba(70,58,35,.45)";ctx.lineWidth=.6;ctx.stroke()}
     if(ice){ctx.beginPath();path(ice);ctx.fillStyle="#F8FCFF";ctx.fill();ctx.strokeStyle="rgba(150,180,210,.7)";ctx.lineWidth=.5;ctx.stroke()}
-    var s=sun(),anti=[s[0]>0?s[0]-180:s[0]+180,-s[1]];
     ctx.beginPath();path(d3.geoCircle().center(anti).radius(90)());ctx.fillStyle="rgba(3,10,40,.42)";ctx.fill();
     ctx.beginPath();path(d3.geoCircle().center(anti).radius(84)());ctx.fillStyle="rgba(3,10,40,.12)";ctx.fill();
-    var sd=ctx.createRadialGradient(W/2-R*.4,W/2-R*.45,R*.2,W/2,W/2,R*1.02);sd.addColorStop(0,"rgba(255,255,255,.16)");sd.addColorStop(.6,"rgba(0,0,0,0)");sd.addColorStop(1,"rgba(2,10,50,.5)");
+    }
+    var sd=ctx.createRadialGradient(W/2-R*.4,W/2-R*.45,R*.2,W/2,W/2,R*1.02);sd.addColorStop(0,"rgba(255,255,255,"+(texOK?".07":".16")+")");sd.addColorStop(.6,"rgba(0,0,0,0)");sd.addColorStop(1,"rgba(2,10,50,.5)");
     ctx.beginPath();path({type:"Sphere"});ctx.fillStyle=sd;ctx.fill();
     ctx.beginPath();path({type:"Sphere"});ctx.strokeStyle="rgba(190,235,255,.6)";ctx.lineWidth=1;ctx.stroke();
     hits=[];var pts=[],cen=[-rot[0],-rot[1]],t=Date.now();
@@ -1121,7 +1153,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
   ships.forEach(function(s,i){var b=document.createElement("button");b.type="button";b.setAttribute("aria-pressed","false");
     var d=document.createElement("span");d.className="d";d.style.background=col(s);b.appendChild(d);b.appendChild(document.createTextNode(s.n.replace(/^Mein Schiff (Relax|Flow)$/,"MS $1")));
     b.addEventListener("click",function(){select(i,true)});chips.appendChild(b)});
-  box.querySelectorAll(".g3zoom button").forEach(function(b){b.addEventListener("click",function(){zoom=Math.max(1,Math.min(3,zoom*(b.getAttribute("data-z")==="1"?1.35:1/1.35)));idleUntil=Date.now()+12000;dirty=true})});
+  box.querySelectorAll(".g3zoom button").forEach(function(b){b.addEventListener("click",function(){zoom=Math.max(1,Math.min(3,zoom*(b.getAttribute("data-z")==="1"?1.35:1/1.35)));wantBig();idleUntil=Date.now()+12000;dirty=true})});
   var drag=null;
   cv.addEventListener("pointerdown",function(e){drag={x:e.clientX,y:e.clientY,r:rot.slice(),m:0,id:e.pointerId};anim=null});
   cv.addEventListener("pointermove",function(e){if(!drag||e.pointerId!==drag.id)return;var dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.m=Math.max(drag.m,Math.abs(dx)+Math.abs(dy));
