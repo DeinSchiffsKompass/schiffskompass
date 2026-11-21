@@ -1180,6 +1180,52 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
   draw();requestAnimationFrame(loop);
 }catch(e){}})();
 </script>
+<style id="lightbox-css">
+.skl{position:fixed;inset:0;z-index:2000;background:rgba(4,12,40,.95);display:none}
+.skl.open{display:block;animation:lbin .2s ease-out}
+@keyframes lbin{from{opacity:0}to{opacity:1}}
+.skl .lbs{position:absolute;inset:0;overflow:auto;touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.skl .lbi{display:block;margin:auto;max-width:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.skl .lbx{position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:calc(env(safe-area-inset-right,0px) + 12px);width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.95);color:#0B2470;font:700 26px/48px var(--body);text-align:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);z-index:2}
+.skl .lbh{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);margin:0;width:max-content;max-width:90%;text-align:center;color:#fff;background:rgba(4,12,40,.88);padding:8px 14px;border-radius:999px;font-size:13px;pointer-events:none;z-index:2;transition:opacity .4s}
+</style>
+<script id="lightbox-addon">
+/* Bilder in „Wissenswert“ groß ansehen: Vollbild mit X zum Schließen, Zoomen per Doppeltipp oder zwei Fingern; Zurück-Geste schließt ebenfalls */
+(function(){try{
+  var lb=document.createElement("div");lb.className="skl";lb.setAttribute("role","dialog");lb.setAttribute("aria-modal","true");lb.setAttribute("aria-label","Bild groß ansehen");
+  lb.innerHTML='<div class="lbs"><img class="lbi" alt=""></div><button type="button" class="lbx" aria-label="Schließen">✕</button><p class="lbh">Zum Vergrößern zweimal tippen oder mit zwei Fingern ziehen</p>';
+  document.body.appendChild(lb);
+  var sc=lb.querySelector(".lbs"),im=lb.querySelector(".lbi"),hint=lb.querySelector(".lbh"),z=1,nw=1,nh=1,pushed=false,lastFocus=null;
+  function fit(){var vw=sc.clientWidth,vh=sc.clientHeight,r=nw/nh;return vw/vh>r?{w:vh*r,h:vh}:{w:vw,h:vw/r}}
+  function apply(cx,cy,oldz){var f=fit(),w=f.w*z,h=f.h*z;im.style.width=w+"px";im.style.height=h+"px";
+    im.style.marginTop=Math.max(0,(sc.clientHeight-h)/2)+"px";im.style.marginLeft=Math.max(0,(sc.clientWidth-w)/2)+"px";
+    if(oldz&&cx!=null){var k=z/oldz;sc.scrollLeft=(sc.scrollLeft+cx)*k-cx;sc.scrollTop=(sc.scrollTop+cy)*k-cy}}
+  function open(src,alt){lastFocus=document.activeElement;im.alt=alt||"";z=1;im.style.width=im.style.height="";hint.style.opacity="1";
+    im.onload=function(){nw=im.naturalWidth||1;nh=im.naturalHeight||1;apply()};im.src=src;if(im.complete&&im.naturalWidth){nw=im.naturalWidth;nh=im.naturalHeight;apply()}
+    lb.classList.add("open");document.documentElement.style.overflow="hidden";
+    try{history.pushState({lb:1},"");pushed=true}catch(e){pushed=false}
+    lb.querySelector(".lbx").focus();setTimeout(function(){hint.style.opacity="0"},3500)}
+  function close(fromPop){if(!lb.classList.contains("open"))return;lb.classList.remove("open");document.documentElement.style.overflow="";im.removeAttribute("src");
+    if(!fromPop&&pushed){pushed=false;try{history.back()}catch(e){}}pushed=false;if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+  window.addEventListener("popstate",function(){if(lb.classList.contains("open"))close(true)});
+  lb.querySelector(".lbx").addEventListener("click",function(){close()});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});
+  window.addEventListener("resize",function(){if(lb.classList.contains("open"))apply()});
+  document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a.tzoom");if(!a)return;e.preventDefault();var i=a.querySelector("img");open(a.getAttribute("href"),i?i.alt:"")});
+  /* Doppeltipp zoomt, einfacher Tipp neben das Bild schließt */
+  var lastTap=0,tapT=null;
+  sc.addEventListener("click",function(e){var now=Date.now(),rc=sc.getBoundingClientRect(),cx=e.clientX-rc.left,cy=e.clientY-rc.top;
+    if(now-lastTap<320){clearTimeout(tapT);lastTap=0;var o=z;z=z>1.05?1:2.5;apply(cx,cy,o);return}
+    lastTap=now;var onImg=e.target===im;tapT=setTimeout(function(){if(!onImg&&z<=1.05)close()},330)});
+  /* Zwei-Finger-Zoom */
+  var pts={},p0=null;
+  sc.addEventListener("pointerdown",function(e){pts[e.pointerId]={x:e.clientX,y:e.clientY};var k=Object.keys(pts);if(k.length===2){var a=pts[k[0]],b=pts[k[1]];p0={d:Math.hypot(a.x-b.x,a.y-b.y)||1,z:z}}});
+  sc.addEventListener("pointermove",function(e){if(!pts[e.pointerId])return;pts[e.pointerId]={x:e.clientX,y:e.clientY};var k=Object.keys(pts);if(k.length!==2||!p0)return;
+    var a=pts[k[0]],b=pts[k[1]],d=Math.hypot(a.x-b.x,a.y-b.y),rc=sc.getBoundingClientRect(),o=z;z=Math.max(1,Math.min(5,p0.z*d/p0.d));apply((a.x+b.x)/2-rc.left,(a.y+b.y)/2-rc.top,o);e.preventDefault()});
+  function up(e){delete pts[e.pointerId];if(Object.keys(pts).length<2)p0=null}
+  sc.addEventListener("pointerup",up);sc.addEventListener("pointercancel",up);
+}catch(e){}})();
+</script>
 <script id="update-addon">
 /* Auto-Update: Beim Öffnen, beim Zurückkehren in die App und alle 5 Minuten prüft die Seite, ob sich index.html geändert hat
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
