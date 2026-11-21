@@ -159,7 +159,7 @@ h2{font-size:clamp(28px,4.5vw,44px);font-weight:800}
 .head{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:flex-end;margin-bottom:28px}
 .legend{display:flex;flex-wrap:wrap;gap:8px;font-size:14px}
 .pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-weight:600;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--text)}
-.pill.go{background:var(--go-bg);color:var(--go);border-color:transparent}.pill.stop{background:var(--stop-bg);color:var(--stop);border-color:transparent}.pill.warn{background:var(--warn-bg);color:var(--warn);border-color:transparent}
+.pill.sea{background:var(--sea-bg);border-color:var(--sea-line)}.pill.go{background:var(--go-bg);color:var(--go);border-color:transparent}.pill.stop{background:var(--stop-bg);color:var(--stop);border-color:transparent}.pill.warn{background:var(--warn-bg);color:var(--warn);border-color:transparent}
 /* fleet */
 .fleet{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
 .ship{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
@@ -407,7 +407,7 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
 <section id="s-flotte"><div class="wrap">
   <div class="head">
     <div><p class="eyebrow">Flottenübersicht</p><h2 id="fh">Die Flotte</h2><p class="lead" id="fsub"></p></div>
-    <div class="legend" aria-label="Legende"><span class="pill">🌊 Seetag</span><span class="pill">⚓ Hafentag</span><span class="pill go">Passagierwechsel</span><span class="pill stop">Ausfall / Umroutung</span></div>
+    <div class="legend" aria-label="Legende"><span class="pill sea">🌊 Seetag</span><span class="pill">⚓ Hafentag</span><span class="pill go">Passagierwechsel</span><span class="pill stop">Ausfall / Umroutung</span></div>
   </div>
   <div class="fleet" id="fleet"></div>
   <p class="note" id="fnote" hidden></p>
