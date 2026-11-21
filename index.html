@@ -10,15 +10,15 @@
 :root{
   --bg:#F3F7F9; --surface:#FFFFFF; --ink:#0B2470; --text:#17233F; --muted:#56658A; --line:#D9E3EC;
   --accent:#0A6FD8; --sea:#00A3E0; --mapsea:#A9D3F0; --mapland:#F3F0E8; --mapline:#C8C3B5; --mapgrid:#8FBFE3; --mapshore:#7DB4DD; --maplabel:#4A6785; --maplandlabel:#8A8570; --hero1:#071A4F; --hero2:#0A3A8C; --on-hero:#FFFFFF;
-  --go:#17843E; --go-bg:#E3F5E9; --sea-bg:#E2F2FD; --sea-line:#A6D5F5; --stop:#C62F2F; --stop-bg:#FBE6E6; --warn:#8A5A00; --warn-bg:#FFF1D2;
+  --go:#17843E; --go-bg:#E3F5E9; --sea-bg:#E2F2FD; --sea-line:#A6D5F5; --port-bg:#F6F0E4; --port-line:#E3D6BC; --stop:#C62F2F; --stop-bg:#FBE6E6; --warn:#8A5A00; --warn-bg:#FFF1D2;
   --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif; --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#08122E; --surface:#0F1D45; --ink:#EAF1FF; --text:#DCE6FA; --muted:#9FB0D6; --line:#22356A;
-  --accent:#4DB3FF; --sea:#33C4FF; --mapsea:#0B1A40; --mapland:#24365F; --mapline:#3C5185; --mapgrid:#15285A; --mapshore:#1D3A78; --maplabel:#6F8CC4; --maplandlabel:#8DA0CF; --go:#5BD38A; --go-bg:#0F3322; --sea-bg:#0E2C5C; --sea-line:#2D62AD; --stop:#FF8C8C; --stop-bg:#3D1618; --warn:#FFD479; --warn-bg:#3A2D0B; color-scheme:dark}}
+  --accent:#4DB3FF; --sea:#33C4FF; --mapsea:#0B1A40; --mapland:#24365F; --mapline:#3C5185; --mapgrid:#15285A; --mapshore:#1D3A78; --maplabel:#6F8CC4; --maplandlabel:#8DA0CF; --go:#5BD38A; --go-bg:#0F3322; --sea-bg:#0E2C5C; --sea-line:#2D62AD; --port-bg:#2B2924; --port-line:#5E5440; --stop:#FF8C8C; --stop-bg:#3D1618; --warn:#FFD479; --warn-bg:#3A2D0B; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#08122E; --surface:#0F1D45; --ink:#EAF1FF; --text:#DCE6FA; --muted:#9FB0D6; --line:#22356A;
-  --accent:#4DB3FF; --sea:#33C4FF; --mapsea:#0B1A40; --mapland:#24365F; --mapline:#3C5185; --mapgrid:#15285A; --mapshore:#1D3A78; --maplabel:#6F8CC4; --maplandlabel:#8DA0CF; --go:#5BD38A; --go-bg:#0F3322; --sea-bg:#0E2C5C; --sea-line:#2D62AD; --stop:#FF8C8C; --stop-bg:#3D1618; --warn:#FFD479; --warn-bg:#3A2D0B; color-scheme:dark}
+  --accent:#4DB3FF; --sea:#33C4FF; --mapsea:#0B1A40; --mapland:#24365F; --mapline:#3C5185; --mapgrid:#15285A; --mapshore:#1D3A78; --maplabel:#6F8CC4; --maplandlabel:#8DA0CF; --go:#5BD38A; --go-bg:#0F3322; --sea-bg:#0E2C5C; --sea-line:#2D62AD; --port-bg:#2B2924; --port-line:#5E5440; --stop:#FF8C8C; --stop-bg:#3D1618; --warn:#FFD479; --warn-bg:#3A2D0B; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font:400 17px/1.6 var(--body);-webkit-text-size-adjust:100%}
 a{color:var(--accent)}
@@ -159,11 +159,11 @@ h2{font-size:clamp(28px,4.5vw,44px);font-weight:800}
 .head{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:flex-end;margin-bottom:28px}
 .legend{display:flex;flex-wrap:wrap;gap:8px;font-size:14px}
 .pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-weight:600;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--text)}
-.pill.sea{background:var(--sea-bg);border-color:var(--sea-line)}.pill.go{background:var(--go-bg);color:var(--go);border-color:transparent}.pill.stop{background:var(--stop-bg);color:var(--stop);border-color:transparent}.pill.warn{background:var(--warn-bg);color:var(--warn);border-color:transparent}
+.pill.sea{background:var(--sea-bg);border-color:var(--sea-line)}.pill.port{background:var(--port-bg);border-color:var(--port-line)}.pill.go{background:var(--go-bg);color:var(--go);border-color:transparent}.pill.stop{background:var(--stop-bg);color:var(--stop);border-color:transparent}.pill.warn{background:var(--warn-bg);color:var(--warn);border-color:transparent}
 /* fleet */
 .fleet{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
 .ship{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
-.ship.sea{background:var(--sea-bg);border-color:var(--sea-line)}
+.ship.sea{background:var(--sea-bg);border-color:var(--sea-line)}.ship.port{background:var(--port-bg);border-color:var(--port-line)}
 .ship.go{background:var(--go-bg);border-color:var(--go)}.ship.stop{background:var(--stop-bg);border-color:var(--stop)}
 .ship .top{display:flex;align-items:center;gap:12px}
 .ship .ic{font-size:34px;line-height:1;width:44px;text-align:center;flex:none}
@@ -407,7 +407,7 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
 <section id="s-flotte"><div class="wrap">
   <div class="head">
     <div><p class="eyebrow">Flottenübersicht</p><h2 id="fh">Die Flotte</h2><p class="lead" id="fsub"></p></div>
-    <div class="legend" aria-label="Legende"><span class="pill sea">🌊 Seetag</span><span class="pill">⚓ Hafentag</span><span class="pill go">Passagierwechsel</span><span class="pill stop">Ausfall / Umroutung</span></div>
+    <div class="legend" aria-label="Legende"><span class="pill sea">🌊 Seetag</span><span class="pill port">⚓ Hafentag</span><span class="pill go">Passagierwechsel</span><span class="pill stop">Ausfall / Umroutung</span></div>
   </div>
   <div class="fleet" id="fleet"></div>
   <p class="note" id="fnote" hidden></p>
@@ -522,7 +522,7 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==und
   var ROWS=[["Tag","typ"],["Reederei","ree"],["Ort","ort"],["Zeit","zeit"],["Danach","weiter"],["Im Hafen auch","mit"]];
   var box=$("fleet");
   D.ships.forEach(function(s){
-    var c=el("article","ship"+(s.type==="sea"?" sea":"")+(s.st==="wechsel"?" go":s.st==="ausfall"?" stop":""));
+    var c=el("article","ship"+(s.type==="sea"?" sea":s.type==="port"?" port":"")+(s.st==="wechsel"?" go":s.st==="ausfall"?" stop":""));
     var top=el("div","top");var ic=el("span","ic",s.flag);ic.setAttribute("aria-hidden","true");
     top.appendChild(ic);top.appendChild(el("h3",null,s.n));
     if(s.type==="port"){var an=el("span","anchor","⚓");an.title="Hafentag";an.setAttribute("role","img");an.setAttribute("aria-label","Hafentag");top.appendChild(an)}
