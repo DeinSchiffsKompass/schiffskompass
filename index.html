@@ -268,6 +268,54 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
   <svg class="waves" viewBox="0 0 1200 110" preserveAspectRatio="none" aria-hidden="true"><path class="wa" d="M0 38C200 8 380 62 600 34S1000 6 1200 36V110H0Z" fill="#fff" fill-opacity=".16"/><path class="wb" d="M0 54C180 26 360 74 600 50S1020 24 1200 54V110H0Z" fill="#fff" fill-opacity=".30"/><path d="M0 86C150 110 300 62 450 82S750 110 900 84 1100 66 1200 86V110H0Z" fill="var(--bg)"/></svg>
 </section>
 
+<!--APP-HINWEIS-START-->
+<style id="app-addon-css">
+.appsec{padding-block:28px 0}
+.appcard{position:relative;overflow:hidden;border-radius:22px;padding:24px;color:#fff;background:radial-gradient(600px 260px at 100% 0%,rgba(255,255,255,.18),transparent 60%),linear-gradient(135deg,#0A6FD8 0%,#0A3A8C 55%,#071A4F 100%);box-shadow:0 14px 34px rgba(7,26,79,.28);border:1px solid rgba(255,255,255,.18)}
+.appcard .ahd{display:flex;align-items:center;gap:16px}
+.appcard .aic{flex:none;width:68px;height:68px;border-radius:16px;background:#fff;box-shadow:0 6px 16px rgba(0,0,0,.25);overflow:hidden}
+.appcard .aic img{width:100%;height:100%;display:block}
+.appcard .abadge{display:inline-block;background:#B8F25A;color:#0B2470;font:800 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;border-radius:999px;margin-bottom:6px}
+.appcard h2{margin:0;font:800 clamp(24px,5.6vw,34px)/1.12 var(--display);color:#fff}
+.appcard .asub{margin:14px 0 0;font-size:17px;line-height:1.5;color:#E3EEFF}
+.appcard .asub b{color:#fff}
+.appcard .atabs{display:flex;gap:8px;margin:18px 0 12px}
+.appcard .atab{flex:1;min-height:44px;border-radius:12px;border:1.5px solid rgba(255,255,255,.45);background:transparent;color:#fff;font:700 16px var(--body);cursor:pointer}
+.appcard .atab[aria-selected="true"]{background:#fff;color:#0B2470;border-color:#fff}
+.appcard ol{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.appcard li{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:10px 12px;font-size:16px;line-height:1.4}
+.appcard li .n{flex:none;width:30px;height:30px;border-radius:50%;background:#fff;color:#0B2470;font:800 15px/30px var(--body);text-align:center}
+.appcard li svg{vertical-align:-4px}
+.appcard .ainst{display:none;margin-top:14px;width:100%;min-height:50px;border:0;border-radius:14px;background:#B8F25A;color:#0B2470;font:800 17px var(--body);cursor:pointer}
+.appcard .anote{margin:12px 0 0;font-size:14px;color:#C9DBFF}
+@media (min-width:900px){.appcard{padding:30px 34px}.appcard ol{grid-template-columns:repeat(3,1fr)}}
+</style>
+<section class="appsec" id="appsec" aria-labelledby="apph"><div class="wrap">
+  <div class="appcard">
+    <div class="ahd">
+      <div class="aic"><img src="apple-touch-icon.png" alt="" width="68" height="68"></div>
+      <div><span class="abadge">Neu · kostenlos</span><h2 id="apph">DEIN SchiffsKompass jetzt auch als App</h2></div>
+    </div>
+    <p class="asub">Hol dir die Flotte direkt auf deinen Startbildschirm: <b>kostenlos, ohne Anmeldung und ohne App Store</b>. Die App aktualisiert sich von selbst.</p>
+    <div class="atabs" role="tablist" aria-label="Anleitung für dein Handy">
+      <button class="atab" role="tab" id="at-ios" aria-controls="ap-ios" aria-selected="true">iPhone</button>
+      <button class="atab" role="tab" id="at-and" aria-controls="ap-and" aria-selected="false">Android</button>
+    </div>
+    <ol id="ap-ios" role="tabpanel" aria-labelledby="at-ios">
+      <li><span class="n">1</span><span>Seite in <b>Safari</b> öffnen und unten auf <b>Teilen</b> tippen <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Teilen-Symbol"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg></span></li>
+      <li><span class="n">2</span><span>Etwas nach unten wischen und <b>„Zum Home-Bildschirm“</b> wählen</span></li>
+      <li><span class="n">3</span><span>Oben rechts auf <b>„Hinzufügen“</b> tippen – fertig!</span></li>
+    </ol>
+    <ol id="ap-and" role="tabpanel" aria-labelledby="at-and" hidden>
+      <li><span class="n">1</span><span>Seite in <b>Chrome</b> öffnen und oben rechts auf das Menü <b>⋮</b> tippen</span></li>
+      <li><span class="n">2</span><span><b>„App installieren“</b> oder <b>„Zum Startbildschirm hinzufügen“</b> wählen</span></li>
+      <li><span class="n">3</span><span>Mit <b>„Installieren“</b> bestätigen – fertig!</span></li>
+    </ol>
+    <button class="ainst" id="ainst" type="button">Jetzt installieren</button>
+    <p class="anote">Danach findest du DEIN SchiffsKompass mit unserem Logo zwischen deinen Apps.</p>
+  </div>
+</div></section>
+<!--APP-HINWEIS-END-->
 <section class="startinfo"><div class="wrap">
   <p class="eyebrow" id="steb">Wo ist die Mein Schiff Flotte heute?</p>
   <h2 id="sth">Die Flotte heute</h2>
@@ -947,6 +995,21 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
 }catch(e){}})();
 </script>
 <!--AREA-ADDON-END-->
+<script id="app-addon">
+(function(){try{
+  var sec=document.getElementById("appsec");if(!sec)return;
+  var standalone=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;
+  if(standalone){sec.hidden=true;return}
+  var tabs={ios:[document.getElementById("at-ios"),document.getElementById("ap-ios")],and:[document.getElementById("at-and"),document.getElementById("ap-and")]};
+  function show(k){Object.keys(tabs).forEach(function(x){var on=x===k;tabs[x][0].setAttribute("aria-selected",on?"true":"false");tabs[x][1].hidden=!on})}
+  tabs.ios[0].onclick=function(){show("ios")};tabs.and[0].onclick=function(){show("and")};
+  if(/android/i.test(navigator.userAgent))show("and");
+  var dp=null,btn=document.getElementById("ainst");
+  window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;btn.style.display="block"});
+  btn.onclick=function(){if(!dp)return;dp.prompt();dp.userChoice&&dp.userChoice.then(function(){dp=null;btn.style.display="none"})};
+  window.addEventListener("appinstalled",function(){sec.hidden=true});
+}catch(e){}})();
+</script>
 <script id="update-addon">
 /* Auto-Update: Beim Öffnen, beim Zurückkehren in die App und alle 5 Minuten prüft die Seite, ob sich index.html geändert hat
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
