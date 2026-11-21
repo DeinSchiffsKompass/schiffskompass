@@ -1183,14 +1183,22 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
   ships.forEach(function(s,i){var b=document.createElement("button");b.type="button";b.setAttribute("aria-pressed","false");
     var d=document.createElement("span");d.className="d";d.style.background=col(s);b.appendChild(d);b.appendChild(document.createTextNode(s.n.replace(/^Mein Schiff (Relax|Flow)$/,"MS $1")));
     b.addEventListener("click",function(){select(i,true)});chips.appendChild(b)});
-  box.querySelectorAll(".g3zoom button").forEach(function(b){b.addEventListener("click",function(){zoom=Math.max(1,Math.min(3,zoom*(b.getAttribute("data-z")==="1"?1.35:1/1.35)));wantBig();idleUntil=Date.now()+12000;dirty=true})});
+  box.querySelectorAll(".g3zoom button").forEach(function(b){b.addEventListener("click",function(){zoom=Math.max(1,Math.min(4,zoom*(b.getAttribute("data-z")==="1"?1.35:1/1.35)));wantBig();idleUntil=Date.now()+12000;dirty=true})});
   var drag=null;
   cv.addEventListener("pointerdown",function(e){drag={x:e.clientX,y:e.clientY,r:rot.slice(),m:0,id:e.pointerId};anim=null});
-  cv.addEventListener("pointermove",function(e){if(!drag||e.pointerId!==drag.id)return;var dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.m=Math.max(drag.m,Math.abs(dx)+Math.abs(dy));
+  cv.addEventListener("pointermove",function(e){if(pinch||!drag||e.pointerId!==drag.id)return;var dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.m=Math.max(drag.m,Math.abs(dx)+Math.abs(dy));
     if(drag.m>4){try{cv.setPointerCapture(e.pointerId)}catch(x){}var k=90/(W/2*.9*zoom);rot=[drag.r[0]+dx*k,Math.max(-75,Math.min(75,drag.r[1]-dy*k)),0];idleUntil=Date.now()+8000;dirty=true}});
   function up(e){if(!drag)return;var tap=drag.m<=6;drag=null;if(!tap)return;var rc=cv.getBoundingClientRect(),x=e.clientX-rc.left,y=e.clientY-rc.top,best=-1,bd=24;
     hits.forEach(function(h){var d=Math.hypot(h.x-x,h.y-y);if(x>=h.x2&&x<=h.x2+h.w&&y>=h.y2&&y<=h.y2+18)d=0;if(d<bd){bd=d;best=h.i}});if(best>=0)select(best,true)}
   cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",function(){drag=null});
+  /* Mit zwei Fingern zoomen (Pinch) auf dem Handy, am Laptop per Trackpad-Pinch bzw. Strg + Mausrad */
+  var pinch=null;function tdist(t){return Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY)||1}
+  function setZoom(z){zoom=Math.max(1,Math.min(4,z));wantBig();idleUntil=Date.now()+12000;anim=null;dirty=true}
+  cv.addEventListener("touchstart",function(e){if(e.touches.length===2){pinch={d:tdist(e.touches),z:zoom};drag=null;e.preventDefault()}},{passive:false});
+  cv.addEventListener("touchmove",function(e){if(pinch&&e.touches.length===2){e.preventDefault();setZoom(pinch.z*tdist(e.touches)/pinch.d)}},{passive:false});
+  function tend(e){if(pinch&&e.touches.length<2){pinch=null;drag=null}}cv.addEventListener("touchend",tend);cv.addEventListener("touchcancel",tend);
+  ["gesturestart","gesturechange"].forEach(function(n){cv.addEventListener(n,function(e){e.preventDefault()})});
+  cv.addEventListener("wheel",function(e){if(!e.ctrlKey)return;e.preventDefault();setZoom(zoom*Math.exp(-e.deltaY*.01))},{passive:false});
   try{new IntersectionObserver(function(es){visible=es[0].isIntersecting},{rootMargin:"100px"}).observe(cv)}catch(e){}
   window.addEventListener("resize",function(){dirty=true});
   var last=0;
@@ -1253,7 +1261,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-21j"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-21k"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
