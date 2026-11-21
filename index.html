@@ -78,7 +78,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .book .hint{font-size:14px;color:var(--muted);margin-top:14px}
 .book .pts.bk2 li{padding-left:30px;line-height:1.5}.book .pts.bk2 li::before{content:"✓";color:var(--go);font-weight:800;font-size:18px;top:-1px}
 .book .bkbtns{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 0}
-.book .cta.wa{background:#1FA855}
+.book .cta.wa{background:#1FA855}.book .cta.wa .wl1{display:block}.book .cta.wa .wl2{display:block;font-size:14px;font-weight:600;opacity:.9;margin-top:2px}
+.book .cta.wa2{background:var(--surface);color:#14803F;border:2px solid #1FA855;padding:14px 24px}
 @media(max-width:520px){.book .bkbtns .cta{flex:1 1 100%;text-align:center}}
 .book .bord{background:linear-gradient(135deg,var(--sea-bg),var(--surface));border-color:var(--sea-line)}
 .book .bord .bhd{margin:0 0 6px;font:800 20px/1.3 var(--display);color:var(--ink)}
@@ -482,7 +483,7 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
   <p>Genug zugeschaut, jetzt selbst an Bord? Wir sind Kreuzfahrtfans wie du und kümmern uns persönlich um deine Reise: von der ersten Idee über die passende Kabine bis zum Ablegen. Und weil du zu unserer Community gehörst, bekommst du bei uns einen <b>exklusiven Vorteil</b>. 💙</p>
   <div class="card">
     <ul class="pts bk2"><li><b>Persönlich statt anonym:</b> Wir beraten dich ehrlich, aus eigener Erfahrung an Bord.</li><li><b>Dein Community-Vorteil:</b> Sprich uns einfach an, wir verraten dir, was für dich drin ist.</li><li><b>Alle Reedereien, Hochsee und Fluss:</b> Online stöbern und buchen oder gemeinsam mit uns planen.</li></ul>
-    <div class="bkbtns"><a class="cta" href="https://unserschiff.com/?advisor=16808" target="_blank" rel="noopener sponsored">Zu UnserSchiff →</a><a class="cta wa" href="https://wa.me/4915126978714?text=Hallo%20DEIN%20SchiffsKompass%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eine%20Kreuzfahrt%20%F0%9F%9A%A2" target="_blank" rel="noopener">💬 Vorab per WhatsApp fragen</a></div>
+    <div class="bkbtns"><a class="cta" href="https://unserschiff.com/?advisor=16808" target="_blank" rel="noopener sponsored">Zu UnserSchiff →</a><a class="cta wa" href="https://wa.me/4915126978714?text=Hallo%20DEIN%20SchiffsKompass%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eine%20Kreuzfahrt%20%F0%9F%9A%A2" target="_blank" rel="noopener"><span class="wl1">💬 Persönlich beraten lassen</span><span class="wl2">ganz einfach per WhatsApp</span></a></div>
     <p class="hint">Werbung: Partnerlink. Der Link enthält unsere Agenturnummer, damit Buchungen uns zugeordnet werden können. Der Link öffnet sich in einem neuen Tab auf der Seite unseres Partners. Mehr dazu im <a href="#impressum">Impressum</a>.</p>
     <p class="hint">Bei einer Buchung gelten die <a href="https://solamento.com/agb/" target="_blank" rel="noopener">AGB</a> der solamento Reisen GmbH als Reisevermittler sowie die Reise- und Zahlungsbedingungen des jeweiligen Reiseveranstalters. Wie solamento deine Daten verarbeitet, steht in deren <a href="https://solamento.com/datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung</a>.</p>
   </div>
@@ -492,7 +493,8 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
     <div class="agn"><div><span>Mein Schiff</span><b>51090</b></div><div><span>AIDA</span><b>32175</b></div></div>
     <p class="bstep"><b>Wichtig:</b> Schick uns nach der Buchung kurz deine Buchungsnummer per WhatsApp, damit wir dir deinen Vorteil zuordnen können.</p>
     <div class="bkbtns"><a class="cta wa" href="https://wa.me/4915126978714?text=Hallo%20DEIN%20SchiffsKompass%2C%20ich%20habe%20an%20Bord%20gebucht%20%F0%9F%9A%A2%0AMeine%20Buchungsnummer%3A%20%0ASchiff%3A%20%0AReisedatum%3A%20%0AName%3A%20" target="_blank" rel="noopener">💬 Buchungsnummer per WhatsApp senden</a></div>
-    <p class="bwa">Fragen vorab? Auch die beantworten wir gern per WhatsApp unter +49 151 26978714.</p>
+    <div class="bkbtns"><a class="cta wa2" href="https://wa.me/4915126978714?text=Hallo%20DEIN%20SchiffsKompass%2C%20ich%20%C3%BCberlege%2C%20an%20Bord%20zu%20buchen%2C%20und%20habe%20vorab%20eine%20Frage%3A%20" target="_blank" rel="noopener">❓ Vorab eine Frage? Schreib uns kurz</a></div>
+    <p class="bwa">Beides per WhatsApp an +49 151 26978714.</p>
   </div>
 </div></div>
 <div id="v-impressum" class="view" hidden><div class="wrap imp">
