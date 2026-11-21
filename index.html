@@ -906,9 +906,9 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
     var dl=c.querySelector(".rows");if(!dl)return;
     if(after&&after.nextSibling)dl.insertBefore(row,after.nextSibling);else dl.appendChild(row);
     var z=zone(s),approx=!s.tz&&!(s.pn&&PN[s.pn]),f;
-    try{f=new Intl.DateTimeFormat("de-DE",{timeZone:z,hour:"2-digit",minute:"2-digit"})}catch(e){f=null}
-    items.push({dd:dd,f:f,approx:approx&&s.type==="sea"})});
-  function tick(){items.forEach(function(it){it.dd.textContent=it.f?(it.f.format(new Date())+" Uhr"):"–"})}
+    var g;try{f=new Intl.DateTimeFormat("de-DE",{timeZone:z,hour:"2-digit",minute:"2-digit"});g=new Intl.DateTimeFormat("de-DE",{timeZone:z,weekday:"short",day:"2-digit",month:"2-digit"})}catch(e){f=null;g=null}
+    items.push({dd:dd,f:f,g:g,approx:approx&&s.type==="sea"})});
+  /* Bordzeit mit Datum an Bord, wegen Zeitverschiebung (z. B. "13:12 Uhr · Sa., 21.11.") */function tick(){var n=new Date();items.forEach(function(it){it.dd.textContent=it.f?(it.f.format(n)+" Uhr"+(it.g?" · "+it.g.format(n):"")):"–"})}
   tick();setInterval(tick,15000);
 }catch(e){}})();
 </script>
@@ -1282,7 +1282,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-21s"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-21t"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
