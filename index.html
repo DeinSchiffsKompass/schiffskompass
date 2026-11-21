@@ -1059,7 +1059,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
   var box=document.getElementById("globe3d");if(!box||!window.d3||!d3.geoOrthographic)return;
   var cv=box.querySelector("canvas"),ctx=cv.getContext("2d"),info=box.querySelector(".g3info"),chips=box.querySelector(".g3chips");
   var ships=(window.GL&&window.GL.ships)||[];
-  var SHORT=function(n){return n.replace("Mein Schiff ","MS ").replace(/^MS (Relax|Flow)$/,"$1")};
+  var SHORT=function(n){return n};
   function col(s){return s.st==="ausfall"||s.type==="yard"?"#E04848":s.st==="wechsel"?"#22A653":s.type==="sea"?"#2E9BFF":"#F0A63A"}
   var rm=false;try{rm=matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}
   var proj=d3.geoOrthographic().clipAngle(90).precision(.5),path=d3.geoPath(proj,ctx),grat=d3.geoGraticule10();
@@ -1098,7 +1098,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
       var w=ctx.measureText(lb).width+10,h=18,c=[[q.x+q.r+4,q.y-h/2],[q.x-q.r-4-w,q.y-h/2],[q.x-w/2,q.y-q.r-4-h],[q.x-w/2,q.y+q.r+4],[q.x+q.r+2,q.y-q.r-h],[q.x+q.r+2,q.y+q.r],[q.x-q.r-2-w,q.y-q.r-h],[q.x-q.r-2-w,q.y+q.r]],pos=null;
       for(var k=0;k<c.length;k++){var bb={x:c[k][0],y:c[k][1],w:w,h:h};if(free(bb)){pos=bb;break}}
       if(!pos&&q.on)pos={x:c[0][0],y:c[0][1],w:w,h:h};
-      if(pos){boxes.push(pos);ctx.fillStyle=q.on?"#fff":"rgba(7,26,79,.85)";ctx.beginPath();if(ctx.roundRect)ctx.roundRect(pos.x,pos.y,w,h,9);else ctx.rect(pos.x,pos.y,w,h);ctx.fill();
+      if(pos){boxes.push(pos);var ex=Math.max(pos.x,Math.min(q.x,pos.x+w)),ey=Math.max(pos.y,Math.min(q.y,pos.y+h));if(Math.hypot(ex-q.x,ey-q.y)>q.r+5){ctx.beginPath();ctx.moveTo(q.x,q.y);ctx.lineTo(ex,ey);ctx.strokeStyle="rgba(255,255,255,.7)";ctx.lineWidth=1.2;ctx.stroke()}ctx.fillStyle=q.on?"#fff":"rgba(7,26,79,.85)";ctx.beginPath();if(ctx.roundRect)ctx.roundRect(pos.x,pos.y,w,h,9);else ctx.rect(pos.x,pos.y,w,h);ctx.fill();
         ctx.fillStyle=q.on?"#0B2470":"#fff";ctx.fillText(lb,pos.x+5,pos.y+13);hits.push({i:q.i,x:q.x,y:q.y,x2:pos.x,w:w,y2:pos.y})}
       else hits.push({i:q.i,x:q.x,y:q.y,x2:-99,w:0,y2:-99})});
     dirty=false}
