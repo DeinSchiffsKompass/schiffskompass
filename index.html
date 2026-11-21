@@ -794,7 +794,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
       if(w.h!=null)line+=" · Wellen bis "+String(Math.round(w.h*10)/10).replace(".",",")+" m";
       tx.appendChild(el("small",null,line));dd.appendChild(tx)}
     row.appendChild(dd);var dl=c.querySelector(".rows");if(dl){if(before)dl.insertBefore(row,before);else dl.appendChild(row)}
-    var f=c.querySelector(".foot");if(f&&s.lat!=null){var a=el("a","wbtn","🌊 Wellenhöhe live");a.href="https://www.windy.com/-Waves-waves?waves,"+s.lat+","+s.lon+",7";a.target="_blank";a.rel="noopener";a.setAttribute("aria-label","Wellenhöhe live für "+s.n+" bei Windy öffnen");f.appendChild(a)}
+    var f=c.querySelector(".foot");if(f&&s.lat!=null){var sea=s.type==="sea",la=Number(s.lat).toFixed(3),lo=Number(s.lon).toFixed(3);var a=el("a","wbtn",sea?"🌊 Wellenhöhe live im Seegebiet":"🌊 Wellenhöhe live am Liegeplatz");/* Windy: rechts die Wellenvorhersage genau für die Schiffsposition (mit Markierung), links die Karte: im Hafen nah, auf See weit für das ganze Seegebiet */a.href="https://www.windy.com/"+la+"/"+lo+"/waves?waves,"+la+","+lo+","+(sea?5:10);a.target="_blank";a.rel="noopener";a.setAttribute("aria-label","Wellenhöhe live für "+s.n+(sea?" im Seegebiet":" am Liegeplatz")+" bei Windy öffnen");f.appendChild(a)}
   });
 }catch(e){}})();
 </script>
@@ -916,7 +916,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    oder eine neue Seitenversion gibt, und lädt sich dann einmal frisch neu.
    APP_VER bei jeder Änderung am Seitencode erhöhen (Datenänderungen in FLEET werden automatisch erkannt). */
 (function(){try{
-  var APP_VER="2026-11-21b";
+  var APP_VER="2026-11-21c";
   function sig(f){try{return Object.keys(f).sort().map(function(k){return k+":"+(f[k]&&f[k].upd)}).join("|")}catch(e){return ""}}
   var mine=sig(window.FLEET||{}),last=0;
   // Aufräumen nach einem Update-Neuladen: ?v=… aus der Adresse entfernen
