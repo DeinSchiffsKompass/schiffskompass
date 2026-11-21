@@ -344,6 +344,10 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
 .g3chips button .d{width:10px;height:10px;border-radius:50%;border:1.5px solid #fff;flex:none}
 .g3chips button[aria-pressed="true"]{background:#fff;color:#0B2470}
 .g3info{margin:14px auto 0;max-width:560px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:14px 16px;min-height:72px}
+@keyframes g3pop{0%{opacity:0;transform:translateY(14px) scale(.97)}60%{opacity:1;transform:translateY(-2px) scale(1.01)}100%{opacity:1;transform:none}}
+@keyframes g3glow{0%{border-color:#FFD43B;box-shadow:0 0 0 3px rgba(255,212,59,.75),0 0 26px rgba(255,212,59,.55)}100%{border-color:rgba(255,255,255,.2);box-shadow:0 0 0 0 rgba(255,212,59,0),0 0 0 rgba(255,212,59,0)}}
+.g3info.pop{animation:g3pop .45s cubic-bezier(.2,.8,.2,1) both,g3glow 1.6s ease-out .1s both}
+@media(prefers-reduced-motion:reduce){.g3info.pop{animation:g3glow 1.2s ease-out both}}
 .g3info h3{margin:0 0 4px;font:800 20px/1.2 var(--display);color:#fff}
 .g3info p{margin:2px 0;color:#DCE8FF;font-size:15px;line-height:1.45}
 .g3info .g3go{display:inline-block;margin-top:8px;color:#7DD6FF;font-weight:700;text-decoration:none}
@@ -1143,6 +1147,8 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
   function select(i,fly){sel=i;var s=ships[i];
     Array.prototype.forEach.call(chips.children,function(b,k){b.setAttribute("aria-pressed",k===i?"true":"false")});
     if(!s){return}
+    info.classList.remove("pop");void info.offsetWidth;info.classList.add("pop");
+    setTimeout(function(){var rc=info.getBoundingClientRect(),vh=window.innerHeight||0;if(rc.bottom>vh-8||rc.top<0)info.scrollIntoView({behavior:rm?"auto":"smooth",block:"nearest"})},120);
     var st=s.st==="wechsel"?" · Passagierwechsel":s.st==="ausfall"?" · Ausfall":"";
     info.innerHTML="";var h=document.createElement("h3");h.textContent=(s.type==="sea"?"🌊 ":s.flag?s.flag+" ":"")+s.n;info.appendChild(h);
     [[s.ort+st],[s.zeit],[s.weiter?"Danach: "+s.weiter:""]].forEach(function(x){if(!x[0])return;var p=document.createElement("p");p.textContent=x[0];info.appendChild(p)});
