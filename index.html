@@ -529,7 +529,7 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==und
     if(s.type==="port"){var an=el("span","anchor","⚓");an.title="Hafentag";an.setAttribute("role","img");an.setAttribute("aria-label","Hafentag");top.appendChild(an)}
     c.appendChild(top);
     var dl=el("dl","rows");
-    ROWS.forEach(function(r){if(r[1]==="mit"&&s.type==="sea")return;var row=el("div","row");row.appendChild(el("dt",null,r[0]));var dd;
+    ROWS.forEach(function(r){if(r[1]==="mit"&&(s.type==="sea"||s.type==="yard"))return;var row=el("div","row");row.appendChild(el("dt",null,r[0]));var dd;
       if(r[1]==="mit"){dd=el("dd","mit");var L=s.mit||[];if(!L.length)dd.appendChild(el("span",null,"–"));L.forEach(function(x){dd.appendChild(el("span","mi",x))})}
       else{dd=el("dd",null,r[1]==="typ"?TYP[s.type]:r[1]==="ree"?"TUI Cruises":s[r[1]])}
       row.appendChild(dd);dl.appendChild(row)});
