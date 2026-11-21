@@ -460,7 +460,7 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
   <p>Positionen, Liegezeiten, Abfahrtszeiten und Status der Schiffe stammen aus öffentlich zugänglichen Fahrplänen, Hafeninformationen und Schiffsortung (AIS). Wetter und Wellen zeigt nicht diese Seite selbst, sondern Windy.com nach Antippen der Buttons „Wellen“ und „Wetter“; für diese Vorhersagen ist Windy verantwortlich. Die Angaben sind eine Momentaufnahme und können sich kurzfristig ändern, etwa durch Wetter, Routenänderungen oder Ausfälle. Auf Seetagen ist die Position nur geschätzt. Für Richtigkeit, Vollständigkeit und Aktualität übernehme ich keine Gewähr. Bitte plane keine Reise allein nach diesen Angaben.</p>
 
   <h2>Haftung für Links</h2>
-  <p>Diese Seite verlinkt auf Seiten anderer Anbieter, zum Beispiel soziale Netzwerke, Schiffsortungsdienste und den Wetterdienst Windy.com. Auf deren Inhalte habe ich keinen Einfluss, verantwortlich ist der jeweilige Anbieter. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar. Werden mir Rechtsverletzungen bekannt, entferne ich solche Links umgehend.</p>
+  <p>Diese Seite verlinkt auf Seiten anderer Anbieter, zum Beispiel soziale Netzwerke, Schiffsortungsdienste wie VesselFinder und den Wetterdienst Windy.com. Auf deren Inhalte habe ich keinen Einfluss, verantwortlich ist der jeweilige Anbieter. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar. Werden mir Rechtsverletzungen bekannt, entferne ich solche Links umgehend.</p>
 
   <h2>Urheberrecht</h2>
   <p>Texte, Gestaltung und Logo dieser Seite stammen von mir. Eine Verwendung außerhalb dieser Seite bitte nur nach Rücksprache. Die Schriften Bricolage Grotesque und Figtree stehen unter der SIL Open Font License. Kartendaten: amCharts Geodata, Satellitenbild: NASA GIBS (Blue Marble).</p>
@@ -486,7 +486,7 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
   <p>Wenn du den Bereich Flotte öffnest, lädt dein Browser für die Karte Ländergrenzen von den Content-Delivery-Netzen jsDelivr (cdn.jsdelivr.net) bzw. unpkg (unpkg.com) und ein Satellitenbild vom Dienst GIBS der NASA (gibs.earthdata.nasa.gov, USA). Dabei erhalten diese Anbieter technisch bedingt deine IP-Adresse sowie Datum und Uhrzeit des Abrufs. Ich erhalte davon keine Daten. Rechtsgrundlage ist mein berechtigtes Interesse an einer anschaulichen Darstellung der Schiffspositionen (Art. 6 Abs. 1 lit. f DSGVO). Dabei können Daten in Länder außerhalb der EU, insbesondere in die USA, übermittelt werden.</p>
 
   <h2>5. Links zu anderen Seiten</h2>
-  <p>Die Seite enthält Links, unter anderem zu Instagram, Facebook, UnserSchiff, CruiseMapper, Windy und zur Google-Suche. Die Buttons „Wellen“ und „Wetter“ in den Schiffskarten öffnen die Kartenansicht von Windy.com (embed.windy.com) für die Position des Schiffs. Diese Seiten werden nicht eingebettet. Daten werden erst übertragen, wenn du einen Link antippst, und ab dann gilt die Datenschutzerklärung des jeweiligen Anbieters. Über den Partnerlink zu UnserSchiff wird dort deine Buchung meiner Beraternummer zugeordnet. Wer du bist, erfahre ich dadurch erst, wenn du tatsächlich buchst oder Kontakt aufnimmst.</p>
+  <p>Die Seite enthält Links, unter anderem zu Instagram, Facebook, UnserSchiff, CruiseMapper, Windy, VesselFinder und zur Google-Suche. Der Button „Live-Position“ in den Schiffskarten öffnet die Schiffsseite von VesselFinder (vesselfinder.com) mit der zuletzt gemeldeten AIS-Position. Die Buttons „Wellen“ und „Wetter“ in den Schiffskarten öffnen die Kartenansicht von Windy.com (embed.windy.com) für die Position des Schiffs. Diese Seiten werden nicht eingebettet. Daten werden erst übertragen, wenn du einen Link antippst, und ab dann gilt die Datenschutzerklärung des jeweiligen Anbieters. Über den Partnerlink zu UnserSchiff wird dort deine Buchung meiner Beraternummer zugeordnet. Wer du bist, erfahre ich dadurch erst, wenn du tatsächlich buchst oder Kontakt aufnimmst.</p>
 
   <h2>6. Kontakt per E-Mail, Telefon oder Messenger</h2>
   <p>Wenn du mich kontaktierst, verarbeite ich deine Angaben (z. B. Name, Kontaktdaten, Inhalt der Nachricht), um deine Anfrage zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, wenn es um eine Reise oder Buchung geht, sonst mein berechtigtes Interesse an der Beantwortung (Art. 6 Abs. 1 lit. f DSGVO). Ich lösche die Daten, wenn sie nicht mehr gebraucht werden und keine gesetzlichen Aufbewahrungspflichten bestehen. Bei einer Buchung gelten zusätzlich die Datenschutzhinweise des Reiseveranstalters und der Solamento Reisen GmbH.</p>
@@ -987,6 +987,19 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
   window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;btn.style.display="block"});
   btn.onclick=function(){if(!dp)return;dp.prompt();dp.userChoice&&dp.userChoice.then(function(){dp=null;btn.style.display="none"})};
   window.addEventListener("appinstalled",function(){sec.hidden=true});
+}catch(e){}})();
+</script>
+<script id="live-addon">
+/* Button „Live-Position“: öffnet die AIS-Position des Schiffs bei VesselFinder (kostenlos, reiner Link, nichts eingebettet). IMO-Nummern sind fest je Schiff. */
+(function(){try{
+  var IMO={"Mein Schiff 1":"9783564","Mein Schiff 2":"9783576","Mein Schiff 3":"9641730","Mein Schiff 4":"9678408","Mein Schiff 5":"9753193","Mein Schiff 6":"9753208","Mein Schiff 7":"9851189","Mein Schiff Relax":"9862657","Mein Schiff Flow":"9862669"};
+  var ships=(window.GL&&window.GL.ships)||[],cards=document.querySelectorAll("#fleet .ship");
+  ships.forEach(function(s,i){var c=cards[i];if(!c||c.getAttribute("data-live"))return;c.setAttribute("data-live","1");
+    var f=c.querySelector(".foot"),imo=IMO[s.n];if(!f||!imo)return;
+    var a=document.createElement("a");a.className="wbtn";a.textContent="📍 Live-Position";
+    a.href="https://www.vesselfinder.com/de/vessels/details/"+imo;a.target="_blank";a.rel="noopener";
+    a.setAttribute("aria-label","Live-Position von "+s.n+" bei VesselFinder öffnen");
+    f.insertBefore(a,f.firstChild)});
 }catch(e){}})();
 </script>
 <script id="update-addon">
