@@ -1090,7 +1090,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
     var order=ships.map(function(s,i){return i}).sort(function(a,b){return(a===sel)-(b===sel)});
     order.forEach(function(i){var s=ships[i];if(s.lat==null)return;var ll=[+s.lon,+s.lat];if(d3.geoDistance(ll,cen)>Math.PI/2-.03)return;
       var p=proj(ll),x=p[0],y=p[1],c=col(s),on=i===sel,r=on?8:6.5;
-      if(on){ctx.beginPath();ctx.arc(x,y,r+6+2*Math.sin(t/250),0,7);ctx.fillStyle="rgba(255,255,255,.25)";ctx.fill()}
+      if(on){for(var pk=0;pk<2;pk++){var kk=((t/1400)+pk/2)%1;ctx.beginPath();ctx.arc(x,y,r+3+kk*22,0,7);ctx.strokeStyle="rgba(7,26,79,"+(.5*(1-kk)).toFixed(3)+")";ctx.lineWidth=5;ctx.stroke();ctx.strokeStyle="rgba(255,212,59,"+(1-kk).toFixed(3)+")";ctx.lineWidth=2.5;ctx.stroke()}ctx.beginPath();ctx.arc(x,y,r+4,0,7);ctx.strokeStyle="rgba(7,26,79,.85)";ctx.lineWidth=7;ctx.stroke();ctx.strokeStyle="#FFD43B";ctx.lineWidth=3.5;ctx.stroke()}
       ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fillStyle=c;ctx.fill();ctx.lineWidth=2;ctx.strokeStyle="#fff";ctx.stroke();
       pts.push({i:i,x:x,y:y,r:r,on:on})});
     /* Beschriftungen ohne Überlappung: ausgewähltes Schiff zuerst, dann je Schiff die erste freie Position rechts, links, oben oder unten */
