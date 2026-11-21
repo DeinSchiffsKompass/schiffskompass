@@ -901,6 +901,50 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
 }catch(e){}})();
 </script>
 <!--ROUTE-ADDON-END-->
+<!--AREA-ADDON-START-->
+<style id="area-addon-css">
+.ship .top .nm{flex:1 1 auto;min-width:0;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:10px;row-gap:0}
+.ship .top .loc{flex:0 1 auto;min-width:0;font-size:15px;font-weight:600;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ship .top .loc .lf{margin-right:4px}
+</style>
+<script id="area-addon">
+(function(){try{
+  /* Land (bei Hafen/Werft) bzw. Seegebiet (bei Seetag) rechts neben dem Schiffsnamen.
+     Land: aus der Flagge des Schiffsobjekts. Seegebiet: Feld "sg" im Schiffsobjekt, sonst aus lat/lon geschätzt. */
+  var LN={"🇯🇲":"Jamaika","🇲🇽":"Mexiko","🇧🇿":"Belize","🇭🇳":"Honduras","🇨🇷":"Costa Rica","🇵🇦":"Panama","🇨🇴":"Kolumbien","🇩🇴":"Dominikanische Republik","🇱🇨":"St. Lucia","🇧🇧":"Barbados","🇻🇨":"St. Vincent und die Grenadinen","🇬🇩":"Grenada","🇲🇶":"Martinique","🇬🇵":"Guadeloupe","🇩🇲":"Dominica","🇦🇬":"Antigua und Barbuda","🇰🇳":"St. Kitts und Nevis","🇻🇬":"Britische Jungferninseln","🇨🇼":"Curaçao","🇧🇶":"Bonaire","🇦🇼":"Aruba","🇧🇸":"Bahamas","🇺🇸":"USA","🇩🇪":"Deutschland","🇳🇴":"Norwegen","🇩🇰":"Dänemark","🇸🇪":"Schweden","🇫🇮":"Finnland","🇪🇪":"Estland","🇱🇻":"Lettland","🇱🇹":"Litauen","🇵🇱":"Polen","🇳🇱":"Niederlande","🇧🇪":"Belgien","🇬🇧":"Großbritannien","🇮🇪":"Irland","🇮🇸":"Island","🇪🇸":"Spanien","🇵🇹":"Portugal","🇫🇷":"Frankreich","🇮🇹":"Italien","🇲🇹":"Malta","🇭🇷":"Kroatien","🇲🇪":"Montenegro","🇬🇷":"Griechenland","🇹🇷":"Türkei","🇨🇾":"Zypern","🇲🇦":"Marokko","🇹🇳":"Tunesien","🇪🇬":"Ägypten","🇨🇻":"Kap Verde","🇳🇦":"Namibia","🇿🇦":"Südafrika","🇲🇺":"Mauritius","🇷🇪":"Réunion","🇸🇨":"Seychellen","🇲🇬":"Madagaskar","🇲🇻":"Malediven","🇮🇳":"Indien","🇱🇰":"Sri Lanka","🇲🇾":"Malaysia","🇸🇬":"Singapur","🇹🇭":"Thailand","🇻🇳":"Vietnam","🇮🇩":"Indonesien","🇦🇪":"Vereinigte Arabische Emirate","🇴🇲":"Oman","🇶🇦":"Katar","🇧🇭":"Bahrain","🇯🇴":"Jordanien","🇸🇦":"Saudi-Arabien"};
+  /* [Name, latMin, latMax, lonMin, lonMax] – der erste Treffer gilt, daher Spezielles zuerst */
+  var SG=[
+    ["Kattegat",55.6,57.8,10.4,12.9],["Skagerrak",57.1,59.3,7,10.9],["Kieler Bucht",54.2,55,9.8,11],
+    ["Ostsee",53.5,66,9.8,30.5],["Nordsee",51,61,-4,9.8],["Norwegisches Meer",61,72,-6,20],["Barentssee",69,80,20,60],
+    ["Ärmelkanal",48.4,51.2,-5.8,2],["Keltische See",48.4,52,-11,-5.8],["Irische See",52,55,-6.5,-3],["Biskaya",43.2,48.4,-10,-1],
+    ["Straße von Gibraltar",35.7,36.3,-6.2,-5.3],["Alborán-Meer",35,37,-5.3,-1.5],["Balearen-Meer",37,42.4,-1.5,4.5],
+    ["Golf von Lyon",42.4,43.6,3,6.5],["Ligurisches Meer",42.8,44.6,6.5,10.3],["Tyrrhenisches Meer",37.8,42.8,9.3,16.2],
+    ["Adria",40,46,12,20],["Ionisches Meer",30,40,15,22.5],["Ägäis",35,41,22.5,28.3],["Levantinisches Meer",30,37.5,28.3,36.5],
+    ["Mittelmeer",30,46,-5.3,36.5],["Rotes Meer",12.5,30,32,44],["Persischer Golf",23,30.5,47.5,57],["Golf von Oman",22,26.5,56,61.5],
+    ["Arabisches Meer",5,25,50,77],["Golf von Bengalen",5,23,79,95],["Andamanensee",5,16,92,99],["Straße von Malakka",1,6.5,95,104],
+    ["Südchinesisches Meer",0,23,104,121],["Mosambikkanal",-26,-11,34,44],
+    ["Atlantik bei den Kanaren",26,30,-19,-12.5],["Atlantik bei Madeira",30,34,-19,-14],["Atlantik bei den Kapverden",13.5,18,-26,-21.5],
+    ["Golf von Mexiko",18,31,-98,-81],["Karibisches Meer",8,22.5,-88,-61.3],["Atlantik bei den Bahamas",21,27.5,-80,-72]];
+  function area(lat,lon){if(lat==null||lon==null)return"";lat=+lat;lon=+lon;
+    for(var i=0;i<SG.length;i++){var r=SG[i];if(lat>=r[1]&&lat<=r[2]&&lon>=r[3]&&lon<=r[4])return r[0]}
+    if(lat<=-60)return"Südpolarmeer";if(lat>=66&&(lon>-30&&lon<60))return"Nordpolarmeer";
+    if(lon>=20&&lat<30&&(lon<120||(lon<147&&lat<-10)))return"Indischer Ozean";
+    if(lon>=120||lon<=-100||(lon<-78&&lat<8.5)||(lon<-84&&lat<14))return lat>=0?"Nordpazifik":"Südpazifik";
+    return lat>=0?"Nordatlantik":"Südatlantik"}
+  var ships=(window.GL&&window.GL.ships)||[],cards=document.querySelectorAll("#fleet .ship");
+  ships.forEach(function(s,i){var c=cards[i];if(!c||c.getAttribute("data-area"))return;c.setAttribute("data-area","1");
+    var top=c.querySelector(".top"),h=top&&top.querySelector("h3");if(!h)return;
+    var fl="",tx="";
+    if(s.type==="sea"){fl="";tx=s.sg||area(s.lat,s.lon)}else{fl=s.flag||"";tx=s.land||LN[s.flag]||""}
+    if(!tx)return;
+    var sp=document.createElement("span");sp.className="loc";
+    if(fl){var f=document.createElement("span");f.className="lf";f.setAttribute("aria-hidden","true");f.textContent=fl;sp.appendChild(f)}
+    sp.appendChild(document.createTextNode(tx));
+    sp.setAttribute("aria-label",(s.type==="sea"?"Seegebiet: ":"Land: ")+tx);
+    var nm=document.createElement("div");nm.className="nm";top.insertBefore(nm,h);nm.appendChild(h);nm.appendChild(sp)});
+}catch(e){}})();
+</script>
+<!--AREA-ADDON-END-->
 <script id="update-addon">
 /* Auto-Update: Beim Öffnen und beim Zurückkehren in die App prüft die Seite, ob es neue Flottendaten
    oder eine neue Seitenversion gibt, und lädt sich dann einmal frisch neu.
