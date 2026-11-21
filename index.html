@@ -911,4 +911,31 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
 }catch(e){}})();
 </script>
 <!--ROUTE-ADDON-END-->
+<script id="update-addon">
+/* Auto-Update: Beim Öffnen und beim Zurückkehren in die App prüft die Seite, ob es neue Flottendaten
+   oder eine neue Seitenversion gibt, und lädt sich dann einmal frisch neu.
+   APP_VER bei jeder Änderung am Seitencode erhöhen (Datenänderungen in FLEET werden automatisch erkannt). */
+(function(){try{
+  var APP_VER="2026-11-21b";
+  function sig(f){try{return Object.keys(f).sort().map(function(k){return k+":"+(f[k]&&f[k].upd)}).join("|")}catch(e){return ""}}
+  var mine=sig(window.FLEET||{}),last=0;
+  // Aufräumen nach einem Update-Neuladen: ?v=… aus der Adresse entfernen
+  if(/[?&]v=\d+/.test(location.search)&&history.replaceState)history.replaceState(null,"",location.pathname+location.hash);
+  function check(){
+    var now=Date.now();if(now-last<60000)return;last=now;
+    fetch("./?check="+now,{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(t){
+      if(!t)return;
+      var mv=t.match(/var APP_VER="([^"]+)"/),mf=t.match(/^var FLEET=(\{.*\});\s*$/m);
+      var theirs=mf?sig(JSON.parse(mf[1])):mine,ver=mv?mv[1]:APP_VER;
+      if(ver===APP_VER&&theirs===mine)return;
+      var target=ver+"#"+theirs,k="sk-upd-tried";
+      try{if(sessionStorage.getItem(k)===target)return;sessionStorage.setItem(k,target)}catch(e){}
+      location.replace(location.pathname+"?v="+now+location.hash);
+    }).catch(function(){});
+  }
+  setTimeout(check,1500);
+  document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")check()});
+  window.addEventListener("pageshow",function(e){if(e.persisted)check()});
+}catch(e){}})();
+</script>
 </body></html>
