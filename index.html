@@ -1056,7 +1056,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
 <script src="js/d3-array.min.js"></script>
 <script src="js/d3-geo.min.js"></script>
 <script id="globe3d-addon">
-/* 3D-Globus auf der Startseite: Landflächen Natural Earth (gemeinfrei, geo/land.json), Projektion d3-geo (ISC-Lizenz), alles auf diesem Server. */
+/* 3D-Globus auf der Startseite: Landflächen und Eisflächen (Gletscher, Eisschilde, Schelfeis) Natural Earth (gemeinfrei, geo/land.json und geo/ice.json), Projektion d3-geo (ISC-Lizenz), alles auf diesem Server. */
 (function(){try{
   var box=document.getElementById("globe3d");if(!box||!window.d3||!d3.geoOrthographic)return;
   var cv=box.querySelector("canvas"),ctx=cv.getContext("2d"),info=box.querySelector(".g3info"),chips=box.querySelector(".g3chips");
@@ -1067,6 +1067,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
   var proj=d3.geoOrthographic().clipAngle(90).precision(.5),path=d3.geoPath(proj,ctx),grat=d3.geoGraticule10();
   var land=null,W=0,dpr=1,zoom=1,rot=[20,-22,0],sel=-1,idleUntil=0,anim=null,hits=[],visible=true,dirty=true;
   fetch("geo/land.json").then(function(r){return r.json()}).then(function(j){land=j;dirty=true}).catch(function(){});
+  var ice=null;fetch("geo/ice.json").then(function(r){return r.json()}).then(function(j){ice=j;dirty=true}).catch(function(){});
   function size(){var w=cv.clientWidth||320;if(w===W&&dpr===Math.min(window.devicePixelRatio||1,2))return;W=w;dpr=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(W*dpr);cv.height=Math.round(W*dpr);dirty=true}
   function sun(){var d=new Date(),n=(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())-Date.UTC(d.getUTCFullYear(),0,0))/864e5,
       h=d.getUTCHours()+d.getUTCMinutes()/60,b=2*Math.PI*(n-81)/364,eot=9.87*Math.sin(2*b)-7.53*Math.cos(b)-1.5*Math.sin(b),
@@ -1080,6 +1081,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
     ctx.beginPath();path({type:"Sphere"});ctx.fillStyle=oc;ctx.fill();
     ctx.beginPath();path(grat);ctx.strokeStyle="rgba(255,255,255,.13)";ctx.lineWidth=.7;ctx.stroke();
     if(land){ctx.beginPath();path(land);ctx.fillStyle="#EFE6D2";ctx.fill();ctx.strokeStyle="rgba(70,58,35,.45)";ctx.lineWidth=.6;ctx.stroke()}
+    if(ice){ctx.beginPath();path(ice);ctx.fillStyle="#F8FCFF";ctx.fill();ctx.strokeStyle="rgba(150,180,210,.7)";ctx.lineWidth=.5;ctx.stroke()}
     var s=sun(),anti=[s[0]>0?s[0]-180:s[0]+180,-s[1]];
     ctx.beginPath();path(d3.geoCircle().center(anti).radius(90)());ctx.fillStyle="rgba(3,10,40,.42)";ctx.fill();
     ctx.beginPath();path(d3.geoCircle().center(anti).radius(84)());ctx.fillStyle="rgba(3,10,40,.12)";ctx.fill();
