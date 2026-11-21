@@ -1201,9 +1201,26 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
   cv.addEventListener("wheel",function(e){if(!e.ctrlKey)return;e.preventDefault();setZoom(zoom*Math.exp(-e.deltaY*.01))},{passive:false});
   try{new IntersectionObserver(function(es){visible=es[0].isIntersecting},{rootMargin:"100px"}).observe(cv)}catch(e){}
   window.addEventListener("resize",function(){dirty=true});
+  /* Rundflug: Tut niemand etwas, fliegt die Kugel nacheinander zu allen Schiffen (MS1 bis MS7, dann Relax und Flow),
+     zoomt jeweils hinein, zeigt das Schiff ein paar Sekunden und zoomt wieder hinaus. Jede Berührung beendet den Rundflug sofort. */
+  var T={on:false,k:0,ph:"",a:null,until:0,rest:Date.now()+6000,prev:-1,ZI:2.6};
+  function tAnim(toR,toZ,dur,done){var fr=rot.slice(),fz=zoom,dl=((toR[0]-fr[0]+540)%360)-180,t0=performance.now();
+    T.a=function(now){var k=Math.min(1,(now-t0)/dur),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;rot=[fr[0]+dl*e,fr[1]+(toR[1]-fr[1])*e,0];zoom=fz+(toZ-fz)*e;dirty=true;if(k>=1){T.a=null;done()}}}
+  function tList(){var l=[];ships.forEach(function(s,i){if(s.lat!=null)l.push(i)});return l}
+  function tStop(restMs){if(T.on){T.on=false;T.a=null;sel=T.prev;dirty=true}T.rest=Date.now()+(restMs||0)}
+  function tShip(){var l=tList();if(T.k>=l.length){zoom=1;tStop(12000);return}var i=l[T.k],s=ships[i];sel=i;T.ph="in";
+    tAnim([-s.lon,-Math.max(-60,Math.min(60,s.lat))],T.ZI,1800,function(){wantBig();T.ph="hold";T.until=Date.now()+3200})}
+  function tourTick(now){
+    if(rm||drag||pinch){if(T.on)tStop(4000);return false}
+    if(Date.now()<idleUntil+1500){if(T.on)tStop(0);return false}
+    if(!T.on){if(Date.now()<T.rest||!tList().length)return false;T.on=true;T.k=0;T.prev=sel;tShip()}
+    if(T.a)T.a(now);
+    else if(T.ph==="hold"&&Date.now()>=T.until){T.ph="out";tAnim(rot.slice(),1,1300,function(){sel=T.prev;T.k++;T.ph="gap";T.until=Date.now()+500})}
+    else if(T.ph==="gap"&&Date.now()>=T.until)tShip();
+    return true}
   var last=0;
   function loop(now){requestAnimationFrame(loop);var v=document.getElementById("v-start");if(!visible||document.hidden||(v&&v.hidden))return;
-    if(anim)anim(now);else if(!rm&&!drag&&Date.now()>idleUntil){rot=[rot[0]+(now-(last||now))*.006,rot[1]+(-22-rot[1])*.01,0];dirty=true}
+    if(anim)anim(now);else if(tourTick(now)){}else if(!rm&&!drag&&Date.now()>idleUntil){rot=[rot[0]+(now-(last||now))*.006,rot[1]+(-22-rot[1])*.01,0];dirty=true}
     last=now;if(dirty||sel>=0)draw()}
   var mid=ships.length?d3.geoCentroid({type:"MultiPoint",coordinates:ships.filter(function(s){return s.lat!=null}).map(function(s){return[+s.lon,+s.lat]})}):[-20,22];
   rot=[-mid[0],-Math.max(-50,Math.min(50,mid[1])),0];
@@ -1261,7 +1278,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-21k"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-21l"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
