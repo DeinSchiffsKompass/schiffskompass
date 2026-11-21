@@ -520,7 +520,7 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==und
   $("fsub").textContent=use===k?"Wo liegen die neun Schiffe "+(T.tom?"morgen":"heute")+"? Hier siehst du Hafen und Zeiten, die Mitlieger im Hafen, die Crew an Bord, die Bordzeit und Wetter und Wellen bei Windy. Ab 20 Uhr zeigt die Seite schon den nächsten Tag.":"Für "+(T.tom?"morgen":"heute")+" ("+lbl(k)+") ist noch nichts recherchiert. Das ist der letzte Stand.";
   var STT={"wechsel":"Passagierwechsel","ausfall":"Ausfall",
            "":"Normaler Betrieb"},TYP={"sea":"Seetag","port":"Hafentag","yard":"Werft"};
-  var ROWS=[["Tag","typ"],["Reederei","ree"],["Ort","ort"],["Zeit","zeit"],["Danach","weiter"],["Im Hafen auch","mit"]];
+  var ROWS=[["Tag","typ"],["Ort","ort"],["Zeit","zeit"],["Danach","weiter"],["Im Hafen auch","mit"]];
   var box=$("fleet");
   D.ships.forEach(function(s){
     var c=el("article","ship"+(s.type==="sea"?" sea":s.type==="port"?" port":"")+(s.st==="wechsel"?" go":s.st==="ausfall"?" stop":""));
@@ -856,7 +856,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
     if(cr.kap)line("Kapitän",cr.kap,"kap",cr.kapSeit);if(cr.kd)line("Kreuzfahrtdirektor",cr.kd,"kd",cr.kdSeit);
     if(!dd.firstChild)dd.textContent="–";
     row.appendChild(dt);row.appendChild(dd);
-    var ree=null;Array.prototype.forEach.call(dl.querySelectorAll(".row"),function(r){var t=r.querySelector("dt");if(t&&t.textContent==="Reederei")ree=r});
+    var ree=null;Array.prototype.forEach.call(dl.querySelectorAll(".row"),function(r){var t=r.querySelector("dt");if(t&&t.textContent==="Tag")ree=r});
     if(ree&&ree.nextSibling)dl.insertBefore(row,ree.nextSibling);else dl.appendChild(row)});
   var fn=document.getElementById("fnote"),U=window.CREWUPD||[];
   if(fn&&!document.getElementById("fleetupd")){var box=document.createElement("div");box.id="fleetupd";box.className="cupd";
