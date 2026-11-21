@@ -488,7 +488,7 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==und
   var keys=Object.keys(FLEET).sort(),use=FLEET[k]?k:keys[keys.length-1],D=FLEET[use];
   var lbl=function(s){return new Date(s+"T12:00:00").toLocaleDateString("de-DE",{weekday:"long",day:"numeric",month:"long"})};
   $("fh").textContent=(use===k?(T.tom?"Morgen, ":"Heute, "):"")+lbl(use);
-  $("fsub").textContent=use===k?"Wo liegen die neun Schiffe "+(T.tom?"morgen":"heute")+"? Hier siehst du Hafen und Zeiten, die Mitlieger im Hafen, die Crew an Bord, die Ortszeit und das Wetter. Ab 20 Uhr zeigt die Seite schon den nächsten Tag.":"Für "+(T.tom?"morgen":"heute")+" ("+lbl(k)+") ist noch nichts recherchiert. Das ist der letzte Stand.";
+  $("fsub").textContent=use===k?"Wo liegen die neun Schiffe "+(T.tom?"morgen":"heute")+"? Hier siehst du Hafen und Zeiten, die Mitlieger im Hafen, die Crew an Bord, die Bordzeit und Wetter und Wellen bei Windy. Ab 20 Uhr zeigt die Seite schon den nächsten Tag.":"Für "+(T.tom?"morgen":"heute")+" ("+lbl(k)+") ist noch nichts recherchiert. Das ist der letzte Stand.";
   var STT={"wechsel":"Passagierwechsel","ausfall":"Ausfall",
            "":"Normaler Betrieb"},TYP={"sea":"Seetag","port":"Hafentag","yard":"Werft"};
   var ROWS=[["Tag","typ"],["Reederei","ree"],["Ort","ort"],["Zeit","zeit"],["Danach","weiter"],["Im Hafen auch","mit"]];
@@ -800,7 +800,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
     var rows=c.querySelectorAll(".rows .row"),after=null;
     rows.forEach(function(r){var dt=r.querySelector("dt");if(dt&&dt.textContent==="Zeit")after=r});
     var row=document.createElement("div");row.className="row";
-    var dt=document.createElement("dt");dt.textContent="Ortszeit";var dd=document.createElement("dd");dd.className="otz";
+    var dt=document.createElement("dt");dt.textContent="Bordzeit";var dd=document.createElement("dd");dd.className="otz";
     row.appendChild(dt);row.appendChild(dd);
     var dl=c.querySelector(".rows");if(!dl)return;
     if(after&&after.nextSibling)dl.insertBefore(row,after.nextSibling);else dl.appendChild(row);
