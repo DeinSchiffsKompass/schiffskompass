@@ -337,8 +337,10 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
 .g3stage canvas:active{cursor:grabbing}
 .g3zoom{position:absolute;right:0;bottom:6px;display:flex;flex-direction:column;gap:6px}
 .g3zoom button{width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.35);background:rgba(7,26,79,.6);color:#fff;font:700 22px/1 var(--body);cursor:pointer}
-.g3chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:10px 0 0}
-.g3chips button{min-height:36px;padding:6px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;font:700 14px var(--body);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.g3chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;max-width:560px;margin:10px auto 0}
+.g3chips button{min-height:36px;padding:5px 6px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;font:700 13px var(--body);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap;min-width:0}
+@media(max-width:370px){.g3chips button{font-size:11.5px;gap:4px;padding:5px 4px}.g3chips button .d{width:8px;height:8px}}
+@media(max-width:340px){.g3chips{gap:4px}.g3chips button{font-size:11px;padding:5px 2px}.g3chips button .d{display:none}}
 .g3chips button .d{width:10px;height:10px;border-radius:50%;border:1.5px solid #fff;flex:none}
 .g3chips button[aria-pressed="true"]{background:#fff;color:#0B2470}
 .g3info{margin:14px auto 0;max-width:560px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:14px 16px;min-height:72px}
@@ -1115,7 +1117,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
     var from=rot.slice(),dl=((to[0]-from[0]+540)%360)-180,t0=performance.now();
     anim=function(now){var k=Math.min(1,(now-t0)/900),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;rot=[from[0]+dl*e,from[1]+(to[1]-from[1])*e,0];dirty=true;if(k>=1)anim=null}}
   ships.forEach(function(s,i){var b=document.createElement("button");b.type="button";b.setAttribute("aria-pressed","false");
-    var d=document.createElement("span");d.className="d";d.style.background=col(s);b.appendChild(d);b.appendChild(document.createTextNode(SHORT(s.n)));
+    var d=document.createElement("span");d.className="d";d.style.background=col(s);b.appendChild(d);b.appendChild(document.createTextNode(s.n.replace(/^Mein Schiff (Relax|Flow)$/,"MS $1")));
     b.addEventListener("click",function(){select(i,true)});chips.appendChild(b)});
   box.querySelectorAll(".g3zoom button").forEach(function(b){b.addEventListener("click",function(){zoom=Math.max(1,Math.min(3,zoom*(b.getAttribute("data-z")==="1"?1.35:1/1.35)));idleUntil=Date.now()+12000;dirty=true})});
   var drag=null;
