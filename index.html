@@ -1175,7 +1175,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
     info.innerHTML="";var h=document.createElement("h3");h.textContent=(s.type==="sea"?"🌊 ":s.flag?s.flag+" ":"")+s.n;info.appendChild(h);
     [[s.ort+st],[s.zeit],[s.weiter?"Danach: "+s.weiter:""]].forEach(function(x){if(!x[0])return;var p=document.createElement("p");p.textContent=x[0];info.appendChild(p)});
     var a=document.createElement("a");a.className="g3go";a.href="#flotte";a.textContent="Zur Schiffskarte ";var ar=document.createElement("span");ar.className="g3arr";ar.setAttribute("aria-hidden","true");ar.textContent="→";a.appendChild(ar);
-    a.addEventListener("click",function(){setTimeout(function(){var c=document.querySelectorAll("#fleet .ship")[i];if(c)c.scrollIntoView({behavior:rm?"auto":"smooth",block:"start"})},350)});info.appendChild(a);
+    a.addEventListener("click",function(){/* Zur Schiffskarte springen, dabei die feste Kopfleiste (Logo + Reiter) abziehen, damit der Kopf der Karte sichtbar ist */function go(sm){var c=document.querySelectorAll("#fleet .ship")[i];if(!c)return;var hd=document.querySelector("header.nav"),off=(hd?hd.getBoundingClientRect().bottom:0)+12;var y=window.pageYOffset+c.getBoundingClientRect().top-off;if(Math.abs(c.getBoundingClientRect().top-off)>4)window.scrollTo({top:Math.max(0,y),behavior:sm&&!rm?"smooth":"auto"})}setTimeout(function(){go(true)},350);setTimeout(function(){go(true)},1300)});info.appendChild(a);
     if(fly&&s.lat!=null)flyTo([-s.lon,-Math.max(-60,Math.min(60,s.lat))]);idleUntil=Date.now()+12000;dirty=true}
   function flyTo(to){if(rm){rot=[to[0],to[1],0];dirty=true;return}
     var from=rot.slice(),dl=((to[0]-from[0]+540)%360)-180,t0=performance.now();
@@ -1253,7 +1253,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-21h"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-21i"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
