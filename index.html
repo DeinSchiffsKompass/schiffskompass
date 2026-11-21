@@ -725,7 +725,7 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==und
 function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
 (function(){function f(){var h=document.getElementById("hh1"),w=document.getElementById("hw");if(!h||!w)return;var a=h.getBoundingClientRect(),b=w.parentNode.getBoundingClientRect();if(a.height)w.style.top=(a.bottom-b.top+2)+"px"}addEventListener("resize",f);addEventListener("hashchange",function(){setTimeout(f,50)});addEventListener("load",f);setTimeout(f,100);setTimeout(f,600)})();
 (function(){
-  /* Liste hier: ältester Beitrag zuerst (Nr. 1). Auf der Seite steht der neueste oben. bild = Beitragsbild (später), ig / fb = Links zu Instagram / Facebook (später), text = Beschreibung (später) */
+  /* Liste hier: ältester Beitrag zuerst (Nr. 1). Auf der Seite steht der neueste oben. datum = Datum des Beitrags (steht dann statt der Nummer im Bild), bild = Beitragsbild (später), ig / fb = Links zu Instagram / Facebook (später), text = Beschreibung (später) */
   var TIPPS=[
    {titel:"Jede Reise hat mal ein Ende: Dankeschön und auf Wiedersehen, Party der Mein Schiff Flotte"},
    {reihe:"Mein Schiff im Porträt, damals und heute",titel:"Folge 1: Die erste Mein Schiff"},
@@ -746,14 +746,14 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    {reihe:"Kurz erklärt",titel:"Das Geheimnis der goldenen Streifen: Deck & Engine, Teil 1"},
    {reihe:"Kurz erklärt",titel:"Das Geheimnis der silbernen Streifen: Hotel, Teil 2"},
    {titel:"Kapitäne und Kreuzfahrtdirektoren: Wie lange wirklich an Bord der Mein Schiff Flotte?"},
-   {titel:"Mein Schiff 3: Es geht wieder los!",bild:"img/tipps/mein-schiff-3-es-geht-wieder-los.jpg?v=2",ig:"https://www.instagram.com/p/Df7WTsvotiC/"}
+   {titel:"Mein Schiff 3: Es geht wieder los!",datum:"19.11.2026",bild:"img/tipps/mein-schiff-3-es-geht-wieder-los.jpg?v=2",ig:"https://www.instagram.com/p/Df7WTsvotiC/"}
   ];
   var g=document.getElementById("tgrid");if(!g)return;
   function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
   function btn(url,name,cls){return url?'<a class="tbtn '+cls+'" href="'+esc(url)+'" target="_blank" rel="noopener">'+name+' →</a>':'<span class="tbtn '+cls+' off" title="Link folgt">'+name+'</span>'}
   g.innerHTML=TIPPS.map(function(t,i){t.n=i+1;return t}).reverse().map(function(t){var i=t.n-1;
     var m=t.video?'<video controls playsinline preload="metadata"'+(t.bild?' poster="'+esc(t.bild)+'"':'')+' src="'+esc(t.video)+'"></video>':(t.bild?'<img class="tph" src="'+esc(t.bild)+'" alt="'+esc(t.titel)+'" loading="lazy" decoding="async">':'<div class="tph ph0" aria-hidden="true"><span>▶</span></div>');
-    return '<article class="tcard">'+m+'<span class="tnum">'+(i+1)+'</span><div class="tb">'+(t.reihe?'<span class="treihe">'+esc(t.reihe)+'</span>':'')+'<h3>'+esc(t.titel)+'</h3>'+(t.text?'<p>'+esc(t.text)+'</p>':'')+'<div class="tbtns">'+btn(t.ig,"Instagram","ig")+btn(t.fb,"Facebook","fb")+'</div></div></article>'}).join("");
+    return '<article class="tcard">'+m+'<span class="tnum">'+(t.datum?esc(t.datum):(i+1))+'</span><div class="tb">'+(t.reihe?'<span class="treihe">'+esc(t.reihe)+'</span>':'')+'<h3>'+esc(t.titel)+'</h3>'+(t.text?'<p>'+esc(t.text)+'</p>':'')+'<div class="tbtns">'+btn(t.ig,"Instagram","ig")+btn(t.fb,"Facebook","fb")+'</div></div></article>'}).join("");
 })();
 </script>
 
