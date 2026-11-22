@@ -1305,7 +1305,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-22zb"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-22zc"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -1592,5 +1592,84 @@ try{var q=new URLSearchParams(location.search).get("reise");if(q){try{sessionSto
 }catch(e){}})();
 </script>
 <!--CD-ADDON-END-->
+
+
+<!--SK-ADDON-START-->
+<style id="sk-addon-css">
+#sksheet{position:fixed;inset:0;z-index:9999;background:rgba(4,14,40,.55);display:flex;align-items:flex-end;justify-content:center}
+#sksheet[hidden]{display:none}
+.skpan{background:var(--surface);color:var(--text);width:100%;max-width:560px;max-height:90vh;border-radius:20px 20px 0 0;overflow:auto;padding-bottom:env(safe-area-inset-bottom)}
+.skhd{background:linear-gradient(160deg,var(--hero1),var(--hero2));color:#fff;padding:16px 16px 14px;position:relative}
+.skhd small{display:block;color:#7DD6FF;font:800 12px var(--body);letter-spacing:.03em}
+.skhd h3{margin:2px 0 0;font:800 24px/1.15 var(--head,var(--body));color:#fff}
+.skhd .sub{font-size:13px;color:#CFE0FF;margin-top:3px}
+.skhd .now{margin-top:10px;background:rgba(255,255,255,.13);border-radius:10px;padding:7px 10px;font-size:13.5px;line-height:1.4}
+.skx{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5);background:none;color:#fff;font-size:18px;cursor:pointer}
+.sks{padding:14px 16px;border-top:1px solid var(--line)}
+.sks h4{margin:0 0 9px;font:800 13px var(--body);color:var(--accent);letter-spacing:.02em}
+.skg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.skf{background:var(--bg);border-radius:12px;padding:9px 11px}
+.skf b{display:block;font:800 18px/1.2 var(--head,var(--body));color:var(--ink)}
+.skf span{font-size:12px;color:var(--muted)}
+.skf.w{grid-column:1/-1}
+.skf.w b{font-size:16px}
+.skbar{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:5px}
+.skbar span{width:118px;flex:none}
+.skbar i{display:block;height:9px;border-radius:5px;background:var(--accent)}
+.skbar i.o{background:#7DB4DD}
+.skr{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.skr:last-child{border-bottom:none}
+.skr small{color:var(--muted);white-space:nowrap}
+.skbtn{display:block;text-align:center;border:1.5px solid var(--accent);border-radius:12px;color:var(--accent);font:800 15px var(--body);padding:11px;text-decoration:none}
+.sknote{font-size:11.5px;color:var(--muted);margin:10px 0 0}
+</style>
+<script id="sk-addon">
+(function(){try{
+var SK={
+"Mein Schiff 1":{w:"Meyer Turku, Finnland",l:"316 m",d:16,t:"11.05.2018",o:"Hamburg (Hafengeburtstag)",p:"Laura Ludwig und Kira Walkenhorst (Beachvolleyball-Olympiasiegerinnen)",i:"Mai 2018",pax:2894,brz:"ca. 111.500",r:12,b:17,sis:"Mein Schiff 2 und 7",imo:"9783564",dp:"mein-schiff-1"},
+"Mein Schiff 2":{w:"Meyer Turku, Finnland",l:"316 m",d:16,t:"09.02.2019",o:"Lissabon",p:"Carolin Niemczyk (Sängerin, Glasperlenspiel)",i:"Januar 2019",pax:2894,brz:"ca. 111.500",r:12,b:17,sis:"Mein Schiff 1 und 7",imo:"9783576",dp:"mein-schiff-2"},
+"Mein Schiff 3":{w:"STX Finland, Turku (heute Meyer Turku)",l:"293 m",d:15,t:"12.06.2014",o:"Hamburg",p:"Helene Fischer (Sängerin)",i:"Juni 2014",pax:2506,brz:"ca. 99.526",r:9,b:15,sis:"Mein Schiff 4, 5 und 6",imo:"9641730",dp:"mein-schiff-3"},
+"Mein Schiff 4":{w:"Meyer Turku, Finnland",l:"295 m",d:15,t:"05.06.2015",o:"Kiel",p:"Franziska van Almsick (Schwimm-Weltmeisterin)",i:"Mai 2015",pax:2506,brz:"ca. 99.500",r:9,b:15,sis:"Mein Schiff 3, 5 und 6",imo:"9678408",dp:"mein-schiff-4"},
+"Mein Schiff 5":{w:"Meyer Turku, Finnland",l:"295 m",d:15,t:"15.07.2016",o:"Lübeck-Travemünde",p:"Lena Meyer-Landrut (Sängerin)",i:"Juli 2016",pax:2534,brz:"ca. 99.800",r:11,b:16,sis:"Mein Schiff 3, 4 und 6",imo:"9753193",dp:"mein-schiff-5"},
+"Mein Schiff 6":{w:"Meyer Turku, Finnland",l:"295 m",d:15,t:"01.06.2017",o:"Hamburg, vor der Elbphilharmonie",p:"Iveta Apkalna (Titularorganistin der Elbphilharmonie)",i:"Mai 2017",pax:2534,brz:"ca. 99.800",r:11,b:16,sis:"Mein Schiff 3, 4 und 5",imo:"9753208",dp:"mein-schiff-6"},
+"Mein Schiff 7":{w:"Meyer Turku, Finnland",l:"316 m",d:16,t:"22.06.2024",o:"Kiel",p:"Fenia Kalachani (Umweltoffizierin der Mein Schiff Flotte)",i:"Juni 2024",pax:2896,brz:"ca. 111.500",r:12,b:17,sis:"Mein Schiff 1 und 2",imo:"9851189",dp:"mein-schiff-7"},
+"Mein Schiff Relax":{w:"Fincantieri, Monfalcone (Italien)",l:"333 m",d:19,t:"09.04.2025",o:"Málaga",p:"Giuliana Rizzo (Spa-Mitarbeiterin an Bord)",i:"März 2025",pax:3984,brz:"ca. 161.000",r:14,b:17,sis:"Mein Schiff Flow",imo:"9862657",dp:"mein-schiff-relax"},
+"Mein Schiff Flow":{w:"Fincantieri, Monfalcone (Italien)",l:"333 m",d:19,t:"20.06.2026",o:"Triest",p:"Julia, Annabelle und Karin (aus der Mein Schiff Community gewählt)",i:"Juni 2026",pax:3984,brz:"ca. 161.000",r:14,b:17,sis:"Mein Schiff Relax",imo:"9862669",dp:"mein-schiff-flow"}};
+var MAX=3984;
+function E(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function today(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function fd(s){var p=s.split("-");return p[2]+"."+p[1]+"."}
+var sh=E("div");sh.id="sksheet";sh.hidden=true;document.body.appendChild(sh);
+function close(){sh.hidden=true;document.documentElement.style.overflow=""}
+sh.addEventListener("click",function(e){if(e.target===sh)close()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!sh.hidden)close()});
+function fleetToday(n){try{var F=window.FLEET||FLEET,k=Object.keys(F).sort(),t=today(),key=k.indexOf(t)>=0?t:k[k.length-1];var a=(F[key]||{}).ships||[];for(var i=0;i<a.length;i++)if(a[i].n===n)return a[i]}catch(e){}return null}
+function crew(n){try{var C=window.CREW||[];for(var i=0;i<C.length;i++)if(C[i].n===n)return C[i]}catch(e){}return null}
+function open(n){var s=SK[n];if(!s)return;sh.innerHTML="";var p=E("div","skpan");p.setAttribute("role","dialog");p.setAttribute("aria-modal","true");p.setAttribute("aria-label","Steckbrief "+n);
+var h=E("div","skhd");h.appendChild(E("small",null,"Steckbrief"));h.appendChild(E("h3",null,n));h.appendChild(E("div","sub","IMO "+s.imo+" · Schwesterschiffe: "+s.sis));
+var f=fleetToday(n);if(f){var tx="Heute: "+(f.ort||"")+(f.rt&&f.rt.t?" · "+f.rt.t:"");h.appendChild(E("div","now",tx))}
+var x=E("button","skx","✕");x.setAttribute("aria-label","Schließen");x.onclick=close;h.appendChild(x);p.appendChild(h);
+var a=E("div","sks");a.appendChild(E("h4",null,"Zahlen und Fakten"));var g=E("div","skg");
+[[s.i,"in Dienst gestellt"],[s.pax.toLocaleString("de-DE"),"Passagiere (max.)"],[s.l,"Länge"],[s.d+" Decks","Decks gesamt"],[s.brz,"BRZ"],[s.r+" / "+s.b,"Restaurants und Bistros / Bars und Lounges"]].forEach(function(v){var c=E("div","skf");c.appendChild(E("b",null,v[0]));c.appendChild(E("span",null,v[1]));g.appendChild(c)});
+var w=E("div","skf w");w.appendChild(E("b",null,s.w));w.appendChild(E("span",null,"Bauwerft"));g.appendChild(w);a.appendChild(g);
+var G=[["Relax und Flow",3984,["Mein Schiff Relax","Mein Schiff Flow"]],["Mein Schiff 1, 2 und 7",2896,["Mein Schiff 1","Mein Schiff 2","Mein Schiff 7"]],["Mein Schiff 5 und 6",2534,["Mein Schiff 5","Mein Schiff 6"]],["Mein Schiff 3 und 4",2506,["Mein Schiff 3","Mein Schiff 4"]]];
+var cap=E("div",null,"Größe im Flottenvergleich (Passagiere)");cap.style.cssText="font-size:12.5px;color:var(--muted);margin-top:12px";a.appendChild(cap);
+G.forEach(function(z){var me=z[2].indexOf(n)>=0,r=E("div","skbar");var lb=E("span",null,z[0]);if(me){lb.style.color="var(--ink)";lb.style.fontWeight="800"}r.appendChild(lb);var bar=E("div");bar.style.cssText="flex:1;background:var(--line);border-radius:5px";var i=E("i",me?"":"o");i.style.width=Math.round(z[1]/MAX*100)+"%";bar.appendChild(i);r.appendChild(bar);a.appendChild(r)});
+p.appendChild(a);
+var t=E("div","sks");t.appendChild(E("h4",null,"Taufe"));var tg=E("div","skg");[[s.t,"Taufdatum"],[s.o,"Taufort"]].forEach(function(v){var c=E("div","skf");c.appendChild(E("b",null,v[0]));c.appendChild(E("span",null,v[1]));tg.appendChild(c)});
+var pc=E("div","skf w");pc.appendChild(E("b",null,s.p));pc.appendChild(E("span",null,s.p.indexOf(" und ")>0&&s.p.indexOf("(")>s.p.indexOf(" und ")?"Taufpatinnen":"Taufpatin"));tg.appendChild(pc);t.appendChild(tg);p.appendChild(t);
+var cr=crew(n);if(cr&&(cr.kap||cr.kd||cr.note)){var c=E("div","sks");c.appendChild(E("h4",null,"Crew an Bord"));if(cr.note){var r0=E("div","skr");r0.appendChild(E("span",null,cr.note));c.appendChild(r0)}
+[["Kapitän",cr.kap,cr.kapSeit],["Kreuzfahrtdirektor",cr.kd,cr.kdSeit]].forEach(function(v){if(!v[1])return;var r=E("div","skr");r.appendChild(E("span",null,v[0]+": "+v[1]));if(v[2])r.appendChild(E("small",null,"seit "+v[2]));c.appendChild(r)});p.appendChild(c)}
+try{var D=window.CDTRIPS,si=D.s.indexOf(n),td=today(),nx=D.r.filter(function(r){return r[1]===si&&r[0]>td}).slice(0,3);if(nx.length){var q=E("div","sks");q.appendChild(E("h4",null,"Nächste Abfahrten"));nx.forEach(function(r0){var r=E("div","skr");r.appendChild(E("span",null,D.n[r0[3]]));r.appendChild(E("small",null,fd(r0[0])+" · "+r0[2]+" N."));q.appendChild(r)});p.appendChild(q)}}catch(e){}
+var z=E("div","sks");var dl=E("a","skbtn","Deckplan bei Mein Schiff ansehen →");dl.href="https://www.meinschiff.com/"+s.dp+"/decks";dl.target="_blank";dl.rel="noopener";z.appendChild(dl);
+z.appendChild(E("p","sknote","Fakten laut Mein Schiff Logbüchern, Werften und Presseberichten, ohne Gewähr."));p.appendChild(z);
+sh.appendChild(p);sh.hidden=false;document.documentElement.style.overflow="hidden";p.scrollTop=0}
+function add(){var cards=document.querySelectorAll("#fleet .ship");[].forEach.call(cards,function(c){if(c.getAttribute("data-sk"))return;var h=c.querySelector("h3"),f=c.querySelector(".foot");if(!h||!f)return;var n=h.textContent.trim();if(!SK[n])return;c.setAttribute("data-sk","1");
+var b=E("button","wbtn","📋 Steckbrief");b.type="button";b.style.border="none";b.style.cursor="pointer";b.style.font="inherit";b.style.fontWeight="700";b.style.fontSize="13px";b.setAttribute("aria-label","Steckbrief der "+n+" öffnen");b.onclick=function(){open(n)};f.appendChild(b)})}
+add();var mo=new MutationObserver(function(){add()});var fl=document.getElementById("fleet");if(fl)mo.observe(fl,{childList:true,subtree:true});
+window.SKopen=open;
+}catch(e){}})();
+</script>
+<!--SK-ADDON-END-->
 
 </body></html>
