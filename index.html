@@ -1305,7 +1305,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-22ze"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-22zf"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -1597,6 +1597,7 @@ try{var q=new URLSearchParams(location.search).get("reise");if(q){try{sessionSto
 
 
 
+
 <!--SK-ADDON-START-->
 <style id="sk-addon-css">
 #sksheet{position:fixed;inset:0;z-index:9999;background:rgba(4,14,40,.55);display:flex;align-items:flex-end;justify-content:center}
@@ -1642,7 +1643,7 @@ var SK={
 "Mein Schiff 7":{w:"Meyer Turku, Finnland",l:"316 m",d:16,t:"22.06.2024",o:"Kiel",p:"Fenia Kalachani (Umweltoffizierin der Mein Schiff Flotte)",i:"Juni 2024",pax:2896,brz:"ca. 111.500",r:12,b:17,sis:"Mein Schiff 1 und 2",imo:"9851189",dp:"mein-schiff-7"},
 "Mein Schiff Relax":{w:"Fincantieri, Monfalcone (Italien)",l:"333 m",d:19,t:"09.04.2025",o:"Málaga",p:"Giuliana Rizzo (Spa-Mitarbeiterin an Bord)",i:"März 2025",pax:3984,brz:"ca. 161.000",r:14,b:17,sis:"Mein Schiff Flow",imo:"9862657",dp:"mein-schiff-relax"},
 "Mein Schiff Flow":{w:"Fincantieri, Monfalcone (Italien)",l:"333 m",d:19,t:"20.06.2026",o:"Triest",p:"Julia, Annabelle und Karin (aus der Mein Schiff Community gewählt)",i:"Juni 2026",pax:3984,brz:"ca. 161.000",r:14,b:17,sis:"Mein Schiff Relax",imo:"9862669",dp:"mein-schiff-flow"}};
-var MAX=3984,CK={"Mein Schiff 1": ["My One & Only", "Bombay Sapphire, D.O.M. Bénédictine, Rose’s Lime Juice, Veilchensirup, Mein Schiff Sekt"], "Mein Schiff 2": ["Batismo", "Monkey 47 Sloe Gin, Cointreau, Schweppes Premium Mixer Tonic Hibiscus, Limettensaft, Agavendicksaft, Kaltauszug Ruby Mentha"], "Mein Schiff 3": ["Diamant trifft Perle", "Holunderblütensirup, Blue Curaçao, Mein Schiff Sekt"], "Mein Schiff 4": ["Die vierte Dimension", "Skyy Vodka, Maracujanektar, frischer Limettensaft, Grenadine, Mein Schiff Sekt"], "Mein Schiff 5": ["The Fifth", "Alpsinth 33, Blue Curaçao, Zitronensaft, Sprite, Mein Schiff Sekt, Zuckersirup"], "Mein Schiff 6": ["Prinz van Irving der Sechste", "Malibu, Cointreau, Erdbeerpüree, Erdbeersirup, Rhabarbersaft, Orangensaft, Mein Schiff Sekt"]};
+var MAX=3984,CK={"Mein Schiff 1": ["My One & Only", "Bombay Sapphire, D.O.M. Bénédictine, Rose’s Lime Juice, Veilchensirup, Mein Schiff Sekt"], "Mein Schiff 2": ["Batismo", "Monkey 47 Sloe Gin, Cointreau, Schweppes Premium Mixer Tonic Hibiscus, Limettensaft, Agavendicksaft, Kaltauszug Ruby Mentha"], "Mein Schiff 3": ["Diamant trifft Perle", "Holunderblütensirup, Blue Curaçao, Mein Schiff Sekt"], "Mein Schiff 4": ["Die vierte Dimension", "Skyy Vodka, Maracujanektar, frischer Limettensaft, Grenadine, Mein Schiff Sekt"], "Mein Schiff 5": ["The Fifth", "Alpsinth 33, Blue Curaçao, Zitronensaft, Sprite, Mein Schiff Sekt, Zuckersirup"], "Mein Schiff 6": ["Prinz van Irving der Sechste", "Malibu, Cointreau, Erdbeerpüree, Erdbeersirup, Rhabarbersaft, Orangensaft, Mein Schiff Sekt"], "Mein Schiff 7": ["Seven Seas", "Alpsinth (Alpenkräuter), Maracujasaft, Limettensaft, ein Schuss Zuckersirup"], "Mein Schiff Relax": ["Fifty Shades of Grape", "Grapuva (Traubenlikör) mit 24-karätigem Gold, aufgefüllt mit Prosecco – kreiert von Barkeeper-Weltmeisterin Linh Nguyen"], "Mein Schiff Flow": ["Let it flow", "Tanqueray No. Ten Gin, Holundersirup, Vanillelikör, Zitronensaft, ein Schuss Mineralwasser – kreiert von Linh Nguyen, von den Fans gewählt"]};
 function E(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function today(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
 function fd(s){var p=s.split("-");return p[2]+"."+p[1]+"."}
