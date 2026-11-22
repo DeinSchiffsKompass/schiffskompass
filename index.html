@@ -372,12 +372,12 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
 <section class="g3sec" aria-labelledby="g3h"><div class="wrap"><div class="g3card" id="globe3d">
   <p class="eyebrow">Die Flotte auf dem Globus</p>
   <h2 id="g3h">Wo sind die Schiffe gerade?</h2>
-  <p class="g3sub">Dreh den Globus mit dem Finger und tippe auf ein Schiff.</p>
+  <p class="g3sub">👆 Drehe oder zoome die Karte mit deinem Finger und tippe auf ein Schiff. Darunter öffnet sich eine Kurzinfo, für alle Details tippst du dort auf den Button.</p>
   <div class="g3stage"><div class="g3dest" aria-live="polite"><small></small><b></b></div><canvas role="img" aria-label="Drehbarer Globus mit den Positionen der Mein Schiff Flotte"></canvas>
     <div class="g3zoom"><button type="button" data-z="1" aria-label="Heranzoomen">+</button><button type="button" data-z="-1" aria-label="Herauszoomen">−</button></div></div>
   <div class="g3legend" aria-hidden="true"><span><i style="background:#F0A63A"></i>Hafen</span><span><i style="background:#2E9BFF"></i>Seetag</span><span><i style="background:#22A653"></i>Wechsel</span><span><i style="background:#E04848"></i>Ausfall/Werft</span></div>
-  <div class="g3chips" role="group" aria-label="Schiff auswählen"></div>
-  <div class="g3info" aria-live="polite"><p>Tippe auf ein Schiff, um zu sehen, wo es liegt und wohin es als Nächstes fährt.</p></div>
+  <div class="g3chips" role="group" aria-label="Schiff auswählen" hidden style="display:none"></div>
+  <div class="g3info" aria-live="polite"><p>👆 Tippe oben auf ein Schiff. Hier erscheint dann, wo es liegt und wohin es als Nächstes fährt.</p></div>
   <p class="g3note">Positionen laut Fahrplan, an Seetagen geschätzt. Die dunkle Seite zeigt, wo gerade Nacht ist.</p>
 </div></div></section>
 <!--GLOBUS-END-->
@@ -1289,7 +1289,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-22c"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-22d"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
