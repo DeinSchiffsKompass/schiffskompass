@@ -1304,7 +1304,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-22w"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-22x"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -1334,6 +1334,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
   window.addEventListener("focus",function(){check()});
 }catch(e){}})();
 </script>
+
 
 
 
@@ -1495,7 +1496,7 @@ if(!(n>=1&&n<=150)){e.textContent="Bitte die Anzahl der Nächte eintragen (1 bis
 var h=$("cdfH").value.trim();pick({d:d,s:$("cdfS").value,n:n,name:$("cdfN").value.trim()||"Meine Kreuzfahrt",h:h?"ab "+h:"",m:1})};
 function open(ix){edit=ix;var a=ld(),v=ix>=0?a[ix]:null,d=v?v.d:today();if(!ys[d.slice(0,4)])d=Object.keys(ys).sort()[0]+"-01";$("cdsY").value=d.slice(0,4);$("cdsM").value=d.slice(5,7);var si=v?D.s.indexOf(v.s):-1;$("cdsS").value=si<0?"":si;
 $("cdh").textContent=ix>=0?"Reise ändern":(a.length?"Weitere Reise hinzufügen":"Deine Reise wählen");list();mode(!!(v&&v.m),v);sh.hidden=false;document.documentElement.style.overflow="hidden"}
-function close(){sh.hidden=true;document.documentElement.style.overflow=""}
+function close(){try{sessionStorage.removeItem("skImport")}catch(e){}sh.hidden=true;document.documentElement.style.overflow=""}
 $("cdx").onclick=close;sh.addEventListener("click",function(e){if(e.target===sh)close()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!sh.hidden)close()});
 function cnt(v,c){var now=new Date(),ms=new Date(v.d+"T00:00:00")-now;
@@ -1541,7 +1542,7 @@ if(go>0&&car.children[go])car.scrollLeft=car.children[go].offsetLeft-car.childre
 $("cdadd").onclick=function(){open(-1)};
 document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest(".cdtile");if(t){e.preventDefault();e.stopPropagation();open(-1)}},true);
 show(0);
-try{var q=new URLSearchParams(location.search).get("reise");if(q){var t0=decode(q);history.replaceState(null,"",location.pathname+location.hash);if(t0){edit=-1;open(-1);$("cdpI").value=q;pview();pcheck();$("cdh").textContent="Geteilte Reise hinzufügen"}}}catch(e){}
+try{var q=new URLSearchParams(location.search).get("reise");if(q){try{sessionStorage.setItem("skImport",q)}catch(e){}history.replaceState(null,"",location.pathname+location.hash)}else{try{q=sessionStorage.getItem("skImport")}catch(e){}}if(q){var t0=decode(q);if(t0){edit=-1;open(-1);$("cdpI").value=q;pview();pcheck();$("cdh").textContent="Geteilte Reise hinzufügen"}}}catch(e){}
 }catch(e){}})();
 </script>
 <!--CD-ADDON-END-->
