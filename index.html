@@ -1305,7 +1305,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-22zd"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-22ze"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -1596,6 +1596,7 @@ try{var q=new URLSearchParams(location.search).get("reise");if(q){try{sessionSto
 
 
 
+
 <!--SK-ADDON-START-->
 <style id="sk-addon-css">
 #sksheet{position:fixed;inset:0;z-index:9999;background:rgba(4,14,40,.55);display:flex;align-items:flex-end;justify-content:center}
@@ -1624,7 +1625,7 @@ try{var q=new URLSearchParams(location.search).get("reise");if(q){try{sessionSto
 .skr small{color:var(--muted);white-space:nowrap}
 .skbtn{display:block;text-align:center;border:1.5px solid var(--accent);border-radius:12px;color:var(--accent);font:800 15px var(--body);padding:11px;text-decoration:none}
 .sknote{font-size:11.5px;color:var(--muted);margin:10px 0 0}
-.skbw{flex-basis:100%;width:100%;margin:6px 0 6px}
+.skbw{margin:-2px 0 8px}
 .skbtn2{display:inline-flex;align-items:center;gap:6px;border:none;background:var(--accent);color:#fff;box-shadow:0 2px 6px rgba(10,111,216,.3);border-radius:999px;padding:6px 13px 6px 10px;font:800 13px/1.2 var(--body);cursor:pointer;min-height:30px}
 .skbtn2:hover{filter:brightness(1.08)}
 .skbtn2 svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -1641,7 +1642,7 @@ var SK={
 "Mein Schiff 7":{w:"Meyer Turku, Finnland",l:"316 m",d:16,t:"22.06.2024",o:"Kiel",p:"Fenia Kalachani (Umweltoffizierin der Mein Schiff Flotte)",i:"Juni 2024",pax:2896,brz:"ca. 111.500",r:12,b:17,sis:"Mein Schiff 1 und 2",imo:"9851189",dp:"mein-schiff-7"},
 "Mein Schiff Relax":{w:"Fincantieri, Monfalcone (Italien)",l:"333 m",d:19,t:"09.04.2025",o:"Málaga",p:"Giuliana Rizzo (Spa-Mitarbeiterin an Bord)",i:"März 2025",pax:3984,brz:"ca. 161.000",r:14,b:17,sis:"Mein Schiff Flow",imo:"9862657",dp:"mein-schiff-relax"},
 "Mein Schiff Flow":{w:"Fincantieri, Monfalcone (Italien)",l:"333 m",d:19,t:"20.06.2026",o:"Triest",p:"Julia, Annabelle und Karin (aus der Mein Schiff Community gewählt)",i:"Juni 2026",pax:3984,brz:"ca. 161.000",r:14,b:17,sis:"Mein Schiff Relax",imo:"9862669",dp:"mein-schiff-flow"}};
-var MAX=3984;
+var MAX=3984,CK={"Mein Schiff 1": ["My One & Only", "Bombay Sapphire, D.O.M. Bénédictine, Rose’s Lime Juice, Veilchensirup, Mein Schiff Sekt"], "Mein Schiff 2": ["Batismo", "Monkey 47 Sloe Gin, Cointreau, Schweppes Premium Mixer Tonic Hibiscus, Limettensaft, Agavendicksaft, Kaltauszug Ruby Mentha"], "Mein Schiff 3": ["Diamant trifft Perle", "Holunderblütensirup, Blue Curaçao, Mein Schiff Sekt"], "Mein Schiff 4": ["Die vierte Dimension", "Skyy Vodka, Maracujanektar, frischer Limettensaft, Grenadine, Mein Schiff Sekt"], "Mein Schiff 5": ["The Fifth", "Alpsinth 33, Blue Curaçao, Zitronensaft, Sprite, Mein Schiff Sekt, Zuckersirup"], "Mein Schiff 6": ["Prinz van Irving der Sechste", "Malibu, Cointreau, Erdbeerpüree, Erdbeersirup, Rhabarbersaft, Orangensaft, Mein Schiff Sekt"]};
 function E(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function today(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
 function fd(s){var p=s.split("-");return p[2]+"."+p[1]+"."}
@@ -1658,22 +1659,21 @@ var x=E("button","skx","✕");x.setAttribute("aria-label","Schließen");x.onclic
 var a=E("div","sks");a.appendChild(E("h4",null,"Zahlen und Fakten"));var g=E("div","skg");
 [[s.i,"in Dienst gestellt"],[s.pax.toLocaleString("de-DE"),"Passagiere (max.)"],[s.l,"Länge"],[s.d+" Decks","Decks gesamt"],[s.brz,"BRZ"],[s.r+" / "+s.b,"Restaurants und Bistros / Bars und Lounges"]].forEach(function(v){var c=E("div","skf");c.appendChild(E("b",null,v[0]));c.appendChild(E("span",null,v[1]));g.appendChild(c)});
 var w=E("div","skf w");w.appendChild(E("b",null,s.w));w.appendChild(E("span",null,"Bauwerft"));g.appendChild(w);a.appendChild(g);
-var G=[["Relax und Flow",3984,["Mein Schiff Relax","Mein Schiff Flow"]],["Mein Schiff 1, 2 und 7",2896,["Mein Schiff 1","Mein Schiff 2","Mein Schiff 7"]],["Mein Schiff 5 und 6",2534,["Mein Schiff 5","Mein Schiff 6"]],["Mein Schiff 3 und 4",2506,["Mein Schiff 3","Mein Schiff 4"]]];
-var cap=E("div",null,"Größe im Flottenvergleich (Passagiere)");cap.style.cssText="font-size:12.5px;color:var(--muted);margin-top:12px";a.appendChild(cap);
-G.forEach(function(z){var me=z[2].indexOf(n)>=0,r=E("div","skbar");var lb=E("span",null,z[0]);if(me){lb.style.color="var(--ink)";lb.style.fontWeight="800"}r.appendChild(lb);var bar=E("div");bar.style.cssText="flex:1;background:var(--line);border-radius:5px";var i=E("i",me?"":"o");i.style.width=Math.round(z[1]/MAX*100)+"%";bar.appendChild(i);r.appendChild(bar);a.appendChild(r)});
+var G=[["Relax und Flow",3984,["Mein Schiff Relax","Mein Schiff Flow"]],["Mein Schiff 7",2896,["Mein Schiff 7"]],["Mein Schiff 1 und 2",2894,["Mein Schiff 1","Mein Schiff 2"]],["Mein Schiff 5 und 6",2534,["Mein Schiff 5","Mein Schiff 6"]],["Mein Schiff 3 und 4",2506,["Mein Schiff 3","Mein Schiff 4"]]];
+var cap=E("div",null,"Maximale Passagierzahl im Flottenvergleich");cap.style.cssText="font-size:12.5px;color:var(--muted);margin-top:12px";a.appendChild(cap);
+G.forEach(function(z){var me=z[2].indexOf(n)>=0,r=E("div","skbar");var lb=E("span",null,z[0]);if(me){lb.style.color="var(--ink)";lb.style.fontWeight="800"}r.appendChild(lb);var bar=E("div");bar.style.cssText="flex:1;background:var(--line);border-radius:5px";var i=E("i",me?"":"o");i.style.width=Math.round(z[1]/MAX*100)+"%";bar.appendChild(i);r.appendChild(bar);var nm=E("b",null,z[1].toLocaleString("de-DE"));nm.style.cssText="width:42px;text-align:right;font-size:12.5px;color:"+(me?"var(--ink)":"var(--muted)");r.appendChild(nm);a.appendChild(r)});
 p.appendChild(a);
 var t=E("div","sks");t.appendChild(E("h4",null,"Taufe"));var tg=E("div","skg");[[s.t,"Taufdatum"],[s.o,"Taufort"]].forEach(function(v){var c=E("div","skf");c.appendChild(E("b",null,v[0]));c.appendChild(E("span",null,v[1]));tg.appendChild(c)});
-var pc=E("div","skf w");pc.appendChild(E("b",null,s.p));pc.appendChild(E("span",null,s.p.indexOf(" und ")>0&&s.p.indexOf("(")>s.p.indexOf(" und ")?"Taufpatinnen":"Taufpatin"));tg.appendChild(pc);t.appendChild(tg);p.appendChild(t);
-var cr=crew(n);if(cr&&(cr.kap||cr.kd||cr.note)){var c=E("div","sks");c.appendChild(E("h4",null,"Crew an Bord"));if(cr.note){var r0=E("div","skr");r0.appendChild(E("span",null,cr.note));c.appendChild(r0)}
-[["Kapitän",cr.kap,cr.kapSeit],["Kreuzfahrtdirektor",cr.kd,cr.kdSeit]].forEach(function(v){if(!v[1])return;var r=E("div","skr");r.appendChild(E("span",null,v[0]+": "+v[1]));if(v[2])r.appendChild(E("small",null,"seit "+v[2]));c.appendChild(r)});p.appendChild(c)}
+var pc=E("div","skf w");pc.appendChild(E("b",null,s.p));pc.appendChild(E("span",null,s.p.indexOf(" und ")>0&&s.p.indexOf("(")>s.p.indexOf(" und ")?"Taufpatinnen":"Taufpatin"));tg.appendChild(pc);if(CK[n]){var ck=E("div","skf w");ck.appendChild(E("b",null,"🍸 "+CK[n][0]));var cs=E("span",null,"Taufcocktail: "+CK[n][1]);cs.style.lineHeight="1.4";ck.appendChild(cs);tg.appendChild(ck)}t.appendChild(tg);p.appendChild(t);
 try{var D=window.CDTRIPS,si=D.s.indexOf(n),td=today(),nx=D.r.filter(function(r){return r[1]===si&&r[0]>td}).slice(0,3);if(nx.length){var q=E("div","sks");q.appendChild(E("h4",null,"Nächste Abfahrten"));nx.forEach(function(r0){var r=E("div","skr");r.appendChild(E("span",null,D.n[r0[3]]));r.appendChild(E("small",null,fd(r0[0])+" · "+r0[2]+" N."));q.appendChild(r)});p.appendChild(q)}}catch(e){}
 var z=E("div","sks");var dl=E("a","skbtn","Deckplan bei Mein Schiff ansehen →");dl.href="https://www.meinschiff.com/"+s.dp+"/decks";dl.target="_blank";dl.rel="noopener";z.appendChild(dl);
 z.appendChild(E("p","sknote","Fakten laut Mein Schiff Logbüchern, Werften und Presseberichten, ohne Gewähr."));p.appendChild(z);
 sh.appendChild(p);sh.hidden=false;document.documentElement.style.overflow="hidden";p.scrollTop=0}
+function align(c){var w=c.querySelector(".skbw"),h=c.querySelector("h3"),tp=c.querySelector(".top");if(!w||!h||!tp)return;w.style.marginLeft=Math.max(0,Math.round(h.getBoundingClientRect().left-tp.getBoundingClientRect().left))+"px"}
 function add(){var cards=document.querySelectorAll("#fleet .ship");[].forEach.call(cards,function(c){if(c.getAttribute("data-sk"))return;var h=c.querySelector("h3");if(!h)return;var n=h.textContent.trim();if(!SK[n])return;c.setAttribute("data-sk","1");
-var b=E("button","skbtn2");b.type="button";b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>Steckbrief →';b.setAttribute("aria-label","Steckbrief der "+n+" öffnen");b.onclick=function(e){e.stopPropagation();open(n)};var wr=E("div","skbw");wr.appendChild(b);h.parentNode.insertBefore(wr,h.nextSibling)})}
+var b=E("button","skbtn2");b.type="button";b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>Steckbrief →';b.setAttribute("aria-label","Steckbrief der "+n+" öffnen");b.onclick=function(e){e.stopPropagation();open(n)};var wr=E("div","skbw");wr.appendChild(b);var tp=c.querySelector(".top")||h.parentNode;tp.parentNode.insertBefore(wr,tp.nextSibling);align(c)})}
 add();var mo=new MutationObserver(function(){add()});var fl=document.getElementById("fleet");if(fl)mo.observe(fl,{childList:true,subtree:true});
-window.SKopen=open;
+window.SKopen=open;window.addEventListener("resize",function(){[].forEach.call(document.querySelectorAll("#fleet .ship"),align)});document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href='#flotte'],[data-v=flotte]");if(a)setTimeout(function(){[].forEach.call(document.querySelectorAll("#fleet .ship"),align)},300)});setTimeout(function(){[].forEach.call(document.querySelectorAll("#fleet .ship"),align)},1500);
 }catch(e){}})();
 </script>
 <!--SK-ADDON-END-->
