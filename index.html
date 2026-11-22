@@ -1305,7 +1305,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-22zc"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-22zd"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -1594,6 +1594,8 @@ try{var q=new URLSearchParams(location.search).get("reise");if(q){try{sessionSto
 <!--CD-ADDON-END-->
 
 
+
+
 <!--SK-ADDON-START-->
 <style id="sk-addon-css">
 #sksheet{position:fixed;inset:0;z-index:9999;background:rgba(4,14,40,.55);display:flex;align-items:flex-end;justify-content:center}
@@ -1622,6 +1624,10 @@ try{var q=new URLSearchParams(location.search).get("reise");if(q){try{sessionSto
 .skr small{color:var(--muted);white-space:nowrap}
 .skbtn{display:block;text-align:center;border:1.5px solid var(--accent);border-radius:12px;color:var(--accent);font:800 15px var(--body);padding:11px;text-decoration:none}
 .sknote{font-size:11.5px;color:var(--muted);margin:10px 0 0}
+.skbw{flex-basis:100%;width:100%;margin:6px 0 6px}
+.skbtn2{display:inline-flex;align-items:center;gap:6px;border:none;background:var(--accent);color:#fff;box-shadow:0 2px 6px rgba(10,111,216,.3);border-radius:999px;padding:6px 13px 6px 10px;font:800 13px/1.2 var(--body);cursor:pointer;min-height:30px}
+.skbtn2:hover{filter:brightness(1.08)}
+.skbtn2 svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 </style>
 <script id="sk-addon">
 (function(){try{
@@ -1664,8 +1670,8 @@ try{var D=window.CDTRIPS,si=D.s.indexOf(n),td=today(),nx=D.r.filter(function(r){
 var z=E("div","sks");var dl=E("a","skbtn","Deckplan bei Mein Schiff ansehen →");dl.href="https://www.meinschiff.com/"+s.dp+"/decks";dl.target="_blank";dl.rel="noopener";z.appendChild(dl);
 z.appendChild(E("p","sknote","Fakten laut Mein Schiff Logbüchern, Werften und Presseberichten, ohne Gewähr."));p.appendChild(z);
 sh.appendChild(p);sh.hidden=false;document.documentElement.style.overflow="hidden";p.scrollTop=0}
-function add(){var cards=document.querySelectorAll("#fleet .ship");[].forEach.call(cards,function(c){if(c.getAttribute("data-sk"))return;var h=c.querySelector("h3"),f=c.querySelector(".foot");if(!h||!f)return;var n=h.textContent.trim();if(!SK[n])return;c.setAttribute("data-sk","1");
-var b=E("button","wbtn","📋 Steckbrief");b.type="button";b.style.border="none";b.style.cursor="pointer";b.style.font="inherit";b.style.fontWeight="700";b.style.fontSize="13px";b.setAttribute("aria-label","Steckbrief der "+n+" öffnen");b.onclick=function(){open(n)};f.appendChild(b)})}
+function add(){var cards=document.querySelectorAll("#fleet .ship");[].forEach.call(cards,function(c){if(c.getAttribute("data-sk"))return;var h=c.querySelector("h3");if(!h)return;var n=h.textContent.trim();if(!SK[n])return;c.setAttribute("data-sk","1");
+var b=E("button","skbtn2");b.type="button";b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>Steckbrief →';b.setAttribute("aria-label","Steckbrief der "+n+" öffnen");b.onclick=function(e){e.stopPropagation();open(n)};var wr=E("div","skbw");wr.appendChild(b);h.parentNode.insertBefore(wr,h.nextSibling)})}
 add();var mo=new MutationObserver(function(){add()});var fl=document.getElementById("fleet");if(fl)mo.observe(fl,{childList:true,subtree:true});
 window.SKopen=open;
 }catch(e){}})();
