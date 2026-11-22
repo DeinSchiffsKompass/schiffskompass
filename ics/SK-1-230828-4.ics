@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//DEIN SchiffsKompass//Countdown//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20280823-MeinSchiff1-4@deinschiffskompass.de
+DTSTAMP:20261122T000000Z
+DTSTART;VALUE=DATE:20280823
+DTEND;VALUE=DATE:20280828
+SUMMARY:Mein Schiff 1: Skandinavische Auszeit: Entspannung an Bord & Hygg
+ e an Land
+DESCRIPTION:4 Nächte ab Kiel/bis Hamburg – www.deinschiffskompass.de
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

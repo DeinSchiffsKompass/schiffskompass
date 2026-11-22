@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//DEIN SchiffsKompass//Countdown//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20280929-MeinSchiff3-4@deinschiffskompass.de
+DTSTAMP:20261122T000000Z
+DTSTART;VALUE=DATE:20280929
+DTEND;VALUE=DATE:20281004
+SUMMARY:Mein Schiff 3: Amsterdam entdecken: Entspannung an Bord & Grachte
+ n an Land
+DESCRIPTION:4 Nächte ab/bis Bremerhaven – www.deinschiffskompass.de
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

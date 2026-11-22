@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//DEIN SchiffsKompass//Countdown//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20271120-MeinSchiffFlow-5@deinschiffskompass.de
+DTSTAMP:20261122T000000Z
+DTSTART;VALUE=DATE:20271120
+DTEND;VALUE=DATE:20271126
+SUMMARY:Mein Schiff Flow: Skandinavische Auszeit: Entspannung an Bord & H
+ ygge an Land
+DESCRIPTION:5 Nächte ab Kiel/bis Hamburg – www.deinschiffskompass.de
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

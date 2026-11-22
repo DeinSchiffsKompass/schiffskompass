@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//DEIN SchiffsKompass//Countdown//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20270122-MeinSchiffFlow-36@deinschiffskompass.de
+DTSTAMP:20261122T000000Z
+DTSTART;VALUE=DATE:20270122
+DTEND;VALUE=DATE:20270228
+SUMMARY:Mein Schiff Flow: Karibik ab Deutschland mit Highlights rund um G
+ enuss\, Sport & Kultur
+DESCRIPTION:36 Nächte ab/bis Hamburg – www.deinschiffskompass.de
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

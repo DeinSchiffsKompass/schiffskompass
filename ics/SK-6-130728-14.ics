@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//DEIN SchiffsKompass//Countdown//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20280713-MeinSchiff6-14@deinschiffskompass.de
+DTSTAMP:20261122T000000Z
+DTSTART;VALUE=DATE:20280713
+DTEND;VALUE=DATE:20280728
+SUMMARY:Mein Schiff 6: Europas Sonnenseite und die Schönheiten der Westk
+ üste
+DESCRIPTION:14 Nächte ab Palma/bis Leixões (Porto) – www.deinschiffsk
+ ompass.de
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

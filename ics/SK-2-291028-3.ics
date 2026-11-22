@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//DEIN SchiffsKompass//Countdown//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20281029-MeinSchiff2-3@deinschiffskompass.de
+DTSTAMP:20261122T000000Z
+DTSTART;VALUE=DATE:20281029
+DTEND;VALUE=DATE:20281102
+SUMMARY:Mein Schiff 2: Kopenhagen entdecken: Entspannung an Bord & Hygge 
+ an Land
+DESCRIPTION:3 Nächte ab Kiel/bis Bremerhaven – www.deinschiffskompass.
+ de
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

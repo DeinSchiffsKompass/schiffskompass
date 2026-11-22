@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//DEIN SchiffsKompass//Countdown//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20270316-MeinSchiffFlow-7@deinschiffskompass.de
+DTSTAMP:20261122T000000Z
+DTSTART;VALUE=DATE:20270316
+DTEND;VALUE=DATE:20270324
+SUMMARY:Mein Schiff Flow: Faszination Mittelmeer / Take a Chance at Sea 
+ – a Tribute to ABBA
+DESCRIPTION:7 Nächte ab/bis Palma – www.deinschiffskompass.de
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

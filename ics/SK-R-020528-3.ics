@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//DEIN SchiffsKompass//Countdown//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20280502-MeinSchiffRelax-3@deinschiffskompass.de
+DTSTAMP:20261122T000000Z
+DTSTART;VALUE=DATE:20280502
+DTEND;VALUE=DATE:20280506
+SUMMARY:Mein Schiff Relax: Adults-only: Entspannte Auszeit zwischen Hambu
+ rg und Kopenhagen
+DESCRIPTION:3 Nächte ab Hamburg/bis Kiel – www.deinschiffskompass.de
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

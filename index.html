@@ -1305,7 +1305,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-22y"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-22z"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -1335,6 +1335,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
   window.addEventListener("focus",function(){check()});
 }catch(e){}})();
 </script>
+
 
 
 
@@ -1505,9 +1506,15 @@ if(ms<=0){c.className="cdc go";c.innerHTML=now<=new Date(addD(v.d,v.n)+"T23:59:5
 var d=Math.floor(ms/864e5),h=Math.floor(ms/36e5)%24,m=Math.floor(ms/6e4)%60;c.className="cdc";
 c.innerHTML="<b>"+d+"</b><span>"+(d===1?"Tag":"Tage")+"</span><b>"+h+"</b><span>Std.</span><b>"+m+"</b><span>Min.</span>"}
 function tick(){var a=ld();[].forEach.call(car.querySelectorAll(".cdc"),function(c,i){if(a[i])cnt(a[i],c)})}
-function ics(v){var z=function(s){return s.replace(/-/g,"")};
-var t=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//DEIN SchiffsKompass//Countdown//DE","BEGIN:VEVENT","UID:"+z(v.d)+"-"+v.s.replace(/\W/g,"")+"@deinschiffskompass.de","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z","DTSTART;VALUE=DATE:"+z(v.d),"DTEND;VALUE=DATE:"+z(addD(v.d,v.n+1)),"SUMMARY:"+v.s+": "+v.name,"DESCRIPTION:"+v.n+" Nächte "+(v.h?v.h+" ":"")+(v.k?"· Kabine "+v.k+" ":"")+"– www.deinschiffskompass.de","END:VEVENT","END:VCALENDAR"].join("\r\n");
-var a=document.createElement("a");a.href="data:text/calendar;charset=utf-8,"+encodeURIComponent(t);a.download="Kreuzfahrt-"+v.d+".ics";document.body.appendChild(a);a.click();a.remove()}
+function icsEsc(x){return String(x).replace(/\\/g,"\\\\").replace(/;/g,"\;").replace(/,/g,"\\,").replace(/\r?\n/g,"\\n")}
+function icsFold(l){var o=[],cur="",n=0;for(var ch of l){var b=unescape(encodeURIComponent(ch)).length;if(n+b>73){o.push(cur);cur=" ";n=1}cur+=ch;n+=b}o.push(cur);return o.join("\r\n")}
+function icsText(v){var z=function(s){return s.replace(/-/g,"")};
+return ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//DEIN SchiffsKompass//Countdown//DE","CALSCALE:GREGORIAN","METHOD:PUBLISH","BEGIN:VEVENT","UID:"+z(v.d)+"-"+v.s.replace(/\W/g,"")+"-"+v.n+"@deinschiffskompass.de","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z","DTSTART;VALUE=DATE:"+z(v.d),"DTEND;VALUE=DATE:"+z(addD(v.d,v.n+1)),"SUMMARY:"+icsEsc(v.s+": "+v.name),"DESCRIPTION:"+icsEsc(v.n+" Nächte "+(v.h?v.h+" ":"")+(v.k?"· Kabine "+v.k+" ":"")+"– www.deinschiffskompass.de"),"TRANSP:TRANSPARENT","END:VEVENT","END:VCALENDAR"].map(icsFold).join("\r\n")+"\r\n"}
+function ics(v){var ios=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+if(ios&&inList(v)){location.href="/ics/"+code(v)+".ics";return}
+var bl=new Blob([icsText(v)],{type:"text/calendar;charset=utf-8"}),u=URL.createObjectURL(bl);
+if(ios){var w=window.open(u,"_blank");if(!w)location.href=u;setTimeout(function(){URL.revokeObjectURL(u)},60000);return}
+var a=document.createElement("a");a.href=u;a.download="Kreuzfahrt-"+v.d+".ics";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},60000)}
 var mn=document.createElement("div");mn.id="cdmenu";mn.hidden=true;mn.setAttribute("role","menu");
 mn.innerHTML='<a class="wa" role="menuitem" target="_blank" rel="noopener">'+I.wa+'Per WhatsApp teilen</a><button class="cal" role="menuitem">'+I.cal+'In Kalender eintragen</button><button class="ed" role="menuitem">'+I.ed+'Reise ändern</button><hr><button class="del" role="menuitem">'+I.del+'Reise löschen</button>';
 document.body.appendChild(mn);var mbtn=null,mt=0;function mscroll(){if(Date.now()-mt>400)mclose()}
