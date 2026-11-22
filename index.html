@@ -564,17 +564,20 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
   <h2>4. Kartendaten und Satellitenbild</h2>
   <p>Wenn du den Bereich Flotte öffnest, lädt dein Browser für die Karte Ländergrenzen von den Content-Delivery-Netzen jsDelivr (cdn.jsdelivr.net) bzw. unpkg (unpkg.com) und ein Satellitenbild vom Dienst GIBS der NASA (gibs.earthdata.nasa.gov, USA). Dabei erhalten diese Anbieter technisch bedingt deine IP-Adresse sowie Datum und Uhrzeit des Abrufs. Ich erhalte davon keine Daten. Rechtsgrundlage ist mein berechtigtes Interesse an einer anschaulichen Darstellung der Schiffspositionen (Art. 6 Abs. 1 lit. f DSGVO). Dabei können Daten in Länder außerhalb der EU, insbesondere in die USA, übermittelt werden.</p>
 
-  <h2>5. Links zu anderen Seiten</h2>
+  <h2>5. Reise-Countdown (Speicherung auf deinem Gerät)</h2>
+  <p>Wenn du im Reise-Countdown eine oder mehrere Reisen einträgst, werden nur die Reisedaten (Schiff, Reisename, Abreisedatum, Reisedauer und Häfen) im lokalen Speicher deines Browsers (localStorage) auf deinem Gerät abgelegt. Diese Daten werden nicht an mich oder an Dritte übertragen; ich erhalte keine Kenntnis davon, welche Reisen du einträgst. Eine Anmeldung ist nicht nötig, und es werden keine Namen, Kontaktdaten oder sonstigen persönlichen Angaben abgefragt. Die Speicherung ist für die von dir ausdrücklich gewünschte Funktion unbedingt erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG). Du kannst eine Reise jederzeit über den Löschen-Button entfernen; außerdem werden vergangene Reisen eine Woche nach Reiseende automatisch gelöscht. Alle Einträge verschwinden auch, wenn du die Website-Daten in deinem Browser löschst. Die Kalenderdatei und der WhatsApp-Text werden direkt auf deinem Gerät erzeugt. Erst wenn du über den WhatsApp-Button teilst, gelangt der Text zu WhatsApp, und es gilt die Datenschutzerklärung von WhatsApp.</p>
+
+  <h2>6. Links zu anderen Seiten</h2>
   <p>Die Seite enthält Links, unter anderem zu Instagram, Facebook, UnserSchiff, CruiseMapper, Windy, VesselFinder, WhatsApp und zur Google-Suche. Die WhatsApp-Links unter „Buchen“ öffnen einen Chat mit mir in WhatsApp (WhatsApp Ireland Ltd., ein Unternehmen von Meta); schreibst du mir dort, gilt zusätzlich die Datenschutzerklärung von WhatsApp. Der Button „Position“ in den Schiffskarten öffnet die Schiffsseite von VesselFinder (vesselfinder.com) mit der zuletzt gemeldeten AIS-Position. Die Buttons „Wellen“ und „Wetter“ in den Schiffskarten öffnen die Kartenansicht von Windy.com (embed.windy.com) für die Position des Schiffs. Diese Seiten werden nicht eingebettet. Daten werden erst übertragen, wenn du einen Link antippst, und ab dann gilt die Datenschutzerklärung des jeweiligen Anbieters. Über den Partnerlink zu UnserSchiff wird dort deine Buchung meiner Beraternummer zugeordnet. Wer du bist, erfahre ich dadurch erst, wenn du tatsächlich buchst oder Kontakt aufnimmst.</p>
 
-  <h2>6. Kontakt per E-Mail, Telefon oder Messenger</h2>
+  <h2>7. Kontakt per E-Mail, Telefon oder Messenger</h2>
   <p>Wenn du mich kontaktierst, verarbeite ich deine Angaben (z. B. Name, Kontaktdaten, Inhalt der Nachricht), um deine Anfrage zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, wenn es um eine Reise oder Buchung geht, sonst mein berechtigtes Interesse an der Beantwortung (Art. 6 Abs. 1 lit. f DSGVO). Ich lösche die Daten, wenn sie nicht mehr gebraucht werden und keine gesetzlichen Aufbewahrungspflichten bestehen. Bei einer Buchung gelten zusätzlich die Datenschutzhinweise des Reiseveranstalters und die <a href="https://solamento.com/datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung</a> der Solamento Reisen GmbH.</p>
 
-  <h2>7. Deine Rechte</h2>
+  <h2>8. Deine Rechte</h2>
   <p>Du hast das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18) und Datenübertragbarkeit (Art. 20). <b>Du kannst außerdem jederzeit Widerspruch gegen Verarbeitungen einlegen, die auf meinem berechtigten Interesse beruhen (Art. 21 DSGVO).</b> Eine formlose Nachricht an die oben genannte E-Mail-Adresse genügt.</p>
   <p>Du hast zudem das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren. Für mich zuständig ist: Der Landesbeauftragte für den Datenschutz Niedersachsen, Prinzenstraße 5, 30159 Hannover.</p>
 
-  <h2>8. Stand</h2>
+  <h2>9. Stand</h2>
   <p>November 2026</p>
 
   <p><a href="#impressum">Zum Impressum</a></p>
@@ -1301,7 +1304,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-22q"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-22r"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
