@@ -26,6 +26,7 @@
 #uc.open .cu s>b{animation:ucSwing 1.6s ease-out forwards}
 @keyframes ucSwing{0%{transform:skewX(0)}25%{transform:skewX(-5deg)}50%{transform:skewX(3deg)}72%{transform:skewX(-1.5deg)}88%{transform:skewX(.6deg)}100%{transform:skewX(0)}}
 #uc .val{position:absolute;top:0;left:0;right:0;height:50px;z-index:4;background:linear-gradient(180deg,#051340,#0B2A72);box-shadow:0 8px 18px rgba(0,0,0,.45)}
+#uc .val{transition:transform 1s cubic-bezier(.55,0,.2,1) 1.2s}#uc.open .val{transform:translateY(-120%)}
 #uc .val::before{content:"";position:absolute;left:0;right:0;bottom:7px;height:2px;background:rgba(255,255,255,.9)}
 #uc .val::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1px;background:rgba(255,255,255,.45)}
 #uc .card{padding-top:66px;padding-bottom:28px;z-index:3;align-items:flex-start}#uc .card>.b{margin:auto}
@@ -68,7 +69,7 @@ function show(){if(free||document.getElementById("uc"))return;var d=document.cre
  var N=10;Array.prototype.forEach.call(d.querySelectorAll(".cu"),function(c){for(var k=0;k<N;k++){var st=document.createElement("s"),bb=document.createElement("b"),w=100/N;
   st.style.cssText="left:"+(k*w)+"%;width:calc("+w+"% + 3px);z-index:"+(N-k)+";transition-delay:"+((N-1-k)*0.06)+"s";st.setAttribute("data-k",k);bb.style.animationDelay=(0.9+(N-1-k)*0.06)+"s";st.appendChild(bb);c.appendChild(st)}});
  var css=document.createElement("style");css.textContent="#uc.open .cu s{transform:translateX(var(--gx)) scaleX(.36)}";d.appendChild(css);
- function gx(){var W=d.querySelector(".cu").getBoundingClientRect().width||200;Array.prototype.forEach.call(d.querySelectorAll(".cu s"),function(st){var k=+st.getAttribute("data-k");st.style.setProperty("--gx",(k*5-k*W/N)+"px")})}
+ function gx(){var W=d.querySelector(".cu").getBoundingClientRect().width||200;Array.prototype.forEach.call(d.querySelectorAll(".cu s"),function(st){var k=+st.getAttribute("data-k");st.style.setProperty("--gx",(k*3-k*W/N-60)+"px")})}
  gx();window.addEventListener("resize",gx);
  setTimeout(function(){d.classList.add("open")},400);
  d.querySelector(".t").onclick=function(){f.classList.add("on");this.classList.add("on");i.focus()};
