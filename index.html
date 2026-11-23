@@ -2207,6 +2207,261 @@ document.addEventListener("click",function(e){var t=e.target.closest&&e.target.c
 window.KFopen=open;
 }catch(e){}})();
 </script>
+<style id="kk-style">
+.kkbox{margin-top:18px;border:1.5px solid var(--accent);border-radius:16px;padding:14px;background:color-mix(in srgb,var(--accent) 5%,var(--bg))}
+.kkbox>b{display:block;font:800 17px/1.25 var(--head,var(--body));color:var(--ink)}
+.kkbox>p{margin:4px 0 10px;font-size:13px;line-height:1.45;color:var(--muted)}
+.kkchips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.kkchips button{border:1.5px solid var(--line);background:var(--bg);color:var(--text);border-radius:999px;padding:7px 11px;font:700 13px var(--body);cursor:pointer}
+.kkchips button.on{border-color:var(--accent);background:var(--accent);color:#fff}
+.kklab{display:block;font:800 12.5px var(--body);color:var(--muted);margin-top:8px}
+.kkin{width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);padding:10px 12px;font:700 16px var(--body);margin-top:4px}
+#kfsheet details.kksec{border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-top:8px;background:var(--bg)}
+#kfsheet details.kksec>summary{cursor:pointer;font:800 14.5px var(--body);color:var(--ink);list-style:none}
+#kfsheet details.kksec>summary::-webkit-details-marker{display:none}
+#kfsheet details.kksec>summary::after{content:"＋";float:right;color:var(--accent)}
+#kfsheet details.kksec[open]>summary::after{content:"－"}
+.kksec .kkt{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px;line-height:1.35}
+.kksec .kkt td{padding:6px 4px;border-top:1px solid var(--line);vertical-align:top}
+.kksec .kkt td:first-child{white-space:nowrap;font-weight:800;color:var(--ink);width:1%}
+.kksec .kkt tr.me td{background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.kksec p{margin:8px 0 0;font-size:13px;line-height:1.45}
+.kksum{margin-top:8px;padding:10px;border-radius:12px;background:color-mix(in srgb,var(--accent) 10%,var(--bg));font-size:13.5px;line-height:1.45}
+.kkbar{position:relative;height:16px;border-radius:8px;background:var(--line);margin:8px 0 4px;overflow:hidden}
+.kkbar i{position:absolute;top:0;bottom:0}
+.kkbar i.l1{background:#9BD3A0}.kkbar i.l2{background:#F2C14E}.kkbar i.l3{background:#E8684A}
+.kkax{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.kkdots{letter-spacing:2px;color:var(--accent);font-size:13px}
+.kknote{font-size:11.5px!important;color:var(--muted)}
+</style>
+<script id="kk-addon">
+/* Kabinen-Kompass: ergänzt das Ergebnis des Kabinen-Finders um Sonnenseite, Sonnenauf- und -untergang, Einlaufen,
+   Steckbrief zur Kabinennummer, Lärm-Tagesverlauf und Seegang je Lage. Rechnet nur im Browser aus FLEET (Feld rt). */
+(function(){try{
+var SH=["Mein Schiff 1","Mein Schiff 2","Mein Schiff 3","Mein Schiff 4","Mein Schiff 5","Mein Schiff 6","Mein Schiff 7","Mein Schiff Relax","Mein Schiff Flow"];
+/* Häfen: [Breite, Länge, Zeitzone, Tenderhafen] */
+var P={"Montego Bay":[18.463,-77.94,"America/Jamaica"],"Ocho Rios":[18.411,-77.104,"America/Jamaica"],"Falmouth":[18.497,-77.656,"America/Jamaica"],
+"George Town":[19.295,-81.388,"America/Cayman",1],"Cozumel":[20.484,-86.966,"America/Cancun"],"Costa Maya":[18.714,-87.709,"America/Cancun"],"Belize City":[17.48,-88.18,"America/Belize",1],
+"Roatán":[16.32,-86.55,"America/Tegucigalpa"],"Puerto Limón":[9.99,-83.02,"America/Costa_Rica"],"Colón":[9.36,-79.9,"America/Panama"],"Cartagena|Kolumbien":[10.4,-75.53,"America/Bogota"],
+"Santa Marta":[11.24,-74.22,"America/Bogota"],"La Romana":[18.416,-68.957,"America/Santo_Domingo"],"Santo Domingo":[18.473,-69.882,"America/Santo_Domingo"],"Samaná":[19.2,-69.33,"America/Santo_Domingo",1],
+"Catalina Island":[18.355,-69.03,"America/Santo_Domingo",1],"Puerto Plata":[19.84,-70.73,"America/Santo_Domingo"],"Oranjestad":[12.518,-70.038,"America/Aruba"],"Willemstad":[12.105,-68.932,"America/Curacao"],
+"Kralendijk":[12.15,-68.28,"America/Kralendijk"],"St. John's":[17.123,-61.848,"America/Antigua"],"Basseterre":[17.293,-62.718,"America/St_Kitts"],"Roseau":[15.296,-61.389,"America/Dominica"],
+"Pointe-à-Pitre":[16.233,-61.535,"America/Guadeloupe"],"Fort-de-France":[14.6,-61.07,"America/Martinique"],"Castries":[14.015,-60.995,"America/St_Lucia"],"Bridgetown":[13.105,-59.63,"America/Barbados"],
+"Kingstown":[13.15,-61.23,"America/St_Vincent"],"St. George's":[12.05,-61.755,"America/Grenada"],"Road Town":[18.42,-64.61,"America/Tortola"],"Philipsburg":[18.02,-63.05,"America/Lower_Princes"],
+"Charlotte Amalie":[18.335,-64.92,"America/St_Thomas"],"San Juan":[18.46,-66.11,"America/Puerto_Rico"],"Havanna":[23.14,-82.35,"America/Havana"],"Nassau":[25.08,-77.34,"America/Nassau"],
+"Miami":[25.78,-80.17,"America/New_York"],"New York":[40.77,-74.0,"America/New_York"],"Bayonne":[40.67,-74.08,"America/New_York"],
+"Funchal":[32.642,-16.911,"Atlantic/Madeira"],"Santa Cruz de Tenerife":[28.474,-16.243,"Atlantic/Canary"],"Las Palmas de Gran Canaria":[28.141,-15.424,"Atlantic/Canary"],"Las Palmas":[28.141,-15.424,"Atlantic/Canary"],
+"Arrecife":[28.96,-13.54,"Atlantic/Canary"],"Puerto del Rosario":[28.497,-13.857,"Atlantic/Canary"],"San Sebastián de La Gomera":[28.09,-17.11,"Atlantic/Canary"],"Santa Cruz de La Palma":[28.68,-17.76,"Atlantic/Canary"],
+"Agadir":[30.42,-9.64,"Africa/Casablanca"],"Casablanca":[33.61,-7.61,"Africa/Casablanca"],"Tanger":[35.79,-5.81,"Africa/Casablanca"],"Mindelo":[16.89,-24.99,"Atlantic/Cape_Verde"],"Praia":[14.91,-23.5,"Atlantic/Cape_Verde"],
+"Ponta Delgada":[37.74,-25.66,"Atlantic/Azores"],"Horta":[38.53,-28.62,"Atlantic/Azores"],"Praia da Vitória":[38.73,-27.05,"Atlantic/Azores"],
+"Walvis Bay":[-22.95,14.5,"Africa/Windhoek"],"Lüderitz":[-26.64,15.16,"Africa/Windhoek"],"Kapstadt":[-33.91,18.43,"Africa/Johannesburg"],"Gqeberha":[-33.96,25.63,"Africa/Johannesburg"],"Durban":[-29.87,31.04,"Africa/Johannesburg"],
+"Port Louis":[-20.157,57.497,"Indian/Mauritius"],"Saint-Denis":[-20.94,55.29,"Indian/Reunion"],"Victoria":[-4.62,55.46,"Indian/Mahe"],"Malé":[4.18,73.51,"Indian/Maldives",1],"Colombo":[6.95,79.84,"Asia/Colombo"],
+"Hambantota":[6.12,81.11,"Asia/Colombo"],"Klang":[3.0,101.39,"Asia/Kuala_Lumpur"],"Penang":[5.42,100.35,"Asia/Kuala_Lumpur"],"Phuket":[7.82,98.4,"Asia/Bangkok",1],"Singapur":[1.264,103.82,"Asia/Singapore"],
+"Dubai":[25.27,55.28,"Asia/Dubai"],"Abu Dhabi":[24.53,54.38,"Asia/Dubai"],"Sir Bani Yas":[24.3,52.6,"Asia/Dubai",1],"Doha":[25.3,51.55,"Asia/Qatar"],"Maskat":[23.63,58.57,"Asia/Muscat"],"Khasab":[26.2,56.25,"Asia/Muscat"],
+"Kiel":[54.326,10.142,"Europe/Berlin"],"Hamburg":[53.54,9.97,"Europe/Berlin"],"Bremerhaven":[53.54,8.57,"Europe/Berlin"],"Warnemünde":[54.18,12.09,"Europe/Berlin"],
+"Kopenhagen":[55.7,12.6,"Europe/Copenhagen"],"Aarhus":[56.15,10.22,"Europe/Copenhagen"],"Skagen":[57.72,10.59,"Europe/Copenhagen"],"Rønne":[55.1,14.69,"Europe/Copenhagen"],
+"Oslo":[59.905,10.735,"Europe/Oslo"],"Kristiansand":[58.14,7.99,"Europe/Oslo"],"Stavanger":[58.97,5.73,"Europe/Oslo"],"Bergen":[60.39,5.316,"Europe/Oslo"],"Haugesund":[59.41,5.27,"Europe/Oslo"],
+"Ålesund":[62.47,6.15,"Europe/Oslo"],"Geiranger":[62.1,7.2,"Europe/Oslo",1],"Hellesylt":[62.08,6.87,"Europe/Oslo"],"Flåm":[60.86,7.11,"Europe/Oslo"],"Olden":[61.84,6.81,"Europe/Oslo"],"Eidfjord":[60.47,7.07,"Europe/Oslo"],
+"Molde":[62.73,7.16,"Europe/Oslo"],"Trondheim":[63.44,10.4,"Europe/Oslo"],"Tromsø":[69.65,18.96,"Europe/Oslo"],"Honningsvåg":[70.98,25.97,"Europe/Oslo"],
+"Stockholm":[59.32,18.1,"Europe/Stockholm"],"Visby":[57.64,18.28,"Europe/Stockholm"],"Helsinki":[60.16,24.95,"Europe/Helsinki"],"Tallinn":[59.44,24.76,"Europe/Tallinn"],"Riga":[56.96,24.1,"Europe/Riga"],
+"Klaipėda":[55.71,21.12,"Europe/Vilnius"],"Gdynia":[54.53,18.55,"Europe/Warsaw"],"Amsterdam":[52.38,4.91,"Europe/Amsterdam"],"Rotterdam":[51.9,4.48,"Europe/Amsterdam"],"Antwerpen":[51.23,4.4,"Europe/Brussels"],
+"Zeebrügge":[51.33,3.2,"Europe/Brussels"],"Le Havre":[49.48,0.11,"Europe/Paris"],"Dover":[51.12,1.33,"Europe/London"],"Southampton":[50.9,-1.4,"Europe/London"],"Leith":[55.98,-3.17,"Europe/London"],
+"Edinburgh":[55.98,-3.17,"Europe/London"],"Invergordon":[57.69,-4.17,"Europe/London"],"Kirkwall":[58.99,-2.96,"Europe/London"],"Lerwick":[60.16,-1.14,"Europe/London"],"Belfast":[54.62,-5.9,"Europe/London"],
+"Liverpool":[53.4,-3.0,"Europe/London"],"Greenock":[55.95,-4.76,"Europe/London"],"Newcastle":[55.0,-1.45,"Europe/London"],"Dublin":[53.35,-6.2,"Europe/Dublin"],"Cobh":[51.85,-8.3,"Europe/Dublin"],
+"Bilbao":[43.34,-3.03,"Europe/Madrid"],"La Coruña":[43.37,-8.39,"Europe/Madrid"],"A Coruña":[43.37,-8.39,"Europe/Madrid"],"Vigo":[42.24,-8.72,"Europe/Madrid"],"Lissabon":[38.71,-9.12,"Europe/Lisbon"],
+"Porto":[41.18,-8.7,"Europe/Lisbon"],"Leixões":[41.18,-8.7,"Europe/Lisbon"],"Cádiz":[36.54,-6.29,"Europe/Madrid"],"Málaga":[36.71,-4.42,"Europe/Madrid"],"Gibraltar":[36.14,-5.36,"Europe/Gibraltar"],
+"Cartagena|Spanien":[37.59,-0.98,"Europe/Madrid"],"Valencia":[39.45,-0.32,"Europe/Madrid"],"Barcelona":[41.37,2.18,"Europe/Madrid"],"Palma de Mallorca":[39.553,2.627,"Europe/Madrid"],"Palma":[39.553,2.627,"Europe/Madrid"],
+"Ibiza":[38.91,1.44,"Europe/Madrid"],"Mahón":[39.89,4.27,"Europe/Madrid"],"Alicante":[38.34,-0.48,"Europe/Madrid"],"Almería":[36.83,-2.47,"Europe/Madrid"],
+"Marseille":[43.33,5.34,"Europe/Paris"],"Toulon":[43.12,5.93,"Europe/Paris"],"Ajaccio":[41.92,8.74,"Europe/Paris"],"Villefranche":[43.7,7.31,"Europe/Paris",1],"Cannes":[43.55,7.02,"Europe/Paris",1],
+"Monaco":[43.735,7.425,"Europe/Monaco"],"Genua":[44.41,8.91,"Europe/Rome"],"La Spezia":[44.1,9.84,"Europe/Rome"],"Livorno":[43.56,10.3,"Europe/Rome"],"Civitavecchia":[42.1,11.776,"Europe/Rome"],
+"Neapel":[40.84,14.26,"Europe/Rome"],"Salerno":[40.67,14.75,"Europe/Rome"],"Messina":[38.19,15.56,"Europe/Rome"],"Palermo":[38.13,13.37,"Europe/Rome"],"Catania":[37.5,15.1,"Europe/Rome"],
+"Cagliari":[39.21,9.11,"Europe/Rome"],"Olbia":[40.92,9.52,"Europe/Rome"],"Triest":[45.65,13.76,"Europe/Rome"],"Venedig":[45.44,12.32,"Europe/Rome"],"Bari":[41.13,16.87,"Europe/Rome"],"Ravenna":[44.49,12.28,"Europe/Rome"],
+"Valletta":[35.89,14.51,"Europe/Malta"],"Dubrovnik":[42.66,18.08,"Europe/Zagreb"],"Split":[43.5,16.44,"Europe/Zagreb"],"Zadar":[44.12,15.22,"Europe/Zagreb"],"Kotor":[42.42,18.77,"Europe/Podgorica"],
+"Korfu":[39.62,19.91,"Europe/Athens"],"Katakolon":[37.64,21.32,"Europe/Athens"],"Piräus":[37.94,23.63,"Europe/Athens"],"Heraklion":[35.34,25.14,"Europe/Athens"],"Rhodos":[36.45,28.23,"Europe/Athens"],
+"Mykonos":[37.45,25.32,"Europe/Athens"],"Santorini":[36.42,25.43,"Europe/Athens",1],"Chania":[35.49,24.07,"Europe/Athens"],"Kusadasi":[37.86,27.26,"Europe/Istanbul"],"Istanbul":[41.03,28.98,"Europe/Istanbul"],
+"Bodrum":[37.03,27.43,"Europe/Istanbul"],"Antalya":[36.83,30.6,"Europe/Istanbul"],"Limassol":[34.65,33.01,"Asia/Nicosia"],"Haifa":[32.82,35.0,"Asia/Jerusalem"]};
+/* Einlaufen: nur Häfen, bei denen die Seite beim Einlaufen eindeutig ist */
+var IN={"Kiel":"Durch die Kieler Förde: Laboe mit dem Marine-Ehrenmal an Backbord, der Leuchtturm Friedrichsort an Steuerbord, zum Schluss die Innenförde voraus.",
+"Hamburg":"Elbaufwärts: Willkomm-Höft in Wedel, Blankenese, Övelgönne und die Elbphilharmonie liegen an Backbord, Containerterminals und Werften an Steuerbord.",
+"Bremerhaven":"Weseraufwärts: Bremerhaven mit den Havenwelten liegt an Backbord, Butjadingen an Steuerbord.",
+"Warnemünde":"In die Warnow: Leuchtturm, Teepott und Strand von Warnemünde an Steuerbord.",
+"Lissabon":"Tejo-aufwärts: Torre de Belém und das Entdeckerdenkmal an Backbord, die Christusstatue Cristo Rei an Steuerbord – dazwischen geht es unter der Brücke des 25. April hindurch.",
+"Valletta":"In den Grand Harbour: Valletta mit Fort St. Elmo an Steuerbord, die Drei Städte mit Fort St. Angelo an Backbord.",
+"Geiranger":"In den Geirangerfjord: Der Wasserfall Sieben Schwestern liegt an Backbord, der „Freier“ gegenüber an Steuerbord.",
+"Stockholm":"Rund drei Stunden durch die Schären – auf beiden Seiten Inseln und Holzhäuser, beide Seiten lohnen sich.",
+"Oslo":"Die letzten Stunden durch den Oslofjord mit der Enge bei Drøbak – Oper und Festung Akershus kommen zum Schluss voraus in Sicht.",
+"Kapstadt":"Der Tafelberg liegt beim Einlaufen voraus – am schönsten vom Bug oder vom vorderen Außendeck.",
+"New York":"In der Upper Bay: Freiheitsstatue an Backbord, die Skyline von Manhattan voraus und an Steuerbord.",
+"Bayonne":"In der Upper Bay: Freiheitsstatue an Backbord, die Skyline von Manhattan an Steuerbord."};
+var DK={/* Deckname, Kategorien, Hinweise – nur, was im Kabinen-Finder belegt ist */
+A:{3:["Atlantik","Innen/Außen",["⚓ Tief im Schiff – wenig Bewegung bei Seegang.","⚙️ Ganz vorne bzw. hinten hört man Anker, Bugstrahlruder und Technik.","💶 Meist günstig, kurze Wege zu den Landgängen."]],
+ 4:["Seestern","Innen/Außen, Einzelkabinen (MS 7)",["⚓ Tief – gut bei Seekrankheit.","🎶 Gilt als eher lebhaft – nicht direkt an Treppenhaus oder Aufzug wählen."]],
+ 6:["Boje","Kat. E/G/H",["🚤 Teils hängen Rettungsboote von Deck 5 vor dem Balkon (Kat. H, Sichtbehinderung)."]],
+ 7:["Hanse","Kat. D",["🥪 Reines Kabinendeck – über und unter dir nur Kabinen.","⚓ Tiefstes Balkondeck mit freier Sicht – ruhig im Seegang."]],
+ 8:["Muschel","Kat. C",["🥪 Reines Kabinendeck – sehr ruhig."]],9:["Koralle","Kat. B",["🥪 Reines Kabinendeck – sehr ruhig."]],
+ 10:["Perle","Kat. A, Junior Suiten",["✨ Junior Suiten und Suiten, zwischen Kabinendecks."]],
+ 11:["Krabbe","Kat. F, SPA-Balkon (BS)",["🏊 Direkt unter Pooldeck, Buffet bzw. Poolbar – frühmorgens Stühlerücken, tagsüber Trubel.","🏗️ Deck 12 ragt weit über – wenig Sonne auf dem Balkon."]],
+ 14:["","Kat. A, Übersee Suiten",["⬆️ Weit oben – mehr Bewegung bei Seegang."]],15:["Brise","Himmel & Meer Suiten",["⬆️ Ganz oben vorne – bei Seegang am unruhigsten."]]},
+B:{3:["Atlantik","Innen/Außen",["⚓ Tief im Schiff – wenig Bewegung bei Seegang.","⚙️ Ganz vorne bzw. hinten hört man Anker, Bugstrahlruder und Technik."]],
+ 6:["Boje","Kat. E/G/H",["🚤 Teils hängen Rettungsboote von Deck 5 vor dem Balkon (Kat. H, Sichtbehinderung)."]],
+ 7:["Hanse","Kat. D",["🥪 Reines Kabinendeck – ruhig.","⚓ Tiefstes Balkondeck mit freier Sicht."]],8:["Muschel","Kat. C",["🥪 Reines Kabinendeck – sehr ruhig."]],9:["Koralle","Kat. B",["🥪 Reines Kabinendeck – sehr ruhig."]],
+ 10:["Perle","Kat. A, Junior und Themen Suiten",["✨ Liegt zwischen Kabinendecks – ruhig."]],
+ 11:["Krabbe","Kat. F, SPA-Balkon (BS)",["🏊 Direkt unter Pooldeck bzw. Buffet – frühmorgens und tagsüber hörbar.","🏗️ Deck 12 ragt weit über – wenig Sonne auf dem Balkon."]],
+ 14:["","Himmel & Meer Suiten (vorne)",["⬆️ Weit oben am Bug – bei Seegang unruhiger."]]},
+R:{3:["Welle","Innen/Außen",["⚓ Tief im Schiff – wenig Bewegung.","⚙️ In einzelnen Kabinen brummt die Technik; vorne/hinten Anker und Strahlruder."]],
+ 6:["Koralle","Kat. G/H",["🚤 Viele Balkone mit Rettungsbooten davor; die vordersten liegen an einer öffentlichen Promenade.","🎶 Darunter auf Deck 5 Bars und Theater – abends kann Musik hörbar sein."]],
+ 7:["Seestern","Kat. E",["✨ Hier liegt auch die X-Lounge."]],8:["Muschel","Kat. E",["🥪 Ringsum nur Kabinen – ruhig.","⚓ Tiefstes Balkondeck mit freier Sicht – gut bei Seegang."]],
+ 9:["Krabbe","Kat. D",["🥪 Ringsum nur Kabinen – besonders ruhig.","♿ Barrierefreie Balkonkabinen (Kat. G)."]],10:["","Kat. D",[]],
+ 11:["Delfin","Kat. C, Einzelkabinen",["🧍 Hier liegen die Einzelkabinen."]],12:["Robbe","Kat. B",["😴 Liegt hoch und ist trotzdem ruhig."]],
+ 14:["Kompass","Kat. A, SPA-Balkon (BS)",["🧖 Nah am Spa, hinter den Aufzügen sehr ruhig."]],15:["Perle","Kat. F",["🏊 Direkt unter dem Pooldeck – Liegen, Poolbetrieb und Musik sind hörbar."]]}};
+var POOL={A:11,B:11,R:15};
+function kcl(n){return /Relax|Flow/.test(n)?"R":/ [127]$/.test(n)?"A":"B"}
+function E(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+var R2=Math.PI/180;
+function p2(n){return(n<10?"0":"")+n}
+/* Zeitzonen-Versatz in Minuten */
+var FC={};function off(tz,ms){try{var f=FC[tz]||(FC[tz]=new Intl.DateTimeFormat("en-US",{timeZone:tz,hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}));var o={};f.formatToParts(new Date(ms)).forEach(function(x){o[x.type]=x.value});return Math.round((Date.UTC(+o.year,+o.month-1,+o.day,+o.hour%24,+o.minute)-Math.floor(ms/60000)*60000)/60000)}catch(e){return 0}}
+function loc(iso,hm,tz){var y=+iso.slice(0,4),m=+iso.slice(5,7)-1,d=+iso.slice(8,10),h=+hm[0],mi=+hm[1];var u=Date.UTC(y,m,d,h,mi);return u-off(tz,u)*60000}
+function hhmm(ms,tz){var t=new Date(ms+off(tz,ms)*60000);return p2(t.getUTCHours())+":"+p2(t.getUTCMinutes())}
+function wd(iso){var t=new Date(iso+"T12:00:00Z");return["So","Mo","Di","Mi","Do","Fr","Sa"][t.getUTCDay()]+" "+iso.slice(8,10)+"."+iso.slice(5,7)+"."}
+function addD(iso,n){var t=new Date(iso+"T12:00:00Z");t.setUTCDate(t.getUTCDate()+n);return t.toISOString().slice(0,10)}
+/* Sonnenstand (vereinfachte Formeln, genau genug für Seite und Uhrzeit) */
+function sun(ms,la,lo){var d=ms/864e5-10957.5,g=(357.529+.98560028*d)*R2,q=280.459+.98564736*d,L=(q+1.915*Math.sin(g)+.02*Math.sin(2*g))*R2,e=(23.439-3.6e-7*d)*R2;
+ var ra=Math.atan2(Math.cos(e)*Math.sin(L),Math.cos(L)),dec=Math.asin(Math.sin(e)*Math.sin(L)),gm=(18.697374558+24.06570982441908*d)%24;
+ var H=((gm*15+lo)*R2-ra),f=la*R2,alt=Math.asin(Math.sin(f)*Math.sin(dec)+Math.cos(f)*Math.cos(dec)*Math.cos(H));
+ var az=Math.atan2(Math.sin(H),Math.cos(H)*Math.sin(f)-Math.tan(dec)*Math.cos(f))/R2+180;return{alt:alt/R2,az:(az+360)%360}}
+function brg(a,b){var f1=a[0]*R2,f2=b[0]*R2,dl=(b[1]-a[1])*R2;var y=Math.sin(dl)*Math.cos(f2),x=Math.cos(f1)*Math.sin(f2)-Math.sin(f1)*Math.cos(f2)*Math.cos(dl);return(Math.atan2(y,x)/R2+360)%360}
+function mid(a,b,t){var f1=a[0]*R2,l1=a[1]*R2,f2=b[0]*R2,l2=b[1]*R2;var x1=Math.cos(f1)*Math.cos(l1),y1=Math.cos(f1)*Math.sin(l1),z1=Math.sin(f1),x2=Math.cos(f2)*Math.cos(l2),y2=Math.cos(f2)*Math.sin(l2),z2=Math.sin(f2);
+ var w=Math.acos(Math.max(-1,Math.min(1,x1*x2+y1*y2+z1*z2)));if(w<1e-6)return[a[0],a[1]];var s1=Math.sin((1-t)*w)/Math.sin(w),s2=Math.sin(t*w)/Math.sin(w);
+ var x=s1*x1+s2*x2,y=s1*y1+s2*y2,z=s1*z1+s2*z2;return[Math.atan2(z,Math.sqrt(x*x+y*y))/R2,Math.atan2(y,x)/R2]}
+function kurs(h){return["N","NO","O","SO","S","SW","W","NW"][Math.round(h/45)%8]}
+function side(az,h){var r=(az-h+360)%360;return r<20||r>340?"voraus":r>160&&r<200?"achteraus":r<180?"Steuerbord":"Backbord"}
+/* Ort aus der Reiseliste finden */
+function port(name){var land=(name.split(",").slice(-1)[0]||"").trim(),b=name.split(",")[0].replace(/\s*\(.*$/,"").trim();
+ var x=P[b+"|"+land]||P[b];if(!x){var k=Object.keys(P).filter(function(k){return k.indexOf("|")<0&&(b.indexOf(k)===0||k.indexOf(b)===0)})[0];x=k?P[k]:null}
+ if(!x){var F=window.FLEET||{};Object.keys(F).forEach(function(d){F[d].ships.forEach(function(s){if(!x&&s.pn&&s.lat!=null&&b.indexOf(s.pn)===0)x=[s.lat,s.lon,s.tz||"UTC"]})})}
+ return x?{n:b,full:name,la:x[0],lo:x[1],tz:x[2],td:!!x[3]}:null}
+function tm(s){var m=s.match(/(\d{1,2})[:.](\d{2})/g);return m?m.map(function(x){return x.split(/[:.]/)}):[]}
+function route(n){var F=window.FLEET||{},ks=Object.keys(F).sort(),rt=null;for(var i=ks.length-1;i>=0&&!rt;i--)F[ks[i]].ships.forEach(function(s){if(s.n===n&&s.rt&&s.rt.s&&s.rt.s.length)rt=s.rt});
+ if(!rt)return null;var C=[],miss=[];
+ rt.s.forEach(function(r){if(r[2]==="Seetag")return;var p=port(r[2]);if(!p){miss.push(r[2]);return}var z=r[3]||"",T=tm(z),a=null,dep=null,d1=r[0],d2=r[1]||r[0];
+  var mm=z.match(/an (\d{2})\.(\d{2})\..*?ab (\d{2})\.(\d{2})\./);if(mm){d1=r[0].slice(0,4)+"-"+mm[2]+"-"+mm[1];d2=r[0].slice(0,4)+"-"+mm[4]+"-"+mm[3]}
+  if(/^Abfahrt/.test(z)&&T[0])dep=loc(d2,T[0],p.tz);else if(/^Ankunft/.test(z)&&T[0])a=loc(d1,T[0],p.tz);
+  else if(T.length>=2){a=loc(d1,T[0],p.tz);dep=loc(d2,T[1],p.tz)}else{a=loc(d1,["08","00"],p.tz);dep=loc(d2,["18","00"],p.tz);p.est=1}
+  p.a=a;p.d=dep;p.d1=d1;p.d2=d2;C.push(p)});
+ return{rt:rt,C:C,miss:miss}}
+/* Position und Kurs zu einem Zeitpunkt */
+function where(R,ms){var C=R.C;for(var i=0;i<C.length;i++){var c=C[i];var a=c.a==null?-Infinity:c.a,d=c.d==null?Infinity:c.d;if(ms>=a&&ms<=d)return{port:c,la:c.la,lo:c.lo,tz:c.tz};
+  var n=C[i+1];if(n&&c.d!=null&&n.a!=null&&ms>c.d&&ms<n.a){var t=(ms-c.d)/(n.a-c.d),p=mid([c.la,c.lo],[n.la,n.lo],t);return{sea:1,from:c,to:n,la:p[0],lo:p[1],h:brg(p,[n.la,n.lo]),tz:c.tz}}}
+ return null}
+/* Bordzeit: im Hafen dessen Zeitzone, auf See nach Längengrad, begrenzt auf die Zeitzonen von letztem und nächstem Hafen */
+function bz(R,ms){var w=where(R,ms);if(!w)return 0;if(w.port)return off(w.port.tz,ms);var a=off(w.from.tz,ms),b=off(w.to.tz,ms),n=Math.round(w.lo/15)*60;return Math.max(Math.min(a,b),Math.min(Math.max(a,b),n))}
+function lbz(R,iso,h,mi,tz){var u=Date.UTC(+iso.slice(0,4),+iso.slice(5,7)-1,+iso.slice(8,10),h,mi||0);return u-bz(R,u-off(tz,u)*6e4)*6e4}
+function hbz(R,ms){var t=new Date(ms+bz(R,ms)*6e4);return p2(t.getUTCHours())+":"+p2(t.getUTCMinutes())}
+function std(n){return n+(n===1?" Stunde":" Stunden")}
+function seaDays(R){var out=[],C=R.C;for(var i=0;i+1<C.length;i++){var c=C[i],n=C[i+1];if(c.d==null||n.a==null)continue;var d=addD(c.d2,1);while(d<n.d1){out.push({d:d,from:c,to:n});d=addD(d,1)}}return out}
+/* Seegang: typische Bedingungen nach Seegebiet und Monat (1 ruhig … 5 rau) */
+function seeg(la,lo,m){var W=(m>=10||m<=2),S=(m>=5&&m<=8);
+ if(la>=51&&la<=62&&lo>=-4&&lo<=9)return["Nordsee",W?4:S?2:3];if(la>=56&&la<=59.5&&lo>9&&lo<=12.5)return["Skagerrak/Kattegat",W?3:2];
+ if(la>58&&lo>-5&&lo<=20&&!(lo>12&&la<66))return["Nordmeer vor Norwegen",W?4:S?2:3];if(la>=53&&la<=66&&lo>9&&lo<=30)return["Ostsee",W?3:S?1:2];
+ if(la>=43&&la<51&&lo>=-12&&lo<-1)return["Biskaya",W?4:S?2:3];if(la>=30&&la<=46&&lo>=-6&&lo<=36)return["Mittelmeer",W?3:S?1:2];
+ if(la>=14&&la<43&&lo>=-30&&lo<-6)return["Atlantik bei Kanaren und Madeira",W?3:2];if(la>=8&&la<=27&&lo>=-90&&lo<=-58)return["Karibik",(m===12||m<=3)?3:2];
+ if(la>=-45&&la<-15&&lo>=10&&lo<=60)return["Südlicher Indischer Ozean",3];if(la>=-15&&la<=25&&lo>=40&&lo<=100)return["Indischer Ozean",(m>=6&&m<=9)?3:2];
+ if(la>=10&&la<=30&&lo>32&&lo<60)return["Rotes Meer / Arabischer Golf",1];if(la>=-10&&la<=25&&lo>100&&lo<=125)return["Südostasien",(m>=11||m<=3)?3:2];
+ return["offener Ozean",W?4:3]}
+function dots(n){n=Math.max(1,Math.min(5,Math.round(n)));return "●●●●●".slice(0,n)+"○○○○○".slice(0,5-n)}
+var ST={},box=null;
+function sideOk(s){return ST.side&&s===ST.side}
+function build(pan,ship){if(pan.querySelector(".kkbox"))return;var bx=E("div","kkbox");box=bx;
+ var cta=pan.querySelector(".kfcta");if(cta)pan.insertBefore(bx,cta);else pan.appendChild(bx);ST={ship:ship||ST.ship||""};
+ try{var L=JSON.parse(localStorage.getItem("skCountdownList")||"[]")||[];L.forEach(function(v){if(v&&v.k&&(!ST.ship||v.s===ST.ship)&&!ST.cab){ST.cab=String(v.k);if(!ST.ship)ST.ship=v.s}})}catch(e){}
+ draw()}
+function chips(par,arr,key,cb){var w=E("div","kkchips");arr.forEach(function(o){var b=E("button",ST[key]===o[0]?"on":"",o[1]);b.type="button";b.onclick=function(){ST[key]=ST[key]===o[0]&&key!=="ship"?"":o[0];cb()};w.appendChild(b)});par.appendChild(w)}
+function sec(par,t,open){var d=E("details","kksec");if(open)d.open=true;d.appendChild(E("summary",null,t));par.appendChild(d);return d}
+function table(par,rows,me){var t=E("table","kkt");rows.forEach(function(r,i){var tr=E("tr",me&&me[i]?"me":"");r.forEach(function(c){tr.appendChild(E("td",null,c))});t.appendChild(tr)});par.appendChild(t)}
+function deckOf(c){c=String(c||"").replace(/\D/g,"");if(c.length===4)return+c[0];if(c.length===5)return+c.slice(0,2);return null}
+function draw(){var bx=box;bx.innerHTML="";bx.appendChild(E("b",null,"🧭 Kabinen-Kompass"));
+ bx.appendChild(E("p",null,"Sonne, Ausblick, Lärm und Seegang für deine Kabine – berechnet aus der aktuellen Reise des Schiffs. Gib Kabinennummer, Seite und Lage ein (steht im Deckplan bzw. in der Buchung)."));
+ bx.appendChild(E("span","kklab","Schiff"));chips(bx,SH.map(function(n){return[n,n.replace("Mein Schiff ","MS ")]}),"ship",draw);
+ if(!ST.ship){bx.appendChild(E("p","kknote","Wähle ein Schiff, dann rechnen wir los."));return}
+ var k=kcl(ST.ship);
+ bx.appendChild(E("span","kklab","Kabinennummer (optional)"));var inp=E("input","kkin");inp.type="text";inp.inputMode="numeric";inp.maxLength=6;inp.placeholder="z. B. 8123";inp.value=ST.cab||"";
+ inp.onchange=function(){ST.cab=inp.value.trim();draw()};bx.appendChild(inp);
+ bx.appendChild(E("span","kklab","Seite der Kabine"));chips(bx,[["Backbord","⬅️ Backbord (links)"],["Steuerbord","➡️ Steuerbord (rechts)"],["innen","🚪 Innenkabine"]],"side",draw);
+ bx.appendChild(E("span","kklab","Lage im Schiff"));chips(bx,[["vorne","🔺 vorne"],["mitte","⚓ Mitte"],["hinten","🌊 hinten"]],"pos",draw);
+ var deck=deckOf(ST.cab),R=route(ST.ship),now=Date.now();
+ /* 3 Steckbrief */
+ var s3=sec(bx,"🪪 Steckbrief zu deiner Kabine",!!deck);
+ if(!ST.cab)s3.appendChild(E("p",null,"Gib oben deine Kabinennummer ein – die ersten Ziffern sind das Deck (z. B. 8123 = Deck 8, 11201 = Deck 11)."));
+ else if(!deck||!DK[k][deck]&&!(deck>=2&&deck<=16))s3.appendChild(E("p",null,"Diese Nummer konnten wir keinem Kabinendeck zuordnen. Bitte prüfe sie im Deckplan."));
+ else{var D=DK[k][deck]||["","",[]],rows=[["Deck",deck+(D[0]?" ("+D[0]+")":"")],["Kategorien",D[1]||"im Deckplan prüfen"]];
+  rows.push(["Darüber",deck===POOL[k]?"Pooldeck bzw. Buffet – tagsüber belebt":DK[k][deck+1]?"Kabinendeck "+(deck+1)+(DK[k][deck+1][0]?" ("+DK[k][deck+1][0]+")":""):"im Deckplan prüfen"]);
+  rows.push(["Darunter",DK[k][deck-1]?"Kabinendeck "+(deck-1)+(DK[k][deck-1][0]?" ("+DK[k][deck-1][0]+")":""):"öffentliche Bereiche oder Technik – im Deckplan prüfen"]);
+  var hi=deck>=11?1:deck<=4?-1:0,mv=2+(ST.pos==="vorne"?1.5:ST.pos==="hinten"?.7:0)+(hi>0?.6:hi<0?-.6:0);
+  rows.push(["Bewegung",dots(mv)+" "+(mv<2?"wenig":mv<3?"mittel":"deutlich")+(ST.pos?"":" (Lage unbekannt)")]);
+  if(ST.side&&ST.side!=="innen")rows.push(["Seite",ST.side+(R?" – siehe Sonnenseite unten":"")]);
+  table(s3,rows);var u=E("ul");D[2].forEach(function(x){u.appendChild(E("li",null,x))});if(ST.pos==="vorne")u.appendChild(E("li",null,"🔺 Vorne: stärkstes Auf und Ab, windiger Balkon; im Hafen früh Bugstrahlruder und Anker."));
+  if(ST.pos==="hinten")u.appendChild(E("li",null,"🌊 Hinten: Blick aufs Kielwasser, leichte Vibrationen; beim An- und Ablegen Maschinen und Heckstrahlruder."));
+  if(u.childNodes.length){u.style.cssText="margin-top:8px";s3.appendChild(u)}
+  s3.appendChild(E("p","kknote","Abstände zu Aufzug, Treppenhaus und Spa siehst du im Deckplan – die genaue Lage deiner Nummer zeigt dort die Kabinensuche."))}
+ if(!R){bx.appendChild(E("p","kknote","Für die "+ST.ship+" liegt gerade keine Tag-für-Tag-Reise vor – Sonne, Einlaufen und Seegang können wir deshalb nicht berechnen."));return}
+ var today=new Date(now+off("Europe/Berlin",now)*60000).toISOString().slice(0,10);
+ var info=E("p","kknote","Berechnet für die aktuelle Reise: "+R.rt.t+". Positionen auf See sind aus Fahrplan und Luftlinie geschätzt."+(R.miss.length?" Ohne Koordinaten: "+R.miss.join(", ")+".":""));bx.appendChild(info);
+ var SD=seaDays(R).filter(function(x){return x.d>=today});
+ /* 1 Sonnenseite */
+ var s1=sec(bx,"☀️ Sonnen- und Schattenseite",true),tot={Steuerbord:0,Backbord:0},rows1=[],me1=[];
+ SD.forEach(function(x){var am={},pm={},h0;for(var h=8;h<=18;h++){var ms=lbz(R,x.d,h,0,x.from.tz),w=where(R,ms);if(!w||!w.sea)continue;var s=sun(ms,w.la,w.lo);if(s.alt<5)continue;var sd=side(s.az,w.h);if(h0==null)h0=w.h;
+   (h<13?am:pm)[sd]=((h<13?am:pm)[sd]||0)+1;if(tot[sd]!=null)tot[sd]++}
+  function top(o){var b=null;Object.keys(o).forEach(function(k){if(!b||o[k]>o[b])b=k});return b?b:"–"}
+  var a=top(am),p=top(pm);rows1.push([wd(x.d),"Kurs "+(h0!=null?kurs(h0):"?")+" Richtung "+x.to.n+": vormittags "+a+", nachmittags "+p]);me1.push(sideOk(a)||sideOk(p))});
+ if(!SD.length)s1.appendChild(E("p",null,"Auf dem Rest dieser Reise gibt es keine Seetage mehr."));
+ else{table(s1,rows1,me1);var best=tot.Steuerbord>=tot.Backbord?"Steuerbord":"Backbord",oth=best==="Steuerbord"?"Backbord":"Steuerbord";
+  var sm=E("div","kksum");sm.textContent="An den Seetagen scheint die Sonne rund "+std(tot[best])+" auf "+best+" und "+std(tot[oth])+" auf "+oth+". Wer Sonne auf dem Balkon möchte, wählt "+best+"; wer Schatten sucht (z. B. in der Karibik), "+oth+"."+(ST.side&&ST.side!=="innen"?" Deine Kabine liegt auf "+ST.side+" – das ist hier die "+(ST.side===best?"Sonnenseite.":"Schattenseite."):"");s1.appendChild(sm)}
+ s1.appendChild(E("p","kknote","Im Hafen hängt die Sonnenseite davon ab, wie das Schiff am Liegeplatz liegt – das lässt sich vorher nicht sicher sagen."));
+ /* 6 Sonnenauf- und -untergang */
+ var s6=sec(bx,"🌅 Sonnenaufgang und -untergang vom Balkon"),rows6=[];var days=[];for(var d=today;d<=(R.C.length?R.C[R.C.length-1].d1:today)&&days.length<16;d=addD(d,1))days.push(d);
+ days.forEach(function(d){var tz=R.C[0].tz,ev=[],prev=null;
+  var t0=lbz(R,d,0,0,tz);for(var m=0;m<1440;m+=10){var ms=t0+m*6e4,w=where(R,ms);if(!w){prev=null;continue}var s=sun(ms,w.la,w.lo);
+   if(prev&&(prev.alt<-.833)!==(s.alt<-.833)){var up=s.alt>=-.833,sd=w.port?"":side(s.az,w.h);ev.push((up?"🌅 ":"🌇 ")+hbz(R,ms)+" "+(w.port?"im Hafen "+w.port.n:(/bord$/.test(sd)?"an ":"")+sd)+(sd&&sideOk(sd)?" ✓":""))}prev=s}
+  if(ev.length)rows6.push([wd(d),ev.join(" · ")])});
+ if(rows6.length){table(s6,rows6);s6.appendChild(E("p","kknote","Uhrzeiten auf etwa 10 Minuten genau in Bordzeit (auf See geschätzt). „voraus“ bzw. „achteraus“: am besten vom Außendeck vorne bzw. hinten. ✓ = von deiner Seite aus zu sehen."))}
+ else s6.appendChild(E("p",null,"Für die restlichen Reisetage liegen keine Daten vor."));
+ /* 2 Einlaufen und Hafenseite */
+ var s2=sec(bx,"⚓ Einlaufen und Auslaufen"),rows2=[];
+ R.C.forEach(function(c){if((c.d2||c.d1)<today)return;var t=[];
+  if(c.a!=null){var sa=sun(c.a,c.la,c.lo);t.push("Ankunft "+hhmm(c.a,c.tz)+(sa.alt<-6?" – noch dunkel":sa.alt<3?" – in der Dämmerung":" – bei Tageslicht"))}
+  if(c.d!=null){var sd=sun(c.d,c.la,c.lo);t.push("Abfahrt "+hhmm(c.d,c.tz)+(sd.alt<-6?" – im Dunkeln":sd.alt<3?" – zum Sonnenuntergang 🌇":" – bei Tageslicht"))}
+  if(c.td)t.push("Tenderhafen: Mit kleinen Booten an Land.");if(IN[c.n])t.push(IN[c.n]);rows2.push([wd(c.d1)+" "+c.n,t.join(" · ")])});
+ if(rows2.length)table(s2,rows2);else s2.appendChild(E("p",null,"Keine weiteren Häfen auf dieser Reise."));
+ s2.appendChild(E("p","kknote","Backbord = links, Steuerbord = rechts in Fahrtrichtung. Welche Seite am Liegeplatz zur Stadt zeigt, entscheidet der Kapitän je nach Wind und Pier."));
+ /* 4 Lärm im Tagesverlauf */
+ var s4=sec(bx,"🔊 Lärm im Tagesverlauf"),seg=[],tx=[],nxt=null;R.C.forEach(function(c){if(!nxt&&c.a!=null&&c.d1>=today)nxt=c});
+ var dk=deck,low=dk&&dk<=4,und=dk&&dk===POOL[k],ends=ST.pos==="vorne"||ST.pos==="hinten";
+ function hr(ms,tz){var t=new Date(ms+off(tz,ms)*60000);return t.getUTCHours()+t.getUTCMinutes()/60}
+ if(und){seg.push([6,7.5,3],[9,18,2]);tx.push("06:00–07:30 Deckreinigung und Liegen werden gerückt","09:00–18:00 Poolbetrieb über dir")}
+ if(k==="R"&&dk===6){seg.push([20,24,2]);tx.push("ca. 20:00–24:00 Musik aus Bars und Theater auf Deck 5 möglich")}
+ if(ends&&nxt){var a=hr(nxt.a,nxt.tz);seg.push([Math.max(0,a-.75),a+.25,low?3:2]);tx.push("ca. "+hhmm(nxt.a-45*6e4,nxt.tz)+"–"+hhmm(nxt.a+15*6e4,nxt.tz)+" Anlegen in "+nxt.n+": "+(ST.pos==="vorne"?"Bugstrahlruder und Anker":"Maschinen und Heckstrahlruder")+(low?" – auf den unteren Decks deutlich":""));
+  if(nxt.d!=null){var dd=hr(nxt.d,nxt.tz);seg.push([dd-.25,Math.min(24,dd+.5),low?3:2]);tx.push("ca. "+hhmm(nxt.d-15*6e4,nxt.tz)+"–"+hhmm(nxt.d+30*6e4,nxt.tz)+" Ablegen")}}
+ if(nxt&&nxt.td&&low){seg.push([hr(nxt.a,nxt.tz)+.5,nxt.d!=null?hr(nxt.d,nxt.tz):18,1]);tx.push("Tenderbetrieb in "+nxt.n+" – Boote legen tagsüber an den unteren Decks an")}
+ if(!dk&&!ST.pos)s4.appendChild(E("p",null,"Gib Kabinennummer und Lage ein, dann zeigen wir, wann es bei dir lauter werden kann."));
+ else{var bar=E("div","kkbar");seg.forEach(function(g){var i=E("i","l"+g[2]);i.style.left=(Math.max(0,g[0])/24*100)+"%";i.style.width=((Math.min(24,g[1])-Math.max(0,g[0]))/24*100)+"%";bar.appendChild(i)});s4.appendChild(bar);
+  var ax=E("div","kkax");["0","6","12","18","24 Uhr"].forEach(function(x){ax.appendChild(E("span",null,x))});s4.appendChild(ax);
+  if(!tx.length)tx.push("Keine typischen Lärmquellen für diese Lage – "+(dk&&DK[k][dk]&&/Kabinendeck|Kabinen/.test(DK[k][dk][2].join(" "))?"ringsum Kabinen, ruhig rund um die Uhr.":"im Deckplan prüfen, was über und unter dir liegt."));
+  var u4=E("ul");tx.forEach(function(x){u4.appendChild(E("li",null,x))});u4.style.cssText="margin-top:8px";s4.appendChild(u4);
+  s4.appendChild(E("p","kknote","Typischer Tag an Bord "+(nxt?"für den nächsten Hafen ("+nxt.n+")":"")+" – Bordzeit. Grün leise, gelb hörbar, rot deutlich."))}
+ /* 5 Seegang je Lage */
+ var s5=sec(bx,"🌊 Seegang je Lage"),rows5=[];
+ var lf=ST.pos==="vorne"?1.5:ST.pos==="hinten"?.7:0,hf=dk?(dk>=11?.6:dk<=4?-.6:0):0;
+ SD.forEach(function(x){var ms=lbz(R,x.d,12,0,x.from.tz),w=where(R,ms);if(!w)return;var g=seeg(w.la,w.lo,+x.d.slice(5,7));
+  rows5.push([wd(x.d),g[0]+": mittschiffs "+dots(g[1]-.5)+" · Bug "+dots(g[1]+1)+" · Heck "+dots(g[1]+.5)+(dk||ST.pos?" · deine Kabine "+dots(g[1]-.3+lf+hf):"")])});
+ if(rows5.length){table(s5,rows5);s5.appendChild(E("p","kknote","Faustwert aus typischen Bedingungen für Seegebiet und Jahreszeit (●○○○○ ruhig bis ●●●●● rau) – keine Vorhersage. Den aktuellen Seegang zeigt der Button „Wellen“ auf der Flottenkarte."))}
+ else s5.appendChild(E("p",null,"Auf dem Rest dieser Reise gibt es keine Seetage mehr."))}
+/* An das Ergebnis des Kabinen-Finders anhängen */
+function hook(){var sh=document.getElementById("kfsheet");if(!sh)return false;var pan=sh.querySelector(".kfpan");if(!pan)return false;
+ new MutationObserver(function(){var c=pan.querySelector(".kfcat");if(!c||pan.querySelector(".kkbox"))return;var m=(c.querySelector("small")||{}).textContent||"",n=null;SH.forEach(function(x){if(m.indexOf(x)>=0&&(!n||x.length>n.length))n=x});ST={};build(pan,n)}).observe(pan,{childList:true});return true}
+if(!hook())document.addEventListener("DOMContentLoaded",hook);
+}catch(e){}})();
+</script>
 <!--KF-ADDON-END-->
 
 </body></html>
