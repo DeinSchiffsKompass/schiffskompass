@@ -1384,7 +1384,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-23o"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-23p"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -1826,6 +1826,8 @@ window.SKopen=open;window.addEventListener("resize",function(){[].forEach.call(d
 
 
 
+
+
 <!--KF-ADDON-START-->
 <style id="kf-addon-css">
 #kfsheet{position:fixed;inset:0;z-index:9999;background:rgba(4,14,40,.55);display:flex;align-items:flex-end;justify-content:center}
@@ -1875,6 +1877,17 @@ window.SKopen=open;window.addEventListener("resize",function(){[].forEach.call(d
 #kfsheet details.kfkat{margin:10px 0 6px;background:var(--bg);border-radius:12px;padding:8px 10px}
 #kfsheet details.kfkat summary{cursor:pointer;font:800 13.5px var(--body);color:var(--ink)}
 #kfsheet details.kfkat li span{font:800 13px var(--body);color:var(--accent);min-width:28px}
+.kfocc{display:inline-block;margin:6px 0 2px;background:rgba(255,255,255,.16);border-radius:999px;padding:3px 10px;font:800 12.5px var(--body);color:#fff}
+#kfsheet .ki{display:inline-flex;vertical-align:-.22em;margin-right:.3em}
+#kfsheet .ki svg{width:1.2em;height:1.2em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#kfsheet li>span:first-child{color:var(--accent)}
+#kfsheet li>span:first-child .ki{margin:0}
+#kfsheet li>span:first-child .ki svg{width:22px;height:22px}
+#kfsheet .kfo .e{color:var(--accent)}
+#kfsheet .kfo .e .ki{margin:0}
+#kfsheet .kfo .e .ki svg{width:26px;height:26px}
+#kfsheet .kfcat .ki svg,#kfsheet .kfpick .ki svg{stroke:#7DD6FF}
+#kfsheet h4 .ki svg,#kfsheet h5 .ki svg,#kfsheet summary .ki svg{width:1.25em;height:1.25em}
 </style>
 <script id="kf-addon">
 (function(){try{
@@ -1884,7 +1897,7 @@ var Q=[
  {k:"ship",q:"Auf welchem Schiff möchtest du reisen?",s:"Wenn du es noch nicht weißt, wähle „Noch offen“.",o:[["","🧭","Noch offen"]].concat(SH.map(function(n){return[n,"🚢",n]}))},
  {k:"who",q:"Wer reist mit?",o:[["1","🧍","Ich reise allein"],["2","👫","Zu zweit","Paar oder Freunde"],["34","👨‍👩‍👧","Familie / 3–4 Personen","in einer Kabine"],["5","👨‍👩‍👧‍👦","5 oder mehr Personen","mehrere Kabinen"]]},
  {k:"x",q:"Wie wichtig sind dir ruhige, exklusive Bereiche an Bord?",s:"Ab der Junior Suite: eigene X-Lounge, X-Sonnendeck und Concierge – deutlich ruhiger als Pool und Buffet.",o:[["1","✨","Sehr wichtig – das möchte ich","dann empfehlen wir dir eine Suite"],["2","🤔","Klingt gut, wenn der Preis passt"],["0","👍","Brauche ich nicht"]]},
- {k:"budget",when:function(){return A.x!=="1"},q:"Was ist dir bei der Kabine am wichtigsten?",o:[["b1","💶","Günstig reisen","Die Kabine ist nur zum Schlafen"],["b2","☀️","Tageslicht","Ein Fenster zum Meer reicht mir"],["b3","🌅","Eigener Balkon","Frische Luft und Meerblick von der Kabine"],["b4","✨","Extra Komfort","Mehr Platz, Suite, exklusive Bereiche"]]},
+ {k:"budget",when:function(){return A.x!=="1"},q:"Was ist dir bei der Kabine am wichtigsten?",o:[["b1","💶","Günstig reisen","Innenkabine · bis 4 Personen"],["b2","☀️","Tageslicht","Außenkabine mit Fenster · bis 4 Personen"],["b3","🌅","Eigener Balkon","Balkonkabine · bis 4 Personen"],["b4","✨","Extra Komfort","Suite · bis 4, große Suiten bis 6 Personen"]]},
  {k:"su",when:function(){return A.budget==="b4"},q:"Welche Suite passt zu dir?",s:"Alle Suiten – auch die Junior Suite – haben dieselben Vorteile. Größere Suiten bringen mehr Platz.",of:function(){return suOpts()}},
  {k:"sea",q:"Wirst du leicht seekrank?",o:[["0","😎","Nein, gar nicht"],["1","🙂","Etwas, bei Seegang"],["2","🤢","Ja, ich bin empfindlich"]]},
  {k:"quiet",q:"Wie wichtig ist dir Ruhe in der Kabine?",o:[["0","🎶","Nicht so wichtig"],["1","😴","Sehr wichtig – ich schlafe leicht"]]},
@@ -1899,9 +1912,9 @@ var pan=E("div","kfpan");pan.setAttribute("role","dialog");pan.setAttribute("ari
 function close(){sh.hidden=true;document.documentElement.style.overflow=""}
 sh.addEventListener("click",function(e){if(e.target===sh)close()});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!sh.hidden)close()});
 function head(t,pct){var h=E("div","kfhd");h.appendChild(E("h3",null,t));var x=E("button","kfx","✕");x.setAttribute("aria-label","Schließen");x.onclick=close;h.appendChild(x);pan.appendChild(h);if(pct!=null){var b=E("div","kfbar"),i=E("i");i.style.width=pct+"%";b.appendChild(i);pan.appendChild(b)}}
-var SUC={A:[["js","Junior Suite","26 m², Balkon 7–8 m², bis 4 Personen",10,"Deck 10 (Perle) · Seite, zwei am Heck auf Deck 11 (11201/11204)"],["hz","Horizont Suite","38–40 m², Balkon ca. 16 m², bis 4 Personen",7,"Deck 7 oder 8 · am Heck"],["sa","Schöne Aussicht Suite","39 m², Balkon 13–14 m²",9,"Deck 9 oder 10 · mittig im Heck"],["us","Übersee Suite","40 m², Balkon ca. 9 m²",14,"Deck 14 (Horizont)"],["hm","Himmel & Meer Suite","40–42 m² auf zwei Ebenen, Dachterrasse ca. 29 m²",15,"Deck 15 · vorne"],["pa","Panorama Suite","73–77 m², Veranda 31–36 m², bis 6 Personen",10,"Deck 6, 9 oder 10 · Ecklage am Heck"]],
- B:[["js","Junior Suite","26 m², Balkon ca. 8 m², bis 4 Personen",10,"Deck 10 (Perle)"],["hm","Himmel & Meer Suite","40–42 m² auf zwei Ebenen, Dachterrasse ca. 29 m²",14,"Deck 14 · vorne"],["th","Themen Suite","54 m², Veranda ca. 15 m², bis 4 Personen",10,"Deck 10 (Perle)"],["di","Diamant Suite","bis 6 Personen, zusätzliches Schlafzimmer, große Veranda am Diamanten",6,"Deck 6 · am Heck (nur MS 4–6)"]],
- R:[["js","Junior Suite","26 m², Balkon ca. 7 m², bis 4 Personen",9,"u. a. Deck 8, 9 und 14"],["fw","Fernweh Suite","28–38 m², Veranda ca. 34 m², bis 4 Personen",11,"Deck 11, 12 oder 14"],["sa","Schöne Aussicht Suite","39 m², Veranda 10–12 m², bis 4 Personen",10,"Deck 7–12 oder 14 · an den Seiten des Hecks"],["wb","Weitblick Suite","43–45 m², separates Schlafzimmer, Badewanne",14,"Deck 14 (Kompass) · hinterer Bereich"],["gf","Große Freiheit Suite","88 m² auf zwei Ebenen, zwei Veranden, bis 6 Personen",9,"Deck 9/10 · ganz hinten"]]};
+var SUC={A:[["js","Junior Suite","26 m², Balkon 7–8 m², bis 4 Personen",10,"Deck 10 (Perle) · Seite, zwei am Heck auf Deck 11 (11201/11204)"],["hz","Horizont Suite","38–40 m², Balkon ca. 16 m², bis 4 Personen",7,"Deck 7 oder 8 · am Heck"],["sa","Schöne Aussicht Suite","39 m², Balkon 13–14 m², bis 4 Personen",9,"Deck 9 oder 10 · mittig im Heck"],["us","Übersee Suite","40 m², Balkon ca. 9 m², bis 4 Personen",14,"Deck 14 (Horizont)"],["hm","Himmel & Meer Suite","40–42 m² auf zwei Ebenen, Dachterrasse ca. 29 m², bis 4 Personen",15,"Deck 15 · vorne"],["pa","Panorama Suite","73–77 m², Veranda 31–36 m², bis 6 Personen",10,"Deck 6, 9 oder 10 · Ecklage am Heck"]],
+ B:[["js","Junior Suite","26 m², Balkon ca. 8 m², bis 4 Personen",10,"Deck 10 (Perle)"],["hm","Himmel & Meer Suite","40–42 m² auf zwei Ebenen, Dachterrasse ca. 29 m², bis 4 Personen",14,"Deck 14 · vorne"],["th","Themen Suite","54 m², Veranda ca. 15 m², bis 4 Personen",10,"Deck 10 (Perle)"],["di","Diamant Suite","ca. 42 m², Terrasse ca. 47 m², separates Schlafzimmer, bis 6 Personen",6,"Deck 6 · am Heck (nur MS 4–6)"]],
+ R:[["js","Junior Suite","26 m², Balkon ca. 7 m², bis 4 Personen",9,"u. a. Deck 8, 9 und 14"],["fw","Fernweh Suite","28–38 m², Veranda ca. 34 m², bis 4 Personen",11,"Deck 11, 12 oder 14"],["sa","Schöne Aussicht Suite","39 m², Veranda 10–12 m², bis 4 Personen",10,"Deck 7–12 oder 14 · an den Seiten des Hecks"],["wb","Weitblick Suite","43–45 m², separates Schlafzimmer, Badewanne, bis 4 Personen",14,"Deck 14 (Kompass) · hinterer Bereich"],["gf","Große Freiheit Suite","88 m² auf zwei Ebenen, zwei Veranden, bis 6 Personen",9,"Deck 9/10 · ganz hinten"]]};
 function kcl(n){return /Relax|Flow/.test(n)?"R":/ [127]$/.test(n)?"A":"B"}
 function suList(k){var L=SUC[k];if(k==="B"&&A.ship==="Mein Schiff 3")L=L.filter(function(x){return x[0]!=="di"});return L}
 function suOpts(){var EM={js:"🛎️",hz:"🌅",sa:"🏞️",us:"🧭",hm:"☁️",pa:"🏛️",th:"🎨",di:"💎",fw:"🌍",wb:"🔭",gf:"🏰"};
@@ -1957,15 +1970,22 @@ function pick(k){var R=k==="R",d,a=null,pos="mittschiffs",ex="";
   else{d=R?8:7;a=R?[9,12]:[8,9]}
  }
  else{var P=suPick(k),LL=suList(k),others=LL.filter(function(x){return x[0]!==P[0]});
-  var t0=P[1]+" · "+P[4];var al=null;if(P[0]==="js")al="Mehr Platz: "+others.slice(0,2).map(function(x){return x[1]+" ("+x[4]+")"}).join(" · ");else al="Günstiger mit allen Suiten-Vorteilen: Junior Suite ("+LL[0][4]+")";
+  var t0=P[1]+" · "+P[4];var al=null;if(P[0]==="js")al="Mehr Platz: "+others.slice(0,2).map(function(x){return x[1]+" ("+x[4]+", "+(x[2].match(/bis \d Personen/)||[""])[0]+")"}).join(" · ");else al="Günstiger mit allen Suiten-Vorteilen: Junior Suite ("+LL[0][4]+")";
   return{t:t0,a:al}}
  if(bud==="b3"&&v!=="spar"&&v!=="heck"&&!(v==="spa"&&sea<1)){if(sm==="0"&&sea<1)pos="vorderer Bereich, kurz vor dem ersten Treppenhaus (Nichtraucher-Balkon)";else if(sm==="1")pos="mittschiffs (Raucher-Balkon)"}
- if(bud==="b3"&&typeof d==="number"&&!/Kat\./.test(ex)&&!/SPA/.test(ex))var t=bd(k,d)+ex+" · "+pos;else{if(/SPA/.test(ex))ex=" · SPA-Balkon, Kat. BS";var t=(typeof d==="number"?dn(k,d):"Deck "+d)+ex+" · "+pos}
+ if(bud==="b3"&&typeof d==="number"&&!/Kat\./.test(ex)&&!/SPA/.test(ex)&&!/^Einzelkabine/.test(cat))var t=bd(k,d)+ex+" · "+pos;else{if(/SPA/.test(ex))ex=" · SPA-Balkon, Kat. BS";var t=(typeof d==="number"?dn(k,d):"Deck "+d)+ex+" · "+pos}
  if(v==="bug"&&(bud==="b1"||bud==="b3")&&!/^Einzelkabine/.test(cat)){if(bud==="b3"){t=bd(k,R?8:7)+" · so weit vorne wie möglich (seitlich, Nichtraucher-Balkon)"}return{t:t,a:"Echter Blick nach vorne: "+BUGT}}
  var at=null;if(a){if(Array.isArray(a))at="Alternativ: "+a.map(function(x){return bud==="b3"?bd(k,x):dn(k,x)}).join(", ");else at="Alternativ: Deck "+a}
  if(sm==="1"&&sea<1&&v!=="heck"&&((bud==="b3"&&k==="B")||bud==="b4")){var H2=heck(k);at=(at?at+" · ":"")+"Für Raucher auch schön am Heck: "+H2.o[0][0]}
  return{t:t,a:at}}
-var c=E("div","kfcat");c.appendChild(E("small",null,"Unsere Empfehlung"+(s?" für die "+s:"")));c.appendChild(E("b",null,cat));
+var K0=s?kcl(s):null,occ;
+if(/^Einzelkabine/.test(cat))occ="1 Person";
+else if(bud==="b4"){occ=SP?(SP[2].match(/bis \d Personen/)||["bis 4 Personen"])[0]:"je nach Suite bis 4, große Suiten bis 6 Personen"}
+else if(v==="bug"&&bud==="b2"){occ=(who==="34"||who==="5")?"Familien-Außenkabine: 3 bis 6 Personen":(K0==="R"?"Bug-Außenkabine: nur 2 Personen":K0?"Bug-Außenkabine: bis 3 Personen":"Bug-Außenkabine: 2 (Relax/Flow) bzw. bis 3 Personen")}
+else if(bud==="b3"&&v==="spar"&&K0!=="R")occ="Kat. H mit Sichtbehinderung: bis 3 Personen";
+else if(bud==="b3"&&v==="spa"&&sea<1&&K0!=="R")occ="SPA-Balkonkabine: bis 3 Personen";
+else occ="1 bis 4 Personen";
+var c=E("div","kfcat");c.appendChild(E("small",null,"Unsere Empfehlung"+(s?" für die "+s:"")));c.appendChild(E("b",null,cat));c.appendChild(E("div","kfocc","👥 Belegung: "+occ));
 if(s){var pk=pick(/Relax|Flow/.test(s)?"R":/ [127]$/.test(s)?"A":"B");if(pk){var pd=E("div","kfpick");pd.appendChild(E("strong",null,"📍 "+pk.t));if(pk.a)pd.appendChild(E("span",null,pk.a));c.appendChild(pd)}}
 else{var pd=E("div","kfpick");[["A","MS 1, 2, 7"],["B","MS 3–6"],["R","Relax, Flow"]].forEach(function(x){var pk=pick(x[0]);if(pk)pd.appendChild(E("span",null,"📍 "+x[1]+": "+pk.t))});if(pd.childNodes.length)c.appendChild(pd)}
 c.appendChild(E("p",null,why));pan.appendChild(c);
@@ -2026,7 +2046,7 @@ function deckRec(k){var ok=[],no=[],R=k==="R";
 function deckBox(k,title,parent){var r=deckRec(k);var bx=E("div","kfdk");bx.appendChild(E("b",null,title));
  function sub(t,arr){if(!arr.length)return;bx.appendChild(E("h5",null,t));var u=E("ul");arr.forEach(function(x){var li=E("li");li.appendChild(E("span",null,x[0]));li.appendChild(E("div",null,x[1]));u.appendChild(li)});bx.appendChild(u)}
  sub("✅ Unsere Deck-Empfehlung",r.ok);
- if(bud==="b3"){var KL=k==="R"?[["H","Deck 6 – Sichtbehinderung, vorne an der Promenade"],["G","Deck 6, einzelne vorne auf Deck 7–9 – teils Sichtbehinderung"],["F","Deck 15 – unter dem Pooldeck"],["E","Deck 7 und 8"],["D","Deck 9 und 10"],["C","Deck 11"],["B","Deck 12"],["A","Deck 14"],["BS","SPA-Balkon, Deck 14"]]:[["H","Deck 6–9 – Sichtbehinderung"],["G","Deck 6"],["F","Deck 11 – unter Pooldeck bzw. Deck-Überstand"],["E","Deck 6"],["D","Deck 7"],["C","Deck 8"],["B","Deck 9"],["A","Deck 10"+(k==="A"?" und 14":"")],["BS","SPA-Balkon, Deck 11"]];
+ if(bud==="b3"){var KL=k==="R"?[["H","Deck 6 – Sichtbehinderung, vorne an der Promenade · 2–4 Personen"],["G","Deck 6 (2–4 Personen), einzelne vorne auf Deck 7–9 (nur 2 Personen) – teils Sichtbehinderung"],["F","Deck 15 – unter dem Pooldeck · 2–4 Personen"],["E","Deck 7 und 8 · 2–4 Personen"],["D","Deck 9 und 10 · 2–4 Personen"],["C","Deck 11 · 2–4 Personen"],["B","Deck 12 · 2–4 Personen"],["A","Deck 14 · 2–4 Personen"],["BS","SPA-Balkon, Deck 14 · 2–4 Personen"]]:[["H","Deck 6–9 – Sichtbehinderung · bis 3 Personen"],["G","Deck 6 · bis 4 Personen"],["F","Deck 11 – unter Pooldeck bzw. Deck-Überstand · bis 4 Personen"],["E","Deck 6 · bis 4 Personen"],["D","Deck 7 · bis 4 Personen"],["C","Deck 8 · bis 4 Personen"],["B","Deck 9 · bis 4 Personen"],["A","Deck 10"+(k==="A"?" und 14 (auf Deck 14 bis 3)":"")+" · bis 4 Personen"],["BS","SPA-Balkon, Deck 11 · bis 3 Personen"]];
   var kd=E("details","kfkat");kd.appendChild(E("summary",null,"🏷️ Balkon-Kategorien auf "+(s?"der "+s:KN[k])+" – von günstig nach teuer"));var ku=E("ul");KL.forEach(function(x){var li=E("li");li.appendChild(E("span",null,x[0]));li.appendChild(E("div",null,x[1]));ku.appendChild(li)});kd.appendChild(ku);kd.appendChild(E("p","kfad","Faustregel: Je weiter hinten der Buchstabe im Alphabet, desto tiefer das Deck und meist desto günstiger. Kategorien laut Mein-Schiff-Einteilung, Änderungen vorbehalten."));bx.appendChild(kd)}sub("⛔ Diese Kabinen würde ich nicht nehmen",r.no);parent.appendChild(bx)}
 if(s){deckBox(kls(s),"📍 Konkret auf der "+s,pan)}
 else{pan.appendChild(E("h4",null,"Konkrete Decks je Schiff"));["A","B","R"].forEach(function(k){var d=E("details","kfov kfcls");d.appendChild(E("summary",null,"🚢 "+KN[k]));deckBox(k,"",d);pan.appendChild(d)})}
@@ -2042,7 +2062,7 @@ if(!L.length)L.push(["👍","Bei deinen Wünschen bist du bei der Lage flexibel 
 if(who==="5")L.push(["🔗","Zwei Kabinen nebeneinander, am besten mit Verbindungstür."]);
 if(q){L.push(["🥪","Ein reines Kabinendeck, bei dem über und unter dir ebenfalls nur Kabinen liegen – so bist du von Pool, Restaurants und Bühnen gut abgeschirmt."]);X.push(["⚓","Kabinen ganz vorne oder ganz hinten auf den unteren Decks: Dort hört man Anker, Bugstrahlruder bzw. Maschinen beim An- und Ablegen."])}
 if(v==="spa"||v==="free")X.push(["🏗️","Kabinen auf den obersten Kabinendecks direkt unter Decküberständen: Dort ragt das Deck darüber teils weit über den Balkon – das nimmt Sonne, Himmel und Ausblick."]);
-var G=[];if(A.x==="2"&&bud!=="b4")G.push(["✨","Dir sind ruhige, exklusive Bereiche wichtig, wenn der Preis passt: Schon die Junior Suite enthält X-Lounge, X-Sonnendeck, Concierge und Minibar. Der Aufpreis zur Balkonkabine ist je nach Reise manchmal kleiner als gedacht – frag uns gern nach einem Vergleich."]);if(bud==="b2"||bud==="b3"){if(sea>=1&&v!=="spar")G.push(["🚤","Warum nicht noch tiefer? Direkt darunter auf Deck 6 hängen mittschiffs die Rettungsboote vor den Balkonen. Achte im Deckplan auf den Hinweis „Sichtbehinderung“ – auf dem empfohlenen Deck ist der Blick frei, und mittschiffs bleibt es trotzdem ruhig."]);else if(v!=="free"&&v!=="spar")G.push(["🚤","Kabinen mit „Sichtbehinderung“ (z. B. durch Rettungsboote) sind im Deckplan markiert und oft günstiger – Tageslicht ja, freier Meerblick nein. Wenn dir der Ausblick wichtig ist, meide sie."])}
+var G=[];if(who==="34"&&/bis 3|nur 2|^1 Person/.test(occ))G.push(["⚠️","Achtung: Die empfohlene Kabine fasst "+occ.replace(/^.*?: /,"")+" – für 3–4 Personen eine Kabine mit 3. und 4. Bett wählen oder zwei Kabinen buchen."]);if(A.x==="2"&&bud!=="b4")G.push(["✨","Dir sind ruhige, exklusive Bereiche wichtig, wenn der Preis passt: Schon die Junior Suite enthält X-Lounge, X-Sonnendeck, Concierge und Minibar. Der Aufpreis zur Balkonkabine ist je nach Reise manchmal kleiner als gedacht – frag uns gern nach einem Vergleich."]);if(bud==="b2"||bud==="b3"){if(sea>=1&&v!=="spar")G.push(["🚤","Warum nicht noch tiefer? Direkt darunter auf Deck 6 hängen mittschiffs die Rettungsboote vor den Balkonen. Achte im Deckplan auf den Hinweis „Sichtbehinderung“ – auf dem empfohlenen Deck ist der Blick frei, und mittschiffs bleibt es trotzdem ruhig."]);else if(v!=="free"&&v!=="spar")G.push(["🚤","Kabinen mit „Sichtbehinderung“ (z. B. durch Rettungsboote) sind im Deckplan markiert und oft günstiger – Tageslicht ja, freier Meerblick nein. Wenn dir der Ausblick wichtig ist, meide sie."])}
 G.push(["🎟️","Bei Mein Schiff kannst du die genaue Kabinennummer nur im PRO-Tarif frei wählen. In PUR und PLUS buchst du die Kabinenart, die genaue Lage teilt die Reederei zu – wenn dir die Lage wichtig ist, lohnt sich PRO."]);
 if(bud==="b3"||bud==="b4"){if(sm==="0")G.push(["🚭","Seit Sommer 2025 sind auf allen Mein Schiffen die Balkone im vorderen Bereich – vom Bug bis zum ersten Treppenhaus – Nichtraucher-Balkone. Im Deckplan sind sie grün schraffiert. Weil der Fahrtwind Rauch nach hinten trägt, ist es dort für Nichtraucher am angenehmsten."+(sea>=1?" Bei Seekrankheit geht die Lage mittschiffs aber vor – dann am besten eine Kabine kurz hinter dem ersten Treppenhaus wählen.":"")]);
  else if(sm==="1")G.push(["🚬","Im vorderen Bereich (Bug bis erstes Treppenhaus, im Deckplan grün schraffiert) darf auf dem Balkon nicht geraucht werden – das wird an Bord auch kontrolliert. Wähle also mittschiffs oder hinten."+(/Einzelkabine Balkon/.test(cat)?" Achtung: Die Einzelkabinen mit Balkon haben einen Nichtraucher-Balkon.":"")]);
@@ -2073,6 +2093,75 @@ var dt=E("details","kfov"),sm=E("summary",null,"📖 Alle Kabinenlagen im Überb
 ["🥪 Reines Kabinendeck","Über und unter dir nur Kabinen – meist die ruhigste Lage an Bord."]];
 var ou=E("ul");O.forEach(function(x){var li=E("li");var d=E("div");var bb=E("b",null,x[0]);bb.style.display="block";d.appendChild(bb);d.appendChild(document.createTextNode(x[1]));li.appendChild(d);ou.appendChild(li)});dt.appendChild(ou);pan.appendChild(dt);
 var ag=E("button","kfagain","↺ Noch einmal starten");ag.onclick=function(){A={};step=0;render()};pan.appendChild(ag);pan.scrollTop=0}
+var KI={
+ship:"M3 15h18l-2.5 4.6a2 2 0 0 1-1.8 1.1H7.3a2 2 0 0 1-1.8-1.1Z M6 15v-4.5h12V15 M9 10.5V7.5h5v3 M12.5 4.5v3 M8.5 13h.01 M12 13h.01 M15.5 13h.01",
+anchor:"M12 7.5V21 M8 11h8 M4.5 14.5a7.5 7.5 0 0 0 15 0 M12 3a2.25 2.25 0 1 1 0 4.5a2.25 2.25 0 1 1 0-4.5",
+wave:"M2 9.5c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2 M2 15.5c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2",
+compass:"M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18 M15.5 8.5l-2 5-5 2 2-5z",
+pin:"M12 21s-6.5-5.7-6.5-11a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11-6.5 11z M12 7.5a2.5 2.5 0 1 1 0 5a2.5 2.5 0 1 1 0-5",
+check:"M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18 M8 12.5l2.7 2.7L16.2 9.6",
+ban:"M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18 M5.6 5.6l12.8 12.8",
+warn:"M12 3.8 2.6 19.8h18.8Z M12 10v4.2 M12 17.2h.01",
+person:"M12 3.5a3.2 3.2 0 1 1 0 6.4a3.2 3.2 0 1 1 0-6.4 M5.5 20.5a6.5 6.5 0 0 1 13 0",
+couple:"M8.5 4.5a2.6 2.6 0 1 1 0 5.2a2.6 2.6 0 1 1 0-5.2 M15.5 4.5a2.6 2.6 0 1 1 0 5.2a2.6 2.6 0 1 1 0-5.2 M3.5 19.5a5 5 0 0 1 10 0 M10.5 19.5a5 5 0 0 1 10 0",
+family:"M6.5 4a2.2 2.2 0 1 1 0 4.4a2.2 2.2 0 1 1 0-4.4 M17.5 4a2.2 2.2 0 1 1 0 4.4a2.2 2.2 0 1 1 0-4.4 M12 10.5a1.8 1.8 0 1 1 0 3.6a1.8 1.8 0 1 1 0-3.6 M2.5 18.5a4 4 0 0 1 8 0 M13.5 18.5a4 4 0 0 1 8 0 M9.3 20.5a2.7 2.7 0 0 1 5.4 0",
+help:"M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18 M9.4 9.4a2.6 2.6 0 1 1 3.7 2.4c-.7.3-1.1.9-1.1 1.6v.4 M12 17h.01",
+spark:"M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z",
+crown:"M4 19h16 M4.5 16 3 7.5l5 4 4-6.5 4 6.5 5-4-1.5 8.5z",
+coin:"M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18 M15 8.8a3.6 3.6 0 1 0 0 6.4 M7.8 11h6 M7.8 13h6",
+door:"M6 21V4.5a1.5 1.5 0 0 1 1.5-1.5h9A1.5 1.5 0 0 1 18 4.5V21 M3.5 21h17 M14.5 12.2h.01",
+porthole:"M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18 M12 6.5a5.5 5.5 0 1 1 0 11a5.5 5.5 0 1 1 0-11 M12 3.8v.01 M12 20.2v.01 M3.8 12h.01 M20.2 12h.01",
+sun:"M12 8a4 4 0 1 1 0 8a4 4 0 1 1 0-8 M12 2.5v2 M12 19.5v2 M5.3 5.3l1.4 1.4 M17.3 17.3l1.4 1.4 M2.5 12h2 M19.5 12h2 M5.3 18.7l1.4-1.4 M17.3 6.7l1.4-1.4",
+balcony:"M3 20.5h18 M5 20.5v-5 M9 20.5v-5 M15 20.5v-5 M19 20.5v-5 M3 15.5h18 M7 11.5a5 5 0 0 1 10 0 M12 3.5v2 M5.5 7l1.3 1.2 M18.5 7l-1.3 1.2",
+moon:"M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z M16 4.5h3l-3 3h3",
+sound:"M4 9.5v5h3.5L12.5 19V5L7.5 9.5z M16 8.8a4.5 4.5 0 0 1 0 6.4 M18.6 6.2a8.2 8.2 0 0 1 0 11.6",
+mute:"M4 9.5v5h3.5L12.5 19V5L7.5 9.5z M16.5 9.5l5 5 M21.5 9.5l-5 5",
+music:"M9 18V6l11-2v12 M6.5 15.5a2.5 2.5 0 1 1 0 5a2.5 2.5 0 1 1 0-5 M17.5 13.5a2.5 2.5 0 1 1 0 5a2.5 2.5 0 1 1 0-5",
+mask:"M4 4.5h11v6.5a5.5 5.5 0 0 1-11 0z M7.3 9h.01 M11.7 9h.01 M7.5 13a2.6 2.6 0 0 0 4 0 M15 8.5h5v6a5 5 0 0 1-7.6 4.3",
+lift:"M5 3h14v18H5z M12 3v18 M7.5 10l1.5-2.2 1.5 2.2 M13.5 14l1.5 2.2 1.5-2.2",
+access:"M11 3.5a1.6 1.6 0 1 1 0 3.2a1.6 1.6 0 1 1 0-3.2 M11 8.5V13h5l2 5.5 M8.4 10.8a5.2 5.2 0 1 0 6.9 6.9",
+eye:"M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z M12 9a3 3 0 1 1 0 6a3 3 0 1 1 0-6",
+eyeoff:"M3 3l18 18 M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.1 3.9 M6.6 6.6A17 17 0 0 0 2 12s3.6 7 10 7a9.6 9.6 0 0 0 5.4-1.6 M9.9 9.9a3 3 0 0 0 4.2 4.2",
+lifeboat:"M3.5 12.5h17l-2.2 5.5H5.7z M7.5 12.5V9.5h9v3 M6 3.5v6 M18 3.5v6 M4 3.5h4 M16 3.5h4",
+spa:"M12 20.5c-4.4 0-8-3.2-8-7.2 2.7 0 5.3 1.1 8 4 2.7-2.9 5.3-4 8-4 0 4-3.6 7.2-8 7.2z M12 17.3c-2.2-2.3-2.2-6.4 0-9.8 2.2 3.4 2.2 7.5 0 9.8z",
+smoke:"M2.5 14.5h13v3.5h-13z M18 14.5V18 M20.5 14.5V18 M17.5 11c0-1.8 2-1.8 2-3.6S17.5 5.6 17.5 3.8",
+nosmoke:"M2.5 14.5h13v3.5h-13z M18 14.5V18 M20.5 14.5V18 M3 3l18 18",
+ticket:"M3.5 7h17v3a2 2 0 0 0 0 4v3h-17v-3a2 2 0 0 0 0-4z M10 7v10",
+tag:"M3 12.2V4h8.2l9.8 9.8-8.2 8.2z M7.5 7.5h.01",
+book:"M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21z M4 21V5.5 M8 7h8",
+map:"M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z M9 4v14 M15 6v14",
+gear:"M12 9a3 3 0 1 1 0 6a3 3 0 1 1 0-6 M12 2.5v3 M12 18.5v3 M2.5 12h3 M18.5 12h3 M5.3 5.3l2.1 2.1 M16.6 16.6l2.1 2.1 M5.3 18.7l2.1-2.1 M16.6 7.4l2.1-2.1",
+bulb:"M9 18h6 M10 21h4 M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.1V16h5v-.1c0-.8.4-1.6 1.1-2.1A6 6 0 0 0 12 3z",
+wind:"M3 8.5h11a3 3 0 1 0-3-3 M3 12.5h15.5a3 3 0 1 1-3 3 M3 16.5h7",
+cloud:"M7 18.5a4.2 4.2 0 0 1-.4-8.4 5.6 5.6 0 0 1 10.8-1.5A4.5 4.5 0 1 1 17.5 18.5z",
+layers:"M12 3 2.5 8 12 13l9.5-5z M2.5 12 12 17l9.5-5 M2.5 16 12 21l9.5-5",
+roof:"M2 5.5h20 M3.5 5.5v2.5 M20.5 5.5v2.5 M6 21v-9.5h12V21 M9.5 21v-5h5v5",
+link:"M10 14a4 4 0 0 0 5.7 0l3-3A4 4 0 0 0 13 5.3l-1 1 M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1",
+walk:"M13.5 3.5a1.6 1.6 0 1 1 0 3.2a1.6 1.6 0 1 1 0-3.2 M10 21l2.2-6.2 3 3V21 M8.5 11.5 12 8.5l3 3 2.5 1 M12 8.5l-1.2 6.3",
+pool:"M2 18.5c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2 M8 14.5V5.5a2 2 0 0 1 4 0 M16 14.5V5.5a2 2 0 0 0-4 0 M8 8.5h8 M8 11.5h8",
+down:"M12 4v16 M6 14l6 6 6-6",
+up:"M12 20V4 M6 10l6-6 6 6",
+bow:"M12 3.5 20 19H4z M12 9v5",
+smile:"M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18 M8.5 13.8a4.5 4.5 0 0 0 7 0 M9 9.5h.01 M15 9.5h.01",
+queasy:"M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18 M7.5 15.5c1-1 2 1 3 0s2 1 3 0 2 1 3 0 M9 9.5h.01 M15 9.5h.01",
+bell:"M4.5 17.5h15 M12 6.5a7 7 0 0 1 7 7v1.5H5v-1.5a7 7 0 0 1 7-7z M12 3.5v3 M3 20.5h18",
+sofa:"M4.5 11V8.5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2V11 M2.5 13a2 2 0 0 1 4 0v2h11v-2a2 2 0 0 1 4 0v5h-19z M5 18v2 M19 18v2",
+palm:"M12 21.5c0-6 1-9.5 3-12.5 M15 9c-2-3-6-3-8-1 M15 9c1-3 4-4 7-3 M15 9c3 0 5 2 5 5 M15 9c-3 0-6 2-6 6",
+view:"M3 19.5 9 11.5l4 5 3-3 5 6z M16 5.5a2 2 0 1 1 0 4a2 2 0 1 1 0-4",
+columns:"M3 21h18 M4 10h16 M12 3 3.5 8h17z M6.5 10v8 M10.5 10v8 M13.5 10v8 M17.5 10v8",
+palette:"M12 3a9 9 0 0 0 0 18c1.5 0 2-1 2-2s-1-2 0-3 2-1 3-1a4 4 0 0 0 4-4c0-4.4-4-8-9-8z M7.5 11h.01 M10 7h.01 M15 7h.01",
+diamond:"M6 3.5h12l4 5.5-10 12L2 9z M2 9h20 M10 3.5 8 9l4 12 4-12-2-5.5",
+globe:"M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18 M3 12h18 M12 3c3 3.5 3 14.5 0 18 M12 3c-3 3.5-3 14.5 0 18",
+stairs:"M3 20h5v-5h5v-5h5V5h3"
+};
+var KM={"✨":"spark","⚓":"anchor","⚠️":"warn","⚠":"warn","🚤":"lifeboat","🧭":"compass","🌊":"wave","🧍":"person","🤷":"help","🛗":"lift","♿":"access","💰":"coin","💶":"coin","🔊":"sound","😴":"moon","🚬":"smoke","🧖":"spa","👀":"eye","🔎":"eye","🔭":"eye","📍":"pin","👑":"crown","🏰":"crown","🚢":"ship","👍":"smile","😎":"smile","🙂":"smile","🤢":"queasy","🌅":"balcony","🎶":"music","🚭":"nosmoke","🚶":"walk","🛎️":"bell","🛎":"bell","🎟️":"ticket","🎟":"ticket","⚙️":"gear","⚙":"gear","🙈":"eyeoff","🎭":"mask","🥪":"layers","🏗️":"roof","🏗":"roof","👫":"couple","👥":"couple","👨‍👩‍👧‍👦":"family","👨‍👩‍👧":"family","🤔":"help","☀️":"sun","☀":"sun","🏞️":"view","🏞":"view","☁️":"cloud","☁":"cloud","🏛️":"columns","🏛":"columns","🎨":"palette","💎":"diamond","🌍":"globe","🛋️":"sofa","🛋":"sofa","🌴":"palm","🪟":"porthole","💡":"bulb","✅":"check","🏷️":"tag","🏷":"tag","⛔":"ban","🚫":"ban","⬇️":"down","⬇":"down","⬆️":"up","⬆":"up","🔺":"bow","🔇":"mute","🚪":"door","🔗":"link","💨":"wind","🌫️":"cloud","🌫":"cloud","🗺️":"map","🗺":"map","📖":"book","🏊":"pool"};
+var KRX=new RegExp("("+Object.keys(KM).sort(function(a,b){return b.length-a.length}).map(function(k){return k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}).join("|")+")\uFE0F?","g");
+function kicon(n){var ns="http://www.w3.org/2000/svg",sv=document.createElementNS(ns,"svg");sv.setAttribute("viewBox","0 0 24 24");sv.setAttribute("aria-hidden","true");var p=document.createElementNS(ns,"path");p.setAttribute("d",KI[n]);sv.appendChild(p);var sp=document.createElement("span");sp.className="ki";sp.appendChild(sv);return sp}
+function iconize(root){var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),ns=[],n;while(n=w.nextNode()){if(n.parentNode&&n.parentNode.closest&&n.parentNode.closest(".kfx"))continue;KRX.lastIndex=0;if(KRX.test(n.nodeValue))ns.push(n)}
+ ns.forEach(function(t){var f=document.createDocumentFragment(),s=t.nodeValue,last=0;KRX.lastIndex=0;var m;while(m=KRX.exec(s)){if(m.index>last)f.appendChild(document.createTextNode(s.slice(last,m.index)));f.appendChild(kicon(KM[m[1]]||KM[m[1].replace(/\uFE0F/g,"")]));last=KRX.lastIndex;
+  if(s.charAt(last)===" ")last++;}if(last<s.length)f.appendChild(document.createTextNode(s.slice(last)));t.parentNode.replaceChild(f,t)})}
+
+var _rnd=render;render=function(){_rnd();iconize(pan)};
 function open(){A={};step=0;render();sh.hidden=false;document.documentElement.style.overflow="hidden"}
 document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest(".kftile");if(t){e.preventDefault();e.stopPropagation();open()}},true);
 window.KFopen=open;
