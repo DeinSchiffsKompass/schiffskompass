@@ -17,11 +17,25 @@
 #uc form{display:none;gap:8px;justify-content:center;margin-top:6px}#uc form.on{display:flex}
 #uc input{width:190px;border-radius:12px;border:1.5px solid rgba(255,255,255,.5);background:rgba(255,255,255,.1);color:#fff;padding:10px 12px;font:600 16px inherit;font-family:inherit}
 #uc form button{background:#fff;color:#0B2470;border-radius:12px;padding:10px 14px}#uc .e{color:#FFB4A8;font-size:13px;min-height:18px;margin-top:6px}
-#uc .cl,#uc .cr{position:absolute;top:0;bottom:0;width:51%;z-index:2;transition:transform 1.3s cubic-bezier(.7,0,.25,1);
- background:repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0,rgba(255,255,255,.07) 22px,rgba(0,0,0,.28) 44px),linear-gradient(180deg,#0A2A6E,#061545);box-shadow:0 0 40px rgba(0,0,0,.6)}
-#uc .cl{left:0;border-right:3px solid #C9A227}#uc .cr{right:0;border-left:3px solid #C9A227}
-#uc.open .cl{transform:translateX(-102%)}#uc.open .cr{transform:translateX(102%)}
-#uc .cl::after,#uc .cr::after{content:"";position:absolute;top:0;left:0;right:0;height:46px;background:linear-gradient(180deg,#C9A227,#8A6A10);box-shadow:0 4px 10px rgba(0,0,0,.4)}
+#uc .cl,#uc .cr{position:absolute;top:0;bottom:-30px;width:53%;z-index:2;transition:transform 1.6s cubic-bezier(.65,0,.25,1),border-radius 1.6s cubic-bezier(.65,0,.25,1);
+ background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(0,0,0,0) 12%,rgba(0,0,0,0) 88%,rgba(0,0,0,.35)),
+ repeating-linear-gradient(90deg,#071C55 0,#0D3486 9px,#164AAE 17px,#0D3486 26px,#06184A 34px,#0B2C73 47px,#1550B8 58px,#0B2C73 68px,#071C55 75px);
+ box-shadow:0 0 50px rgba(0,0,0,.7);animation:ucSway 6s ease-in-out infinite}
+#uc .cl{left:-2%;transform-origin:0 0;border-bottom-right-radius:0 0}#uc .cr{right:-2%;transform-origin:100% 0;border-bottom-left-radius:0 0;animation-delay:-3s}
+#uc .cl::before,#uc .cr::before{content:"";position:absolute;left:0;right:0;bottom:0;height:24px;background:radial-gradient(ellipse 18px 14px at 50% 0,rgba(0,0,0,.45),transparent 70%) 0 0/36px 24px repeat-x}
+#uc.open .cl{transform:translateX(-4%) scaleX(.2) skewY(4deg);border-bottom-right-radius:100% 75%;animation:none}
+#uc.open .cr{transform:translateX(4%) scaleX(.2) skewY(-4deg);border-bottom-left-radius:100% 75%;animation:none}
+#uc .val{position:absolute;top:0;left:0;right:0;height:62px;z-index:3;background:linear-gradient(180deg,#E2BE45,#A77F17);box-shadow:0 6px 14px rgba(0,0,0,.45)}
+#uc .val::after{content:"";position:absolute;left:0;right:0;top:100%;height:22px;background:radial-gradient(circle at 50% 0,#A77F17 0 21px,transparent 22px) 0 0/48px 22px repeat-x;filter:drop-shadow(0 4px 3px rgba(0,0,0,.4))}
+#uc .val::before{content:"";position:absolute;left:0;right:0;bottom:8px;height:3px;background:repeating-linear-gradient(90deg,#FFF1B8 0 6px,transparent 6px 12px);opacity:.7}
+#uc.open .val{transform:translateY(-110%);transition:transform 1s ease-in 1.1s}
+#uc .card{padding-top:70px}
+#uc .tz{min-height:52px;margin:4px auto 6px;max-width:340px;font:700 16px/1.45 var(--body,inherit);color:#fff;transition:opacity .45s,transform .45s}#uc .tz.out{opacity:0;transform:translateY(8px)}
+#uc .tz small{display:block;font:600 12px inherit;letter-spacing:.12em;text-transform:uppercase;color:#7DD6FF;margin-bottom:2px}
+#uc .dots{display:flex;gap:6px;justify-content:center;margin-bottom:4px}#uc .dots b{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);transition:background .3s}#uc .dots b.on{background:#7DD6FF}
+#uc button.t{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#0B2470;border-radius:14px;padding:13px 22px;font-family:inherit;font-weight:800;font-size:15px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+#uc button.t.on{display:none}
+@keyframes ucSway{0%,100%{transform:skewX(0)}50%{transform:skewX(.6deg)}}
 @keyframes ucDrop{to{opacity:1;transform:none}}@keyframes ucIn{to{opacity:1;transform:none}}
 @keyframes ucFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @keyframes ucSpin{to{transform:rotate(360deg)}}@keyframes ucPulse{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.35);opacity:0}}
@@ -35,12 +49,16 @@ function set(){try{localStorage.setItem(K,H.slice(0,16))}catch(e){}}
 function hash(t){try{return crypto.subtle.digest("SHA-256",new TextEncoder().encode(t)).then(function(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return(x<16?"0":"")+x.toString(16)}).join("")})}catch(e){return Promise.resolve("")}}
 if(ok())return;var free=false,de=document.documentElement;de.classList.add("uclock");
 function show(){if(free||document.getElementById("uc"))return;var d=document.createElement("div");d.id="uc";d.setAttribute("role","dialog");d.setAttribute("aria-label","Seite im Aufbau");
- d.innerHTML='<div class="bg"></div><div class="card"><div class="b"><div class="lg"><i></i><i></i><img src="apple-touch-icon.png" alt="DEIN SchiffsKompass"></div><div class="tx"><h1>DEIN SchiffsKompass ist bald da</h1><p>Unsere Seite ist gerade noch im Aufbau. Schau bald wieder vorbei – bis dahin findest du uns hier:</p>'+
+ d.innerHTML='<div class="bg"></div><div class="card"><div class="b"><div class="lg"><i></i><i></i><img src="apple-touch-icon.png" alt="DEIN SchiffsKompass"></div><div class="tx"><h1>DEIN SchiffsKompass ist bald da</h1><p>Hinter dem Vorhang wird noch gewerkelt. Ein kleiner Vorgeschmack:</p><div class="tz"></div><div class="dots"></div><p>Bald geht’s los – bis dahin findest du uns hier:</p>'+
  '<div class="s"><a href="https://www.instagram.com/deinschiffskompass" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/share/1KepjM95rm/" target="_blank" rel="noopener">Facebook</a></div>'+
- '<button type="button" class="t">Ich habe einen Testzugang</button><form><input type="password" autocomplete="current-password" placeholder="Passwort" aria-label="Passwort"><button type="submit">Öffnen</button></form><div class="e" aria-live="polite"></div></div></div></div><div class="cl"></div><div class="cr"></div>';
+ '<button type="button" class="t">🔑 Ich habe einen Testzugang</button><form><input type="password" autocomplete="current-password" placeholder="Passwort" aria-label="Passwort"><button type="submit">Öffnen</button></form><div class="e" aria-live="polite"></div></div></div></div><div class="cl"></div><div class="cr"></div><div class="val"></div>';
  document.body.appendChild(d);var f=d.querySelector("form"),i=d.querySelector("input"),er=d.querySelector(".e");
  setTimeout(function(){d.classList.add("open")},400);
- d.querySelector(".t").onclick=function(){f.classList.add("on");i.focus()};
+ d.querySelector(".t").onclick=function(){f.classList.add("on");this.classList.add("on");i.focus()};
+ var TZ=[["Live","Wo ist dein Mein Schiff gerade? Bald weißt du es jeden Tag."],["Im Hafen","Wer liegt heute noch neben deinem Schiff?"],["An Bord","Neues von Kapitän und Crew – oft als Erste."],["Deine Kabine","Ein Kompass für deine Kabine – bis zur Sonnenseite."],["Vorfreude","Dein ganz persönlicher Countdown bis zum Ablegen."]],tz=d.querySelector(".tz"),dt=d.querySelector(".dots"),n=0;
+ TZ.forEach(function(){dt.appendChild(document.createElement("b"))});
+ function tick(){tz.innerHTML="";var sm=document.createElement("small");sm.textContent=TZ[n][0];tz.appendChild(sm);tz.appendChild(document.createTextNode(TZ[n][1]));Array.prototype.forEach.call(dt.children,function(b,k){b.className=k===n?"on":""})}
+ tick();setInterval(function(){if(!document.getElementById("uc"))return;tz.classList.add("out");setTimeout(function(){n=(n+1)%TZ.length;tick();tz.classList.remove("out")},450)},3800);
  f.onsubmit=function(ev){ev.preventDefault();hash(i.value.trim()).then(function(h){if(h!==H){er.textContent="Das Passwort stimmt leider nicht.";return}
   set();free=true;i.blur();d.classList.remove("open");/* Vorhang zu … */
   setTimeout(function(){d.querySelector(".card").style.opacity="0";d.querySelector(".bg").style.opacity="0";de.classList.remove("uclock");
