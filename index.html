@@ -430,6 +430,18 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
 <path d="M58 146 q7 -5 14 0 t14 0 t14 0 t14 0 t14 0 t14 0" fill="none" stroke="#2F9BFF" stroke-width="3" stroke-linecap="round"/>
 <circle cx="100" cy="100" r="81" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="1.5"/>
 </svg></div><h3>Push-Nachrichten</h3><p>Erhalte eine Push-Nachricht, sobald auf der Mein Schiff Flotte ein Kapitän oder Kreuzfahrtdirektor wechselt.</p><span class="go2">Aktivieren →</span></a>
+    <a class="tile main2 kftile" href="#start"><div class="sym" aria-hidden="true"><svg viewBox="0 0 200 200">
+<circle cx="100" cy="100" r="95" fill="url(#tz1)"/><circle cx="100" cy="100" r="95" fill="none" stroke="#fff" stroke-opacity=".7"/>
+<circle cx="100" cy="100" r="86" fill="url(#tz2)"/><circle cx="100" cy="100" r="81" fill="url(#tbg)"/>
+<rect x="62" y="56" width="76" height="92" rx="6" fill="#EAF4FF" stroke="#4FB4E6" stroke-width="3"/>
+<circle cx="116" cy="82" r="12" fill="#2F9BFF"/><path d="M108 82h16M116 74v16" stroke="#fff" stroke-width="0"/>
+<path d="M110 82q6 -8 12 0" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="72" y="112" width="56" height="16" rx="4" fill="#0E3A94"/><rect x="72" y="104" width="18" height="10" rx="3" fill="#4FB4E6"/>
+<rect class="door" x="84" y="56" width="0" height="92" fill="none"/>
+<path d="M66 60 L84 64 L84 144 L66 148 Z" class="door" fill="url(#cdf)" stroke="#4FB4E6" stroke-width="2"/>
+<circle cx="80" cy="104" r="2.5" class="door" fill="#0E3A94"/>
+<circle cx="100" cy="100" r="81" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="1.5"/>
+</svg></div><h3>Kabinen-Finder</h3><p>Finde in 7 kurzen Fragen die Kabine, die zu dir passt – von Seekrankheit bis Meerblick, für die ganze Mein Schiff Flotte.</p><span class="go2">Kabine finden →</span></a>
     <a class="tile main2" href="#buchen"><div class="sym" aria-hidden="true"><svg viewBox="0 0 200 200">
 <defs>
 <linearGradient id="bz1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D6F1FF"/><stop offset=".35" stop-color="#4FB4E6"/><stop offset=".7" stop-color="#14509A"/><stop offset="1" stop-color="#7DD6FF"/></linearGradient>
@@ -1372,7 +1384,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-23i"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-23j"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -1666,6 +1678,55 @@ try{var q=new URLSearchParams(location.search).get("reise");if(q){try{sessionSto
 
 
 
+
+
+
+
+
+
+<!--PUSH-ADDON-START-->
+<style id="push-addon-css">
+.tile.pushtile p.psdp{font-size:12.5px;line-height:1.45;color:#B9CBEA;margin:8px 0 0}.tile.pushtile p.psdp u{color:#7DD6FF;cursor:pointer}
+.pshint{font-size:13px;line-height:1.45;color:var(--muted);margin:6px 0 0}
+.pushtile .ring{transform-origin:100px 58px;animation:psring 3.2s ease-in-out infinite}
+@keyframes psring{0%,62%,100%{transform:rotate(0)}66%{transform:rotate(14deg)}72%{transform:rotate(-12deg)}78%{transform:rotate(8deg)}84%{transform:rotate(-5deg)}90%{transform:rotate(2deg)}}
+@media (prefers-reduced-motion:reduce){.pushtile .ring{animation:none}}
+</style>
+<script id="push-addon">
+(function(){try{
+var APP="7de62c51-d286-4377-9fc2-01d86b9740c6",K="skPush",SDK="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js";
+function on(){try{return localStorage.getItem(K)==="1"}catch(e){return false}}
+function set(v){try{v?localStorage.setItem(K,"1"):localStorage.removeItem(K)}catch(e){}}
+var ios=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+var standalone=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;
+var supported=("serviceWorker" in navigator)&&("PushManager" in window)&&("Notification" in window);
+var tile=document.querySelector(".pushtile");if(!tile)return;
+var h=tile.querySelector("h3"),p=tile.querySelector("p"),g=tile.querySelector(".go2"),hint=document.createElement("p");hint.className="pshint";hint.hidden=true;p.parentNode.insertBefore(hint,g);var dp=document.createElement("p");dp.className="psdp";p.parentNode.insertBefore(dp,hint);
+function ui(){if(on()&&supported&&Notification.permission==="granted"){h.textContent="Push-Nachrichten aktiv ✓";p.textContent="Du erfährst Kapitäns- und Kreuzfahrtdirektor-Wechsel auf der Mein Schiff Flotte als Erstes. Du kannst die Nachrichten hier jederzeit wieder abbestellen.";g.textContent="Abbestellen →";dp.innerHTML="Du kannst deine Einwilligung jederzeit hier widerrufen. Details in der <u data-ds=\"1\">Datenschutzerklärung</u>."}
+else{h.textContent="Push-Nachrichten";p.textContent="Erhalte eine Push-Nachricht, sobald auf der Mein Schiff Flotte ein Kapitän oder Kreuzfahrtdirektor wechselt.";g.textContent="Aktivieren →";dp.innerHTML="🔒 Mit „Aktivieren“ willigst du ein, dass dein Gerät über OneSignal (USA) für Push-Nachrichten angemeldet wird. Widerruf jederzeit über „Abbestellen“. Mehr in der <u data-ds=\"1\">Datenschutzerklärung</u>."}}
+function msg(t){hint.textContent=t;hint.hidden=!t}
+var loading=null;
+var OSref=null,inited=false;
+function sdk(){if(inited&&OSref)return Promise.resolve(OSref);if(loading)return loading;loading=new Promise(function(res,rej){var t=setTimeout(function(){rej(new Error("Zeitüberschreitung beim Verbinden mit OneSignal"))},30000);window.OneSignalDeferred=window.OneSignalDeferred||[];
+if(!document.querySelector('script[src="'+SDK+'"]')){var s=document.createElement("script");s.src=SDK;s.defer=true;s.onerror=function(){clearTimeout(t);loading=null;rej(new Error("OneSignal konnte nicht geladen werden"))};document.head.appendChild(s)}
+window.OneSignalDeferred.push(function(OS){OSref=OS;var ok=function(){inited=true;clearTimeout(t);res(OS)};
+try{OS.init({appId:APP,serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/"},notifyButton:{enable:false},promptOptions:{slidedown:{prompts:[]}},welcomeNotification:{disable:false}}).then(ok,function(e){if(/already initialized/i.test(e&&e.message||String(e)))ok();else{clearTimeout(t);rej(e)}})}catch(e){if(/already initialized/i.test(e&&e.message||String(e)))ok();else{clearTimeout(t);rej(e)}}})});return loading}
+function enable(){if(!supported){msg(ios?"Auf dem iPhone funktionieren Benachrichtigungen nur in der installierten App (ab iOS 16.4). Installiere zuerst die App über „Teilen → Zum Home-Bildschirm“ und öffne sie dann von dort.":"Dein Browser unterstützt leider keine Benachrichtigungen.");return}
+if(ios&&!standalone){msg("Auf dem iPhone funktionieren Benachrichtigungen nur in der installierten App. Installiere sie über „Teilen → Zum Home-Bildschirm“ und tippe dann in der App hier auf „Aktivieren“.");return}
+if(Notification.permission==="denied"){msg("Du hast Benachrichtigungen für diese Seite blockiert. Du kannst sie in den Einstellungen deines Browsers bzw. Handys wieder erlauben.");return}
+msg("Einen Moment …");g.textContent="…";
+var pr;try{pr=Notification.requestPermission()}catch(e){pr=null}
+Promise.resolve(pr).then(function(perm){perm=perm||Notification.permission;if(perm!=="granted"){msg(perm==="denied"?"Benachrichtigungen wurden nicht erlaubt.":"Benachrichtigungen wurden noch nicht erlaubt.");ui();return}
+set(true);return sdk().then(function(OS){return OS.User.PushSubscription.optIn().then(function(){try{OS.User.addTags({crew:"1"})}catch(e){}msg("");ui()})})}).catch(function(e){set(false);var d=e&&(e.message||e.toString())||"";msg("Das hat leider nicht geklappt. Bitte versuche es später noch einmal."+(d?" (Fehler: "+String(d).slice(0,140)+")":""));ui()})}
+function disable(){msg("Einen Moment …");sdk().then(function(OS){return OS.User.PushSubscription.optOut()}).catch(function(){}).then(function(){set(false);msg("Benachrichtigungen sind abbestellt.");ui()})}
+tile.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();if(e.target&&e.target.closest&&e.target.closest("[data-ds]")){location.hash="#datenschutz";return}if(on()&&supported&&Notification.permission==="granted")disable();else enable()},true);
+ui();
+if(on()&&supported){sdk().catch(function(){})}
+}catch(e){}})();
+</script>
+<!--PUSH-ADDON-END-->
+
+
 <!--SK-ADDON-START-->
 <style id="sk-addon-css">
 #sksheet{position:fixed;inset:0;z-index:9999;background:rgba(4,14,40,.55);display:flex;align-items:flex-end;justify-content:center}
@@ -1738,7 +1799,7 @@ p.appendChild(a);
 var t=E("div","sks");t.appendChild(E("h4",null,"Taufe"));var tg=E("div","skg");[[s.t,"Taufdatum"],[s.o,"Taufort"]].forEach(function(v){var c=E("div","skf");c.appendChild(E("b",null,v[0]));c.appendChild(E("span",null,v[1]));tg.appendChild(c)});
 var pc=E("div","skf w");pc.appendChild(E("b",null,s.p));pc.appendChild(E("span",null,s.p.indexOf(" und ")>0&&s.p.indexOf("(")>s.p.indexOf(" und ")?"Taufpatinnen":"Taufpatin"));tg.appendChild(pc);if(CK[n]){var ck=E("div","skf w");ck.appendChild(E("b",null,"🍸 "+CK[n][0]));var cs=E("span",null,"Taufcocktail: "+CK[n][1]);cs.style.lineHeight="1.4";ck.appendChild(cs);tg.appendChild(ck)}t.appendChild(tg);p.appendChild(t);
 try{var D=window.CDTRIPS,si=D.s.indexOf(n),td=today(),nx=D.r.filter(function(r){return r[1]===si&&r[0]>td}).slice(0,3);if(nx.length){var q=E("div","sks");q.appendChild(E("h4",null,"Nächste Abfahrten"));nx.forEach(function(r0){var r=E("div","skr");r.appendChild(E("span",null,D.n[r0[3]]));r.appendChild(E("small",null,fd(r0[0])+" · "+r0[2]+" N."));q.appendChild(r)});p.appendChild(q)}}catch(e){}
-var z=E("div","sks");var dl=E("a","skbtn","Deckplan bei Mein Schiff ansehen →");dl.href="https://www.meinschiff.com/"+s.dp+"/decks";dl.target="_blank";dl.rel="noopener";z.appendChild(dl);
+var z=E("div","sks");var dl=E("a","skbtn","Deckplan bei Mein Schiff ansehen →");dl.href="https://www.meinschiff.com/de/flotte/"+s.dp+"/decks";dl.target="_blank";dl.rel="noopener";z.appendChild(dl);
 z.appendChild(E("p","sknote","Fakten laut Mein Schiff Logbüchern, Werften und Presseberichten, ohne Gewähr."));p.appendChild(z);
 sh.appendChild(p);sh.hidden=false;document.documentElement.style.overflow="hidden";p.scrollTop=0}
 function align(c){var w=c.querySelector(".skbw"),h=c.querySelector("h3"),tp=c.querySelector(".top");if(!w||!h||!tp)return;w.style.marginLeft=Math.max(0,Math.round(h.getBoundingClientRect().left-tp.getBoundingClientRect().left))+"px"}
@@ -1752,49 +1813,123 @@ window.SKopen=open;window.addEventListener("resize",function(){[].forEach.call(d
 
 
 
-
-
-
-<!--PUSH-ADDON-START-->
-<style id="push-addon-css">
-.tile.pushtile p.psdp{font-size:12.5px;line-height:1.45;color:#B9CBEA;margin:8px 0 0}.tile.pushtile p.psdp u{color:#7DD6FF;cursor:pointer}
-.pshint{font-size:13px;line-height:1.45;color:var(--muted);margin:6px 0 0}
-.pushtile .ring{transform-origin:100px 58px;animation:psring 3.2s ease-in-out infinite}
-@keyframes psring{0%,62%,100%{transform:rotate(0)}66%{transform:rotate(14deg)}72%{transform:rotate(-12deg)}78%{transform:rotate(8deg)}84%{transform:rotate(-5deg)}90%{transform:rotate(2deg)}}
-@media (prefers-reduced-motion:reduce){.pushtile .ring{animation:none}}
+<!--KF-ADDON-START-->
+<style id="kf-addon-css">
+#kfsheet{position:fixed;inset:0;z-index:9999;background:rgba(4,14,40,.55);display:flex;align-items:flex-end;justify-content:center}
+#kfsheet[hidden]{display:none}
+.kfpan{background:var(--surface);color:var(--text);width:100%;max-width:560px;max-height:92vh;border-radius:20px 20px 0 0;overflow:auto;padding:16px 16px calc(18px + env(safe-area-inset-bottom))}
+.kfhd{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.kfhd h3{margin:0;font:800 20px var(--head,var(--body));color:var(--ink)}
+.kfx{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:none;color:var(--ink);font-size:18px;cursor:pointer;flex:none}
+.kfbar{height:6px;border-radius:3px;background:var(--line);margin:4px 0 14px;overflow:hidden}.kfbar i{display:block;height:100%;background:var(--accent);transition:width .25s}
+.kfq{font:800 17px/1.3 var(--head,var(--body));color:var(--ink);margin:0 0 4px}
+.kfsub{font-size:13px;color:var(--muted);margin:0 0 12px}
+.kfopts{display:grid;gap:8px}
+.kfo{display:flex;align-items:center;gap:12px;text-align:left;width:100%;border:1.5px solid var(--line);border-radius:14px;background:var(--bg);color:var(--text);padding:12px 14px;font:600 15px/1.35 var(--body);cursor:pointer}
+.kfo .e{font-size:22px;flex:none;width:28px;text-align:center}
+.kfo small{display:block;font-weight:500;font-size:12.5px;color:var(--muted)}
+.kfo.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--bg))}
+.kfnav{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:10px}
+.kfback{border:none;background:none;color:var(--accent);font:800 14px var(--body);cursor:pointer;padding:8px 0}
+.kfnext{border:none;border-radius:12px;background:var(--accent);color:#fff;font:800 15px var(--body);padding:12px 18px;cursor:pointer}
+#kfsheet h4{margin:16px 0 8px;font:800 14px var(--body);color:var(--accent);letter-spacing:.02em}
+.kfcat{background:linear-gradient(160deg,var(--hero1),var(--hero2));color:#fff;border-radius:16px;padding:14px}
+.kfcat small{display:block;color:#7DD6FF;font:800 12px var(--body)}
+.kfcat b{display:block;font:800 21px/1.2 var(--head,var(--body));margin:2px 0 4px}
+.kfcat p{margin:0;font-size:13.5px;line-height:1.45;color:#E3EEFF}
+#kfsheet ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+#kfsheet li{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.45;margin:0;padding:0}#kfsheet li::before,#kfsheet li::marker{content:none;display:none}
+#kfsheet li>span{flex:none;width:22px;text-align:center}
+.kfcta{display:block;text-align:center;margin-top:16px;border-radius:14px;background:#2E9BFF;color:#fff;font:800 16px var(--body);padding:14px;text-decoration:none}
+.kfad{font-size:11.5px;color:var(--muted);text-align:center;margin:6px 0 0}
+.kfnote{font-size:11.5px;color:var(--muted);margin:12px 0 0;line-height:1.45}
+.kfagain{display:block;margin:12px auto 0;border:none;background:none;color:var(--accent);font:800 14px var(--body);cursor:pointer}
+.kftile .door{transform-origin:84px 100px;animation:kfdoor 4s ease-in-out infinite}
+@keyframes kfdoor{0%,55%,100%{transform:scaleX(1)}70%,85%{transform:scaleX(.55)}}
+@media (prefers-reduced-motion:reduce){.kftile .door{animation:none}}
+#kfsheet details.kfov{margin-top:16px;border:1.5px solid var(--line);border-radius:14px;padding:10px 12px}
+#kfsheet details.kfov summary{cursor:pointer;font:800 14px var(--body);color:var(--ink)}
+#kfsheet details.kfov ul{margin-top:10px}
+#kfsheet details.kfov b{color:var(--ink);font-size:14px}
 </style>
-<script id="push-addon">
+<script id="kf-addon">
 (function(){try{
-var APP="7de62c51-d286-4377-9fc2-01d86b9740c6",K="skPush",SDK="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js";
-function on(){try{return localStorage.getItem(K)==="1"}catch(e){return false}}
-function set(v){try{v?localStorage.setItem(K,"1"):localStorage.removeItem(K)}catch(e){}}
-var ios=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
-var standalone=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;
-var supported=("serviceWorker" in navigator)&&("PushManager" in window)&&("Notification" in window);
-var tile=document.querySelector(".pushtile");if(!tile)return;
-var h=tile.querySelector("h3"),p=tile.querySelector("p"),g=tile.querySelector(".go2"),hint=document.createElement("p");hint.className="pshint";hint.hidden=true;p.parentNode.insertBefore(hint,g);var dp=document.createElement("p");dp.className="psdp";p.parentNode.insertBefore(dp,hint);
-function ui(){if(on()&&supported&&Notification.permission==="granted"){h.textContent="Push-Nachrichten aktiv ✓";p.textContent="Du erfährst Kapitäns- und Kreuzfahrtdirektor-Wechsel auf der Mein Schiff Flotte als Erstes. Du kannst die Nachrichten hier jederzeit wieder abbestellen.";g.textContent="Abbestellen →";dp.innerHTML="Du kannst deine Einwilligung jederzeit hier widerrufen. Details in der <u data-ds=\"1\">Datenschutzerklärung</u>."}
-else{h.textContent="Push-Nachrichten";p.textContent="Erhalte eine Push-Nachricht, sobald auf der Mein Schiff Flotte ein Kapitän oder Kreuzfahrtdirektor wechselt.";g.textContent="Aktivieren →";dp.innerHTML="🔒 Mit „Aktivieren“ willigst du ein, dass dein Gerät über OneSignal (USA) für Push-Nachrichten angemeldet wird. Widerruf jederzeit über „Abbestellen“. Mehr in der <u data-ds=\"1\">Datenschutzerklärung</u>."}}
-function msg(t){hint.textContent=t;hint.hidden=!t}
-var loading=null;
-var OSref=null,inited=false;
-function sdk(){if(inited&&OSref)return Promise.resolve(OSref);if(loading)return loading;loading=new Promise(function(res,rej){var t=setTimeout(function(){rej(new Error("Zeitüberschreitung beim Verbinden mit OneSignal"))},30000);window.OneSignalDeferred=window.OneSignalDeferred||[];
-if(!document.querySelector('script[src="'+SDK+'"]')){var s=document.createElement("script");s.src=SDK;s.defer=true;s.onerror=function(){clearTimeout(t);loading=null;rej(new Error("OneSignal konnte nicht geladen werden"))};document.head.appendChild(s)}
-window.OneSignalDeferred.push(function(OS){OSref=OS;var ok=function(){inited=true;clearTimeout(t);res(OS)};
-try{OS.init({appId:APP,serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/"},notifyButton:{enable:false},promptOptions:{slidedown:{prompts:[]}},welcomeNotification:{disable:false}}).then(ok,function(e){if(/already initialized/i.test(e&&e.message||String(e)))ok();else{clearTimeout(t);rej(e)}})}catch(e){if(/already initialized/i.test(e&&e.message||String(e)))ok();else{clearTimeout(t);rej(e)}}})});return loading}
-function enable(){if(!supported){msg(ios?"Auf dem iPhone funktionieren Benachrichtigungen nur in der installierten App (ab iOS 16.4). Installiere zuerst die App über „Teilen → Zum Home-Bildschirm“ und öffne sie dann von dort.":"Dein Browser unterstützt leider keine Benachrichtigungen.");return}
-if(ios&&!standalone){msg("Auf dem iPhone funktionieren Benachrichtigungen nur in der installierten App. Installiere sie über „Teilen → Zum Home-Bildschirm“ und tippe dann in der App hier auf „Aktivieren“.");return}
-if(Notification.permission==="denied"){msg("Du hast Benachrichtigungen für diese Seite blockiert. Du kannst sie in den Einstellungen deines Browsers bzw. Handys wieder erlauben.");return}
-msg("Einen Moment …");g.textContent="…";
-var pr;try{pr=Notification.requestPermission()}catch(e){pr=null}
-Promise.resolve(pr).then(function(perm){perm=perm||Notification.permission;if(perm!=="granted"){msg(perm==="denied"?"Benachrichtigungen wurden nicht erlaubt.":"Benachrichtigungen wurden noch nicht erlaubt.");ui();return}
-set(true);return sdk().then(function(OS){return OS.User.PushSubscription.optIn().then(function(){try{OS.User.addTags({crew:"1"})}catch(e){}msg("");ui()})})}).catch(function(e){set(false);var d=e&&(e.message||e.toString())||"";msg("Das hat leider nicht geklappt. Bitte versuche es später noch einmal."+(d?" (Fehler: "+String(d).slice(0,140)+")":""));ui()})}
-function disable(){msg("Einen Moment …");sdk().then(function(OS){return OS.User.PushSubscription.optOut()}).catch(function(){}).then(function(){set(false);msg("Benachrichtigungen sind abbestellt.");ui()})}
-tile.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();if(e.target&&e.target.closest&&e.target.closest("[data-ds]")){location.hash="#datenschutz";return}if(on()&&supported&&Notification.permission==="granted")disable();else enable()},true);
-ui();
-if(on()&&supported){sdk().catch(function(){})}
+var SH=["Mein Schiff 1","Mein Schiff 2","Mein Schiff 3","Mein Schiff 4","Mein Schiff 5","Mein Schiff 6","Mein Schiff 7","Mein Schiff Relax","Mein Schiff Flow"];
+var BOOK="https://unserschiff.com/?advisor=16808";
+var Q=[
+ {k:"ship",q:"Auf welchem Schiff möchtest du reisen?",s:"Wenn du es noch nicht weißt, wähle „Noch offen“.",o:[["","🧭","Noch offen"]].concat(SH.map(function(n){return[n,"🚢",n]}))},
+ {k:"who",q:"Wer reist mit?",o:[["1","🧍","Ich reise allein"],["2","👫","Zu zweit","Paar oder Freunde"],["34","👨‍👩‍👧","Familie / 3–4 Personen","in einer Kabine"],["5","👨‍👩‍👧‍👦","5 oder mehr Personen","mehrere Kabinen"]]},
+ {k:"budget",q:"Was ist dir bei der Kabine am wichtigsten?",o:[["b1","💶","Günstig reisen","Die Kabine ist nur zum Schlafen"],["b2","☀️","Tageslicht","Ein Fenster zum Meer reicht mir"],["b3","🌅","Eigener Balkon","Frische Luft und Meerblick von der Kabine"],["b4","✨","Extra Komfort","Mehr Platz, Suite, exklusive Bereiche"]]},
+ {k:"sea",q:"Wirst du leicht seekrank?",o:[["0","😎","Nein, gar nicht"],["1","🙂","Etwas, bei Seegang"],["2","🤢","Ja, ich bin empfindlich"]]},
+ {k:"quiet",q:"Wie wichtig ist dir Ruhe in der Kabine?",o:[["0","🎶","Nicht so wichtig"],["1","😴","Sehr wichtig – ich schlafe leicht"]]},
+ {k:"acc",q:"Brauchst du eine barrierefreie Kabine oder kurze Wege?",o:[["0","🚶","Nein"],["1","🛗","Kurze Wege zum Aufzug wären schön"],["2","♿","Ja, barrierefrei (z. B. Rollstuhl)"]]},
+ {k:"view",q:"Hast du einen Wunsch zur Lage?",o:[["","🤷","Egal / keine Vorliebe"],["heck","🌊","Blick nach hinten (Heck)","Kielwasser und Sonnenuntergänge"],["spa","🧖","Nähe Spa & Pooldeck"],["free","👀","Freie Sicht ist mir wichtig","keine Rettungsboote vor dem Fenster"]]}
+];
+var A={},step=0;
+function E(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+var sh=E("div");sh.id="kfsheet";sh.hidden=true;document.body.appendChild(sh);
+var pan=E("div","kfpan");pan.setAttribute("role","dialog");pan.setAttribute("aria-modal","true");pan.setAttribute("aria-label","Kabinen-Finder");sh.appendChild(pan);
+function close(){sh.hidden=true;document.documentElement.style.overflow=""}
+sh.addEventListener("click",function(e){if(e.target===sh)close()});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!sh.hidden)close()});
+function head(t,pct){var h=E("div","kfhd");h.appendChild(E("h3",null,t));var x=E("button","kfx","✕");x.setAttribute("aria-label","Schließen");x.onclick=close;h.appendChild(x);pan.appendChild(h);if(pct!=null){var b=E("div","kfbar"),i=E("i");i.style.width=pct+"%";b.appendChild(i);pan.appendChild(b)}}
+function render(){pan.innerHTML="";if(step>=Q.length){result();return}var q=Q[step];head("Kabinen-Finder",Math.round(step/Q.length*100));
+pan.appendChild(E("p","kfq",q.q));pan.appendChild(E("p","kfsub",q.s||("Frage "+(step+1)+" von "+Q.length)));var g=E("div","kfopts");
+q.o.forEach(function(o){var b=E("button","kfo"+(A[q.k]===o[0]?" on":""));b.type="button";b.appendChild(E("span","e",o[1]));var t=E("span");t.appendChild(document.createTextNode(o[2]));if(o[3])t.appendChild(E("small",null,o[3]));b.appendChild(t);b.onclick=function(){A[q.k]=o[0];step++;render();pan.scrollTop=0};g.appendChild(b)});pan.appendChild(g);
+if(step>0){var n=E("div","kfnav"),bk=E("button","kfback","← Zurück");bk.onclick=function(){step--;render()};n.appendChild(bk);pan.appendChild(n)}}
+function result(){head("Deine Wunschkabine",100);var s=A.ship,big=(s==="Mein Schiff Relax"||s==="Mein Schiff Flow"),who=A.who,bud=A.budget,sea=+A.sea,q=A.quiet==="1",acc=+A.acc,v=A.view;
+var cat,why,alt=null;
+if(bud==="b1"){cat="Innenkabine";why="Die günstigste Art, an Bord zu sein. Da du die Kabine vor allem zum Schlafen nutzt, sparst du hier am meisten – dunkel und ruhig schläft es sich zudem sehr gut.";if(sea>=2)alt="Wenn du sehr empfindlich bist, kann ein Fenster mit Blick zum Horizont helfen – dann ist eine Außenkabine die bessere Wahl."}
+else if(bud==="b2"){cat="Außenkabine";why="Tageslicht und Blick aufs Meer, aber günstiger als ein Balkon. Ideal, wenn du tagsüber viel an Deck und an Land unterwegs bist.";if(!big)alt="Außenkabinen sind auf der Mein Schiff Flotte nur begrenzt verfügbar – oft lohnt sich der Preisvergleich zu einer günstigen Balkonkabine."}
+else if(bud==="b3"){cat="Balkonkabine";why="Dein privater Platz an der frischen Luft: Kaffee mit Meerblick, Einlaufen im Hafen und Sonnenuntergang direkt vor der Kabine. Auf der Mein Schiff Flotte die beliebteste Kategorie.";if(v==="spa")alt="Auf vielen Schiffen der Flotte gibt es Spa-Balkonkabinen in der Nähe des Spa-Bereichs – frag gezielt danach."}
+else{cat=big?"Junior Suite oder Suite":"Suite";why="Mehr Platz, großzügige Balkone und auf der Mein Schiff Flotte bei den Suiten Extras wie Excellence-Service durch den Concierge und Zugang zur exklusiven X-Lounge.";alt="Die Ausstattung unterscheidet sich je nach Suiten-Typ und Schiff – lass dir die Leistungen der jeweiligen Kategorie zeigen."}
+if(who==="34")why+=" Für 3–4 Personen kommen Kabinen mit 3. und 4. Bett (Schlafsofa oder Zusatzbett) infrage – diese sind begrenzt, also früh buchen.";
+if(who==="5")why+=" Für 5 oder mehr Personen empfehlen sich zwei nebeneinanderliegende Kabinen, idealerweise mit Verbindungstür.";
+var c=E("div","kfcat");c.appendChild(E("small",null,"Unsere Empfehlung"+(s?" für die "+s:"")));c.appendChild(E("b",null,cat));c.appendChild(E("p",null,why));pan.appendChild(c);
+var L=[],X=[];
+if(sea>=1){L.push(["⚓","Mittschiffs, also in der Mitte des Schiffs – dort spürt man die Bewegungen am wenigsten."]);L.push(["⬇️","Eher ein unteres bis mittleres Kabinendeck statt der obersten Decks."]);X.push(["🚫","Kabinen ganz vorne (Bug) – dort sind Schaukeln und Stampfen am stärksten."])}
+if(q){X.push(["🔇","Direkt unter dem Pool- und Sonnendeck oder dem Buffetrestaurant (frühmorgens Stühlerücken)."]);X.push(["🎭","Über oder unter Theater, Bars und Clubs."]);X.push(["🚪","Direkt neben Treppenhaus, Aufzügen oder Service-Türen der Crew."])}
+if(acc===2){L.push(["♿","Eine barrierefreie Kabine – davon gibt es pro Schiff nur wenige, deshalb so früh wie möglich buchen und bei der Buchung ausdrücklich angeben."]);L.push(["🛗","Lage nahe einem Aufzug"+(q?" – aber nicht direkt daneben, damit es ruhig bleibt.":".")])}else if(acc===1){L.push(["🛗","Eine Kabine in der Nähe eines Aufzugs, aber nicht direkt daneben."])}
+if(v==="heck"&&sea>=1){X.push(["⚠️","Heckkabinen: Dort sind Bewegungen und leichte Vibrationen spürbarer – bei Seekrankheit lieber mittschiffs bleiben. Kompromiss: eine Balkonkabine mittschiffs – je nach Route siehst du Sonnenuntergänge auch von der Seite."])}
+else if(v==="heck"){if(bud==="b3"||bud==="b4")L.push(["🌊","Eine Heckkabine mit Blick nach hinten aufs Kielwasser – besonders schön bei Sonnenuntergang."]);else L.push(["🌊","Kabinen am Heck – mit Balkon besonders schön, mit Blick aufs Kielwasser."])}
+if(v==="spa"){L.push(["🧖","Ein oberes Kabinendeck, damit du schnell im Spa und auf dem Pooldeck bist."]);if(q)X.push(["⚠️","Achtung: Die obersten Kabinen unter dem Pooldeck können tagsüber lauter sein."])}
+if(v==="free"){L.push(["👀","Eine Kabine ohne „Sichtbehinderung“ im Deckplan – also ohne Rettungsboote oder Aufbauten vor Fenster bzw. Balkon."]);X.push(["🚤","Kabinen direkt hinter den Rettungsbooten: Sie hängen meist mittschiffs vor den unteren Kabinendecks und versperren dort den Blick."])}
+if(!L.length)L.push(["👍","Bei deinen Wünschen bist du bei der Lage flexibel – das ist oft günstiger, weil du mehr Kabinen zur Auswahl hast."]);
+if(who==="5")L.push(["🔗","Zwei Kabinen nebeneinander, am besten mit Verbindungstür."]);
+if(q){L.push(["🥪","Ein reines Kabinendeck, bei dem über und unter dir ebenfalls nur Kabinen liegen – so bist du von Pool, Restaurants und Bühnen gut abgeschirmt."]);X.push(["⚓","Kabinen ganz vorne oder ganz hinten auf den unteren Decks: Dort hört man Anker, Bugstrahlruder bzw. Maschinen beim An- und Ablegen."])}
+if(v==="spa"||v==="free")X.push(["🏗️","Kabinen auf den obersten Kabinendecks direkt unter Decküberständen: Dort ragt das Deck darüber teils weit über den Balkon – das nimmt Sonne, Himmel und Ausblick."]);
+var G=[];if(bud==="b2"||bud==="b3"){if(sea>=1)G.push(["🚤","Wichtig bei deiner Wahl: Genau mittschiffs auf den unteren Kabinendecks hängen oft die Rettungsboote vor Fenster oder Balkon. Achte im Deckplan auf den Hinweis „Sichtbehinderung“ – ein Deck höher ist der Blick meist frei, und mittschiffs bleibt es trotzdem ruhig."]);else if(v!=="free")G.push(["🚤","Kabinen mit „Sichtbehinderung“ (z. B. durch Rettungsboote) sind im Deckplan markiert und oft günstiger – Tageslicht ja, freier Meerblick nein. Wenn dir der Ausblick wichtig ist, meide sie."])}
+G.push(["🎟️","Bei Mein Schiff kannst du die genaue Kabinennummer nur im PRO-Tarif frei wählen. In PUR und PLUS buchst du die Kabinenart, die genaue Lage teilt die Reederei zu – wenn dir die Lage wichtig ist, lohnt sich PRO."]);
+if(bud==="b3"||bud==="b4"){G.push(["🚭","Nichtraucher-Balkone sind im Deckplan farbig markiert. Wer Zigarettenrauch vom Nachbarbalkon nicht mag, sollte darauf achten."]);
+ if(!s||big)G.push(["🙈",(big?"Auf der "+s:"Auf der Mein Schiff Relax und Flow")+" liegen einige Balkonkabinen auf Deck 6 an einer öffentlichen Promenade. Laut TUI Cruises wurden ihre Balkone inzwischen mit einer Schutzfolie beklebt, damit man nicht mehr hineinsehen kann – wer viel Privatsphäre möchte, wählt trotzdem lieber eine andere Lage."]);
+ G.push(["💨","Balkone ganz vorne sind während der Fahrt oft sehr windig und kühl."])}
+if(v==="heck"&&sea<1)G.push(["🌫️","Auf Heckbalkonen kann sich je nach Wind und Fahrt Ruß aus dem Schornstein niederschlagen – Polster und Füße werden dann schnell grau. Nicht jede Reise ist betroffen, aber gut zu wissen."]);
+
+function list(t,arr){if(!arr.length)return;pan.appendChild(E("h4",null,t));var u=E("ul");arr.forEach(function(x){var li=E("li");li.appendChild(E("span",null,x[0]));li.appendChild(E("div",null,x[1]));u.appendChild(li)});pan.appendChild(u)}
+list("Die ideale Lage",L);list("Lieber meiden",X);list("Gut zu wissen",G);
+if(alt){pan.appendChild(E("h4",null,"Unser Tipp"));pan.appendChild(E("p",null,alt)).style.cssText="margin:0;font-size:14px;line-height:1.45"}
+if(s){var dk=E("a",null,"🗺️ Deckplan der "+s+" bei Mein Schiff ansehen →");dk.href="https://www.meinschiff.com/de/flotte/"+s.toLowerCase().replace(/ /g,"-")+"/decks";dk.target="_blank";dk.rel="noopener";dk.style.cssText="display:block;text-align:center;margin-top:16px;border:1.5px solid var(--accent);border-radius:14px;color:var(--accent);font:800 15px var(--body);padding:12px;text-decoration:none";pan.appendChild(dk);pan.appendChild(E("p","kfad","Dort siehst du auf jedem Deck, wo Pool, Theater, Restaurants und die Kabinen liegen."))}
+var cta=E("a","kfcta","Jetzt passende Kabine über uns buchen →");cta.href=BOOK;cta.target="_blank";cta.rel="noopener";pan.appendChild(cta);
+pan.appendChild(E("p","kfad","Werbung: Partnerlink zu UnserSchiff – wir beraten dich gern persönlich bei der Kabinenwahl."));
+pan.appendChild(E("p","kfnote","Die Empfehlung ist eine allgemeine Orientierung anhand deiner Antworten und gilt ohne Gewähr. Welche Kabinen auf deiner Reise noch frei sind, siehst du bei der Buchung. Deine Antworten werden nicht gespeichert."));
+var dt=E("details","kfov"),sm=E("summary",null,"📖 Alle Kabinenlagen im Überblick – Vor- und Nachteile");dt.appendChild(sm);var O=[
+["⚓ Mitte, untere Decks","Am wenigsten Bewegung – die beste Wahl bei Seekrankheit und meist sehr ruhig."],
+["⬆️ Mitte, obere Decks","Kurze Wege zu Pool und Spa, oft schöne Aussicht – aber mehr Bewegung bei Seegang und eventuell Geräusche vom Pooldeck darüber."],
+["🔺 Vorne (Bug)","Spannender Blick in Fahrtrichtung, aber das stärkste Auf und Ab bei Seegang, windige Balkone und auf unteren Decks Geräusche von Anker und Bugstrahlruder."],
+["🌊 Hinten (Heck)","Traumhafter Blick aufs Kielwasser, aber mehr Bewegung und leichte Vibrationen; auf Heckbalkonen kann sich Ruß aus dem Schornstein niederschlagen."],
+["🚶 An der Promenade","Kabinen, an denen ein öffentlicher Weg vorbeiführt: Andere Gäste können vorbeigehen und hineinschauen, auch wenn Fenster bzw. Balkone teils mit Spiegel- oder Schutzfolie versehen sind."],
+["🏊 Unter dem Pooldeck","Ganz nah an Sonne und Pool, aber frühmorgens und abends oft hörbar: Liegen und Stühle werden gerückt, Deck wird gereinigt."],
+["🎭 Nahe Theater, Bars, Clubs","Kurze Wege zur Unterhaltung, aber abends Musik und Bässe; auch über oder unter Restaurants und Küchen kann es lauter sein."],
+["🛗 Nahe Aufzug und Treppenhaus","Praktisch kurze Wege – direkt daneben aber mehr Durchgangsverkehr und Türenklappen."],
+["🚤 Hinter Rettungsbooten","Kabinen mit Sichtbehinderung sind im Deckplan markiert und oft günstiger – Tageslicht ja, freier Meerblick nein."],
+["🏗️ Unter Decküberständen","Auf manchen oberen Decks ragt das Deck darüber weit über den Balkon – weniger Sonne und Himmel, dafür etwas geschützter vor Regen."],
+["🥪 Reines Kabinendeck","Über und unter dir nur Kabinen – meist die ruhigste Lage an Bord."]];
+var ou=E("ul");O.forEach(function(x){var li=E("li");var d=E("div");var bb=E("b",null,x[0]);bb.style.display="block";d.appendChild(bb);d.appendChild(document.createTextNode(x[1]));li.appendChild(d);ou.appendChild(li)});dt.appendChild(ou);pan.appendChild(dt);
+var ag=E("button","kfagain","↺ Noch einmal starten");ag.onclick=function(){A={};step=0;render()};pan.appendChild(ag);pan.scrollTop=0}
+function open(){A={};step=0;render();sh.hidden=false;document.documentElement.style.overflow="hidden"}
+document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest(".kftile");if(t){e.preventDefault();e.stopPropagation();open()}},true);
+window.KFopen=open;
 }catch(e){}})();
 </script>
-<!--PUSH-ADDON-END-->
+<!--KF-ADDON-END-->
 
 </body></html>
