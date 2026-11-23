@@ -1366,13 +1366,13 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
 }catch(e){}})();
 </script>
 <script id="jump-addon">/* Kachel "Crewwechsel": öffnet Flotte und springt zu den Crew-Änderungen, unter der festen Kopfleiste */(function(){document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[data-jump]");if(!a)return;var id=a.getAttribute("data-jump");function go(sm){var t=document.getElementById(id);if(!t)return;var hd=document.querySelector("header.nav"),off=(hd?hd.getBoundingClientRect().bottom:0)+12;var r=t.getBoundingClientRect().top-off;if(Math.abs(r)>4)window.scrollTo({top:Math.max(0,window.pageYOffset+r),behavior:sm?"smooth":"auto"})}setTimeout(function(){go(true)},400);setTimeout(function(){go(true)},1400)})})();</script>
-<script id="sw-addon">/* Service Worker nur für die Installation als App (Android-Symbol); speichert nichts zwischen */if("serviceWorker"in navigator)window.addEventListener("load",function(){var pw=false;try{pw=localStorage.getItem("skPush")==="1"}catch(e){}navigator.serviceWorker.register(pw?"push-sw.js":"sw.js",{scope:"/"}).catch(function(){})});</script>
+<script id="sw-addon">/* Service Worker nur für die Installation als App (Android-Symbol); speichert nichts zwischen */if("serviceWorker"in navigator)window.addEventListener("load",function(){var pw=false;try{pw=localStorage.getItem("skPush")==="1"}catch(e){}navigator.serviceWorker.register(pw?"OneSignalSDKWorker.js":"sw.js",{scope:"/"}).catch(function(){})});</script>
 <script id="update-addon">
 /* Auto-Update: Beim Öffnen, beim Zurückkehren in die App und alle 5 Minuten prüft die Seite, ob sich index.html geändert hat
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-23f"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-23g"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -1752,6 +1752,7 @@ window.SKopen=open;window.addEventListener("resize",function(){[].forEach.call(d
 
 
 
+
 <!--PUSH-ADDON-START-->
 <style id="push-addon-css">
 .pshint{font-size:13px;line-height:1.45;color:var(--muted);margin:6px 0 0}
@@ -1777,7 +1778,7 @@ var OSref=null,inited=false;
 function sdk(){if(inited&&OSref)return Promise.resolve(OSref);if(loading)return loading;loading=new Promise(function(res,rej){var t=setTimeout(function(){rej(new Error("Zeitüberschreitung beim Verbinden mit OneSignal"))},30000);window.OneSignalDeferred=window.OneSignalDeferred||[];
 if(!document.querySelector('script[src="'+SDK+'"]')){var s=document.createElement("script");s.src=SDK;s.defer=true;s.onerror=function(){clearTimeout(t);loading=null;rej(new Error("OneSignal konnte nicht geladen werden"))};document.head.appendChild(s)}
 window.OneSignalDeferred.push(function(OS){OSref=OS;var ok=function(){inited=true;clearTimeout(t);res(OS)};
-try{OS.init({appId:APP,serviceWorkerPath:"push-sw.js",serviceWorkerParam:{scope:"/"},notifyButton:{enable:false},promptOptions:{slidedown:{prompts:[]}},welcomeNotification:{disable:false}}).then(ok,function(e){if(/already initialized/i.test(e&&e.message||String(e)))ok();else{clearTimeout(t);rej(e)}})}catch(e){if(/already initialized/i.test(e&&e.message||String(e)))ok();else{clearTimeout(t);rej(e)}}})});return loading}
+try{OS.init({appId:APP,serviceWorkerPath:"OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/"},notifyButton:{enable:false},promptOptions:{slidedown:{prompts:[]}},welcomeNotification:{disable:false}}).then(ok,function(e){if(/already initialized/i.test(e&&e.message||String(e)))ok();else{clearTimeout(t);rej(e)}})}catch(e){if(/already initialized/i.test(e&&e.message||String(e)))ok();else{clearTimeout(t);rej(e)}}})});return loading}
 function enable(){if(!supported){msg(ios?"Auf dem iPhone funktionieren Benachrichtigungen nur in der installierten App (ab iOS 16.4). Installiere zuerst die App über „Teilen → Zum Home-Bildschirm“ und öffne sie dann von dort.":"Dein Browser unterstützt leider keine Benachrichtigungen.");return}
 if(ios&&!standalone){msg("Auf dem iPhone funktionieren Benachrichtigungen nur in der installierten App. Installiere sie über „Teilen → Zum Home-Bildschirm“ und tippe dann in der App hier auf „Aktivieren“.");return}
 if(Notification.permission==="denied"){msg("Du hast Benachrichtigungen für diese Seite blockiert. Du kannst sie in den Einstellungen deines Browsers bzw. Handys wieder erlauben.");return}
