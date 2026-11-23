@@ -1384,7 +1384,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-23l"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-23m"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -1820,6 +1820,7 @@ window.SKopen=open;window.addEventListener("resize",function(){[].forEach.call(d
 
 
 
+
 <!--KF-ADDON-START-->
 <style id="kf-addon-css">
 #kfsheet{position:fixed;inset:0;z-index:9999;background:rgba(4,14,40,.55);display:flex;align-items:flex-end;justify-content:center}
@@ -1866,6 +1867,9 @@ window.SKopen=open;window.addEventListener("resize",function(){[].forEach.call(d
 .kfpick{background:rgba(255,255,255,.14);border-radius:12px;padding:8px 10px;margin:6px 0 8px}
 .kfpick strong{display:block;font:800 16px/1.3 var(--body);color:#fff}
 .kfpick span{display:block;font:700 13px/1.4 var(--body);color:#CFE6FF;margin-top:2px}
+#kfsheet details.kfkat{margin:10px 0 6px;background:var(--bg2,#F2F6FB);border-radius:12px;padding:8px 10px}
+#kfsheet details.kfkat summary{cursor:pointer;font:800 13.5px var(--body);color:var(--ink)}
+#kfsheet details.kfkat li span{font:800 13px var(--body);color:var(--accent);min-width:28px}
 </style>
 <script id="kf-addon">
 (function(){try{
@@ -1911,6 +1915,8 @@ if(who==="34")why+=" Für 3–4 Personen kommen Kabinen mit 3. und 4. Bett (Schl
 if(who==="5")why+=" Für 5 oder mehr Personen empfehlen sich zwei nebeneinanderliegende Kabinen, idealerweise mit Verbindungstür.";
 
 var DN={A:{3:"Atlantik",4:"Seestern",6:"Boje",7:"Hanse",8:"Muschel",9:"Koralle",10:"Perle",11:"Krabbe",15:"Brise"},B:{3:"Atlantik",6:"Boje",7:"Hanse",8:"Muschel",9:"Koralle",10:"Perle",11:"Krabbe"},R:{3:"Welle",6:"Koralle",7:"Seestern",8:"Muschel",9:"Krabbe",11:"Delfin",12:"Robbe",14:"Kompass",15:"Perle"}};
+var BK={A:{6:"F/G",7:"E/F",8:"D/E",9:"C/D",10:"A",11:"B/C",14:"A"},B:{6:"F/G",7:"E/F",8:"D/E",9:"C/D",10:"A",11:"B/C"},R:{6:"G/H",7:"E",8:"E",9:"D",10:"D",11:"C",12:"B",14:"A",15:"F"}};
+function bd(k,d){return "Deck "+d+(DN[k][d]?" ("+DN[k][d]+(BK[k][d]?", Kat. "+BK[k][d]:"")+")":(BK[k][d]?" (Kat. "+BK[k][d]+")":""))}
 function dn(k,d){return "Deck "+d+(DN[k][d]?" ("+DN[k][d]+")":"")}
 function pick(k){var R=k==="R",d,a=null,pos="mittschiffs",ex="";
  if(/^Einzelkabine/.test(cat)){if(R)d=11;else if(k==="A")d=4;else return null}
@@ -1919,15 +1925,17 @@ function pick(k){var R=k==="R",d,a=null,pos="mittschiffs",ex="";
  else if(bud==="b3"){
   if(v==="spar"){d=6;ex=R?" · Kat. G, nicht ganz vorne":" · Kat. H";pos=sea>=1?"mittschiffs":"mit Sichtbehinderung"}
   else if(v==="spa"&&sea<1){d=R?14:11;ex=" · SPA-Balkon";pos=R?"nahe Spa":"mittschiffs, nicht unter Pool/Bar"}
-  else if(sea>=1){d=R?8:7;a=R?9:8}
-  else if(v==="heck"){d=R?9:(k==="A"?9:8);pos="am Heck";a=R?12:10}
-  else if(q){d=R?9:8;a=R?"8 oder 12":"7 oder 9"}
-  else{d=R?9:8;a=R?"12":"7 oder 9"}}
+  else if(sea>=1){d=R?8:7;a=R?[9]:[8]}
+  else if(v==="heck"){pos="am Heck";if(R){d=8;a=[9,12]}else if(k==="A"){d=9;a=[11]}else{d=8;a=[9]}}
+  else{d=R?8:7;a=R?[9,12]:[8,9]}
+ }
  else{ if(R){d=9;ex=" · Junior Suite";a="14 (Weitblick/Fernweh Suiten)"}
   else if(k==="A"&&v==="heck"&&sea<1){d="7/8";ex=" · Horizont Suite";pos="am Heck"}
   else{d=10;ex=" · Junior Suite";a=k==="A"?"15 (Himmel & Meer Suite)":"14 (Himmel & Meer Suite)"}}
  if(bud==="b3"&&v!=="spar"&&v!=="heck"&&!(v==="spa"&&sea<1)){if(sm==="0"&&sea<1)pos="vorderer Bereich, kurz vor dem ersten Treppenhaus (Nichtraucher-Balkon)";else if(sm==="1")pos="mittschiffs (Raucher-Balkon)"}
- var t=(typeof d==="number"?dn(k,d):"Deck "+d)+ex+" · "+pos;return{t:t,a:a?("Alternativ: Deck "+a):null}}
+ if(bud==="b3"&&typeof d==="number"&&!/Kat\./.test(ex)&&!/SPA/.test(ex))var t=bd(k,d)+ex+" · "+pos;else{if(/SPA/.test(ex))ex=" · SPA-Balkon, Kat. BS";var t=(typeof d==="number"?dn(k,d):"Deck "+d)+ex+" · "+pos}
+ var at=null;if(a){if(Array.isArray(a))at="Alternativ: "+a.map(function(x){return bud==="b3"?bd(k,x):dn(k,x)}).join(", ");else at="Alternativ: Deck "+a}
+ return{t:t,a:at}}
 var c=E("div","kfcat");c.appendChild(E("small",null,"Unsere Empfehlung"+(s?" für die "+s:"")));c.appendChild(E("b",null,cat));
 if(s){var pk=pick(/Relax|Flow/.test(s)?"R":/ [127]$/.test(s)?"A":"B");if(pk){var pd=E("div","kfpick");pd.appendChild(E("strong",null,"📍 "+pk.t));if(pk.a)pd.appendChild(E("span",null,pk.a));c.appendChild(pd)}}
 else{var pd=E("div","kfpick");[["A","MS 1, 2, 7"],["B","MS 3–6"],["R","Relax, Flow"]].forEach(function(x){var pk=pick(x[0]);if(pk)pd.appendChild(E("span",null,"📍 "+x[1]+": "+pk.t))});if(pd.childNodes.length)c.appendChild(pd)}
@@ -1958,10 +1966,10 @@ function deckRec(k){var ok=[],no=[],R=k==="R";
    else{ok.push(["💰","Balkonkabinen Kategorie H auf Deck 6 (Boje) – vor dem Balkon hängen die Rettungsboote von Deck 5. Dafür deutlich günstiger, und von vielen Kabinen schaut man im Sitzen über das Boot hinweg aufs Meer."]);
     ok.push(["🔎","Tipp: Kabinen, vor denen nur das Ende eines Bootes oder ein kleineres Boot hängt, sind die beste Wahl in dieser Kategorie. Direkt vor der Bootsaufhängung ist die Sicht am stärksten eingeschränkt."]);}
   }else{
-   if(sea>=1)ok.push(["⚓",(R?"Deck 8 oder 9":"Deck 7 (Hanse)")+" mittschiffs – das ist das tiefste Balkondeck mit freier Sicht und ruhig im Seegang."]);
-   if(q)ok.push(["😴",ruhig+(R?" – ringsum nur Kabinen. Auch Deck 12 (Robbe) liegt hoch und ist trotzdem ruhig.":" – über und unter dir liegen nur Kabinen, die ruhigste Lage an Bord.")]);
+   if(sea>=1)ok.push(["⚓",(R?bd(k,8)+", alternativ "+bd(k,9):bd(k,7))+" mittschiffs – das tiefste Balkondeck mit freier Sicht und ruhig im Seegang."]);
+   if(q)ok.push(["😴",R?bd(k,8)+" und "+bd(k,9)+" – ringsum nur Kabinen. Auch "+bd(k,12)+" liegt hoch und ist trotzdem ruhig.":bd(k,7)+", "+bd(k,8)+" und "+bd(k,9)+" – über und unter dir liegen nur Kabinen, die ruhigste Lage an Bord."]);
    if(v==="free"||(!q&&sea<1&&!v))ok.push(["👀",(R?"Ab Deck 7 aufwärts":"Ab Deck 7 aufwärts")+" hast du in der Regel freie Sicht ohne Rettungsboote vor dem Balkon."]);
-   if(v==="spa")ok.push(["🧖",R?"SPA-Balkonkabinen auf Deck 14 (Kompass) – nah am Spa und hinter den Aufzügen sehr ruhig.":"SPA-Balkonkabinen auf Deck 11 (Krabbe) mit direktem Weg zum Spa. Mittschiffs und nicht direkt unter Pool oder Bar wählen."]);
+   if(v==="spa")ok.push(["🧖",R?"SPA-Balkonkabinen (Kat. BS) auf Deck 14 (Kompass) – nah am Spa und hinter den Aufzügen sehr ruhig.":"SPA-Balkonkabinen (Kat. BS) auf Deck 11 (Krabbe) mit direktem Weg zum Spa. Mittschiffs und nicht direkt unter Pool oder Bar wählen."]);
    if(v==="heck")ok.push(["🌊",R?"Heckbalkone auf den mittleren Decks 8 bis 12 – mit Blick aufs Kielwasser.":(k==="A"?"Heckbalkone auf den Decks 9 bis 11 – am Heck der Decks 7 und 8 liegen auf diesen Schiffen die Horizont Suiten.":"Heckbalkone auf den Decks 7 bis 10 – mit Blick aufs Kielwasser.")]);
    no.push(["🚤",R?"Deck 6 (Koralle), wenn dir Aussicht wichtig ist: Viele Kabinen haben Rettungsboote vor dem Balkon, und die vordersten liegen an einer öffentlichen Promenade.":"Deck 6 (Boje), Kategorie H, wenn dir Aussicht wichtig ist: Dort hängen die Rettungsboote von Deck 5 vor dem Balkon."]);
   }
@@ -1984,7 +1992,9 @@ function deckRec(k){var ok=[],no=[],R=k==="R";
  return{ok:ok,no:no}}
 function deckBox(k,title,parent){var r=deckRec(k);var bx=E("div","kfdk");bx.appendChild(E("b",null,title));
  function sub(t,arr){if(!arr.length)return;bx.appendChild(E("h5",null,t));var u=E("ul");arr.forEach(function(x){var li=E("li");li.appendChild(E("span",null,x[0]));li.appendChild(E("div",null,x[1]));u.appendChild(li)});bx.appendChild(u)}
- sub("✅ Unsere Deck-Empfehlung",r.ok);sub("⛔ Diese Kabinen würde ich nicht nehmen",r.no);parent.appendChild(bx)}
+ sub("✅ Unsere Deck-Empfehlung",r.ok);
+ if(bud==="b3"){var KL=k==="R"?[["H","Deck 6 – Sichtbehinderung, vorne an der Promenade"],["G","Deck 6, einzelne vorne auf Deck 7–9 – teils Sichtbehinderung"],["F","Deck 15 – unter dem Pooldeck"],["E","Deck 7 und 8"],["D","Deck 9 und 10"],["C","Deck 11"],["B","Deck 12"],["A","Deck 14"],["BS","SPA-Balkon, Deck 14"]]:[["H","Deck 6–9 – Sichtbehinderung"],["G","Deck 6"],["F","Deck 6 und 7"],["E","Deck 7 und 8"],["D","Deck 8 und 9"],["C","Deck 9 und 11"],["B","Deck 11"],["A","Deck 10"+(k==="A"?" und 14":"")],["BS","SPA-Balkon, Deck 11"]];
+  var kd=E("details","kfkat");kd.appendChild(E("summary",null,"🏷️ Balkon-Kategorien auf "+(s?"der "+s:KN[k])+" – von günstig nach teuer"));var ku=E("ul");KL.forEach(function(x){var li=E("li");li.appendChild(E("span",null,x[0]));li.appendChild(E("div",null,x[1]));ku.appendChild(li)});kd.appendChild(ku);kd.appendChild(E("p","kfad","Faustregel: Je weiter hinten der Buchstabe im Alphabet, desto tiefer das Deck und meist desto günstiger. Kategorien laut Mein-Schiff-Einteilung, Änderungen vorbehalten."));bx.appendChild(kd)}sub("⛔ Diese Kabinen würde ich nicht nehmen",r.no);parent.appendChild(bx)}
 if(s){deckBox(kls(s),"📍 Konkret auf der "+s,pan)}
 else{pan.appendChild(E("h4",null,"Konkrete Decks je Schiff"));["A","B","R"].forEach(function(k){var d=E("details","kfov kfcls");d.appendChild(E("summary",null,"🚢 "+KN[k]));deckBox(k,"",d);pan.appendChild(d)})}
 var L=[],X=[];
