@@ -826,7 +826,7 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==und
   var CREW=[
     {n:"Mein Schiff 1",kap:"Jens Troier",kapSeit:"09.11.2026",kd:"Roman Schneeberger",kdSeit:"12.11.2026"},
     {n:"Mein Schiff 2",kap:"Jan Fortun",kapSeit:"13.11.2026",kd:"Max Kenntemich",kdSeit:"14.08.2026"},
-    {n:"Mein Schiff 3",kap:"",kapSeit:"",kd:"Sonja Karas",kdSeit:"25.10.2026",note:"In der Werft"},
+    {n:"Mein Schiff 3",kap:"Günter Batzner",kapSeit:"",kd:"Sonja Karas",kdSeit:"25.10.2026",note:"In der Werft"},
     {n:"Mein Schiff 4",kap:"Panagiotis Varotsos",kapSeit:"11.10.2026",kd:"Dominik Spickermann",kdSeit:"15.11.2026"},
     {n:"Mein Schiff 5",kap:"Ioannis Anastasiou",kapSeit:"08.10.2026",kd:"Martin Büto",kdSeit:"11.11.2026"},
     {n:"Mein Schiff 6",kap:"Aleksandar Pejnović",kapSeit:"18.10.2026",kd:"Janina Kemmerer",kdSeit:"11.11.2026"},
@@ -836,6 +836,7 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==und
   window.CREW=CREW;
   /* Änderungen, neueste zuerst */
   var UPD=[
+    {d:"23.11.2026",s:"Mein Schiff 3",r:"kap",t:"Mein Schiff 3: Günter Batzner führt das Schiff seit der Werftzeit in Bremerhaven und ist auch auf der ersten Reise nach der Reparatur vom 28.11. bis 02.12. (Bremerhaven – Oslo – Kiel) Kapitän. Ab 02.12. übernimmt Alexander Orendt in Kiel das Kommando."},
         {d:"19.11.2026",s:"Mein Schiff 7",r:"kd",t:"Mein Schiff 7: Pascal Tischler ist neuer Kreuzfahrtdirektor und übernimmt von Steffen Waeger."},
     {d:"15.11.2026",s:"Mein Schiff 4",r:"kd",t:"Mein Schiff 4: Dominik Spickermann ist neuer Kreuzfahrtdirektor und übernimmt von Joe Sacharias."},
     {d:"13.11.2026",t:"Mein Schiff 2: Jan Fortun ist neuer Kapitän und übernimmt von Hilko Tjard Mahler."},
@@ -1358,7 +1359,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-23a"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-23b"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
