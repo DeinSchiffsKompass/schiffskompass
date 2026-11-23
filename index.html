@@ -441,7 +441,7 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
 <path d="M66 60 L84 64 L84 144 L66 148 Z" class="door" fill="url(#cdf)" stroke="#4FB4E6" stroke-width="2"/>
 <circle cx="80" cy="104" r="2.5" class="door" fill="#0E3A94"/>
 <circle cx="100" cy="100" r="81" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="1.5"/>
-</svg></div><h3>Kabinen-Finder</h3><p>Finde in 8 kurzen Fragen die Kabine, die zu dir passt – von Seekrankheit bis Meerblick, für die ganze Mein Schiff Flotte.</p><span class="go2">Kabine finden →</span></a>
+</svg></div><h3>Kabinen-Finder</h3><p>Finde in wenigen kurzen Fragen die Kabine, die zu dir passt – von Seekrankheit bis Meerblick, für die ganze Mein Schiff Flotte.</p><span class="go2">Kabine finden →</span></a>
     <a class="tile main2" href="#buchen"><div class="sym" aria-hidden="true"><svg viewBox="0 0 200 200">
 <defs>
 <linearGradient id="bz1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D6F1FF"/><stop offset=".35" stop-color="#4FB4E6"/><stop offset=".7" stop-color="#14509A"/><stop offset="1" stop-color="#7DD6FF"/></linearGradient>
@@ -1384,7 +1384,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-23n"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-23o"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -1824,6 +1824,8 @@ window.SKopen=open;window.addEventListener("resize",function(){[].forEach.call(d
 
 
 
+
+
 <!--KF-ADDON-START-->
 <style id="kf-addon-css">
 #kfsheet{position:fixed;inset:0;z-index:9999;background:rgba(4,14,40,.55);display:flex;align-items:flex-end;justify-content:center}
@@ -1881,7 +1883,9 @@ var BOOK="https://unserschiff.com/?advisor=16808";
 var Q=[
  {k:"ship",q:"Auf welchem Schiff möchtest du reisen?",s:"Wenn du es noch nicht weißt, wähle „Noch offen“.",o:[["","🧭","Noch offen"]].concat(SH.map(function(n){return[n,"🚢",n]}))},
  {k:"who",q:"Wer reist mit?",o:[["1","🧍","Ich reise allein"],["2","👫","Zu zweit","Paar oder Freunde"],["34","👨‍👩‍👧","Familie / 3–4 Personen","in einer Kabine"],["5","👨‍👩‍👧‍👦","5 oder mehr Personen","mehrere Kabinen"]]},
- {k:"budget",q:"Was ist dir bei der Kabine am wichtigsten?",o:[["b1","💶","Günstig reisen","Die Kabine ist nur zum Schlafen"],["b2","☀️","Tageslicht","Ein Fenster zum Meer reicht mir"],["b3","🌅","Eigener Balkon","Frische Luft und Meerblick von der Kabine"],["b4","✨","Extra Komfort","Mehr Platz, Suite, exklusive Bereiche"]]},
+ {k:"x",q:"Wie wichtig sind dir ruhige, exklusive Bereiche an Bord?",s:"Ab der Junior Suite: eigene X-Lounge, X-Sonnendeck und Concierge – deutlich ruhiger als Pool und Buffet.",o:[["1","✨","Sehr wichtig – das möchte ich","dann empfehlen wir dir eine Suite"],["2","🤔","Klingt gut, wenn der Preis passt"],["0","👍","Brauche ich nicht"]]},
+ {k:"budget",when:function(){return A.x!=="1"},q:"Was ist dir bei der Kabine am wichtigsten?",o:[["b1","💶","Günstig reisen","Die Kabine ist nur zum Schlafen"],["b2","☀️","Tageslicht","Ein Fenster zum Meer reicht mir"],["b3","🌅","Eigener Balkon","Frische Luft und Meerblick von der Kabine"],["b4","✨","Extra Komfort","Mehr Platz, Suite, exklusive Bereiche"]]},
+ {k:"su",when:function(){return A.budget==="b4"},q:"Welche Suite passt zu dir?",s:"Alle Suiten – auch die Junior Suite – haben dieselben Vorteile. Größere Suiten bringen mehr Platz.",of:function(){return suOpts()}},
  {k:"sea",q:"Wirst du leicht seekrank?",o:[["0","😎","Nein, gar nicht"],["1","🙂","Etwas, bei Seegang"],["2","🤢","Ja, ich bin empfindlich"]]},
  {k:"quiet",q:"Wie wichtig ist dir Ruhe in der Kabine?",o:[["0","🎶","Nicht so wichtig"],["1","😴","Sehr wichtig – ich schlafe leicht"]]},
  {k:"smoke",q:"Rauchst du – oder stört dich Rauch?",s:"In den Kabinen ist Rauchen generell verboten (auch E-Zigaretten). Auf vielen Balkonen ist es erlaubt.",o:[["0","🚭","Nichtraucher – Rauch stört mich"],["1","🚬","Ich rauche","auch mal auf dem Balkon"],["2","🤷","Egal"]]},
@@ -1895,16 +1899,29 @@ var pan=E("div","kfpan");pan.setAttribute("role","dialog");pan.setAttribute("ari
 function close(){sh.hidden=true;document.documentElement.style.overflow=""}
 sh.addEventListener("click",function(e){if(e.target===sh)close()});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!sh.hidden)close()});
 function head(t,pct){var h=E("div","kfhd");h.appendChild(E("h3",null,t));var x=E("button","kfx","✕");x.setAttribute("aria-label","Schließen");x.onclick=close;h.appendChild(x);pan.appendChild(h);if(pct!=null){var b=E("div","kfbar"),i=E("i");i.style.width=pct+"%";b.appendChild(i);pan.appendChild(b)}}
-function render(){pan.innerHTML="";if(step>=Q.length){result();return}var q=Q[step];head("Kabinen-Finder",Math.round(step/Q.length*100));
-pan.appendChild(E("p","kfq",q.q));pan.appendChild(E("p","kfsub",q.s||("Frage "+(step+1)+" von "+Q.length)));var g=E("div","kfopts");
-q.o.forEach(function(o){var b=E("button","kfo"+(A[q.k]===o[0]?" on":""));b.type="button";b.appendChild(E("span","e",o[1]));var t=E("span");t.appendChild(document.createTextNode(o[2]));if(o[3])t.appendChild(E("small",null,o[3]));b.appendChild(t);b.onclick=function(){A[q.k]=o[0];step++;render();pan.scrollTop=0};g.appendChild(b)});pan.appendChild(g);
-if(step>0){var n=E("div","kfnav"),bk=E("button","kfback","← Zurück");bk.onclick=function(){step--;render()};n.appendChild(bk);pan.appendChild(n)}}
+var SUC={A:[["js","Junior Suite","26 m², Balkon 7–8 m², bis 4 Personen",10,"Deck 10 (Perle) · Seite, zwei am Heck auf Deck 11 (11201/11204)"],["hz","Horizont Suite","38–40 m², Balkon ca. 16 m², bis 4 Personen",7,"Deck 7 oder 8 · am Heck"],["sa","Schöne Aussicht Suite","39 m², Balkon 13–14 m²",9,"Deck 9 oder 10 · mittig im Heck"],["us","Übersee Suite","40 m², Balkon ca. 9 m²",14,"Deck 14 (Horizont)"],["hm","Himmel & Meer Suite","40–42 m² auf zwei Ebenen, Dachterrasse ca. 29 m²",15,"Deck 15 · vorne"],["pa","Panorama Suite","73–77 m², Veranda 31–36 m², bis 6 Personen",10,"Deck 6, 9 oder 10 · Ecklage am Heck"]],
+ B:[["js","Junior Suite","26 m², Balkon ca. 8 m², bis 4 Personen",10,"Deck 10 (Perle)"],["hm","Himmel & Meer Suite","40–42 m² auf zwei Ebenen, Dachterrasse ca. 29 m²",14,"Deck 14 · vorne"],["th","Themen Suite","54 m², Veranda ca. 15 m², bis 4 Personen",10,"Deck 10 (Perle)"],["di","Diamant Suite","bis 6 Personen, zusätzliches Schlafzimmer, große Veranda am Diamanten",6,"Deck 6 · am Heck (nur MS 4–6)"]],
+ R:[["js","Junior Suite","26 m², Balkon ca. 7 m², bis 4 Personen",9,"u. a. Deck 8, 9 und 14"],["fw","Fernweh Suite","28–38 m², Veranda ca. 34 m², bis 4 Personen",11,"Deck 11, 12 oder 14"],["sa","Schöne Aussicht Suite","39 m², Veranda 10–12 m², bis 4 Personen",10,"Deck 7–12 oder 14 · an den Seiten des Hecks"],["wb","Weitblick Suite","43–45 m², separates Schlafzimmer, Badewanne",14,"Deck 14 (Kompass) · hinterer Bereich"],["gf","Große Freiheit Suite","88 m² auf zwei Ebenen, zwei Veranden, bis 6 Personen",9,"Deck 9/10 · ganz hinten"]]};
+function kcl(n){return /Relax|Flow/.test(n)?"R":/ [127]$/.test(n)?"A":"B"}
+function suList(k){var L=SUC[k];if(k==="B"&&A.ship==="Mein Schiff 3")L=L.filter(function(x){return x[0]!=="di"});return L}
+function suOpts(){var EM={js:"🛎️",hz:"🌅",sa:"🏞️",us:"🧭",hm:"☁️",pa:"🏛️",th:"🎨",di:"💎",fw:"🌍",wb:"🔭",gf:"🏰"};
+ if(!A.ship)return[["js","🛎️","Junior Suite","günstigster Einstieg – alle Suiten-Vorteile inklusive"],["big","🛋️","Mehr Platz","größere Suite mit separatem Wohn- oder Schlafbereich"],["terr","🌴","Große Terrasse oder Veranda"],["max","🏰","Die größte Suite an Bord","bis 6 Personen"],["auto","🤷","Weiß ich nicht – empfiehl mir eine"]];
+ return suList(kcl(A.ship)).map(function(x){return[x[0],EM[x[0]]||"✨",x[1],x[2]]}).concat([["auto","🤷","Weiß ich nicht – empfiehl mir eine"]])}
+function suPick(k){var su=A.su||"auto",L=suList(k),M={A:{big:"hz",terr:"hm",max:"pa"},B:{big:"th",terr:"hm",max:(A.ship==="Mein Schiff 3"?"th":"di")},R:{big:"wb",terr:"fw",max:"gf"}};
+ if(M[k][su])su=M[k][su];if(su==="auto")su=(A.view==="heck"&&+A.sea<1&&k!=="B")?(k==="A"?"hz":"sa"):"js";
+ if(k==="B"&&!A.ship&&su==="di")su="di";var f=L.filter(function(x){return x[0]===su})[0]||L[0];return f}
+function vis(i){return !Q[i].when||Q[i].when()}
+function render(){pan.innerHTML="";while(step<Q.length&&!vis(step))step++;if(step>=Q.length){result();return}var q=Q[step];var nv=0,pos=0;for(var i=0;i<Q.length;i++)if(vis(i)){nv++;if(i<=step)pos=nv}head("Kabinen-Finder",Math.round((pos-1)/nv*100));
+pan.appendChild(E("p","kfq",q.q));pan.appendChild(E("p","kfsub",(q.s?q.s+" · ":"")+"Frage "+pos+" von "+nv));var g=E("div","kfopts");
+(q.of?q.of():q.o).forEach(function(o){var b=E("button","kfo"+(A[q.k]===o[0]?" on":""));b.type="button";b.appendChild(E("span","e",o[1]));var t=E("span");t.appendChild(document.createTextNode(o[2]));if(o[3])t.appendChild(E("small",null,o[3]));b.appendChild(t);b.onclick=function(){A[q.k]=o[0];if(q.k==="x"&&o[0]==="1")A.budget="b4";step++;render();pan.scrollTop=0};g.appendChild(b)});pan.appendChild(g);
+if(step>0){var n=E("div","kfnav"),bk=E("button","kfback","← Zurück");bk.onclick=function(){step--;while(step>0&&!vis(step))step--;render()};n.appendChild(bk);pan.appendChild(n)}}
 function result(){head("Deine Wunschkabine",100);var s=A.ship,big=(s==="Mein Schiff Relax"||s==="Mein Schiff Flow"),who=A.who,bud=A.budget,sea=+A.sea,q=A.quiet==="1",acc=+A.acc,v=A.view,sm=A.smoke;
 var cat,why,alt=null;
 if(bud==="b1"){cat="Innenkabine";why="Die günstigste Art, an Bord zu sein. Da du die Kabine vor allem zum Schlafen nutzt, sparst du hier am meisten – dunkel und ruhig schläft es sich zudem sehr gut.";if(sea>=2)alt="Wenn du sehr empfindlich bist, kann ein Fenster mit Blick zum Horizont helfen – dann ist eine Außenkabine die bessere Wahl."}
 else if(bud==="b2"){cat="Außenkabine";why="Tageslicht und Blick aufs Meer, aber günstiger als ein Balkon. Ideal, wenn du tagsüber viel an Deck und an Land unterwegs bist.";if(!big)alt="Außenkabinen sind auf der Mein Schiff Flotte nur begrenzt verfügbar – oft lohnt sich der Preisvergleich zu einer günstigen Balkonkabine."}
 else if(bud==="b3"){cat="Balkonkabine";why="Dein privater Platz an der frischen Luft: Kaffee mit Meerblick, Einlaufen im Hafen und Sonnenuntergang direkt vor der Kabine. Unser Tipp, wenn du gern draußen bist und die Seetage genießen willst.";if(v==="spa")alt="Auf vielen Schiffen der Flotte gibt es Spa-Balkonkabinen in der Nähe des Spa-Bereichs – frag gezielt danach."}
-else{cat=big?"Junior Suite oder Suite":"Suite";why="Mehr Platz, großzügige Balkone und auf der Mein Schiff Flotte bei den Suiten Extras wie Excellence-Service durch den Concierge und Zugang zur exklusiven X-Lounge.";alt="Die Ausstattung unterscheidet sich je nach Suiten-Typ und Schiff – lass dir die Leistungen der jeweiligen Kategorie zeigen."}
+else{var SP=s?suPick(kcl(s)):null;cat=SP?SP[1]:(A.su==="js"||!A.su||A.su==="auto"?"Junior Suite":"Suite");why=(SP?SP[2]+". ":"")+"Schon ab der Junior Suite hast du alle Suiten-Vorteile: X-Lounge mit X-Bar, X-Sonnendeck, Excellence-Service mit Concierge, separaten Check-in, Minibar-Getränke und Internet inklusive"+(big?" – auf der "+s+" zusätzlich das Suiten-Restaurant X-Coast":"")+". Größere Suiten bringen mehr Platz und Außenfläche, aber keine weiteren Vorteile.";
+ if(SP&&SP[0]!=="js")alt="Günstigster Weg zu allen Suiten-Vorteilen ist die Junior Suite – wenn dir die Fläche nicht so wichtig ist, sparst du dort deutlich.";else alt="Suiten sind schnell vergeben – früh anfragen lohnt sich."}
 if(who==="1"){var SG=/ 7$|Relax|Flow/.test(s),RF=/Relax|Flow/.test(s);
  if(bud!=="b4"&&(SG||!s)){
   if(bud==="b1"){cat="Einzelkabine Innen";why="Eine echte Kabine nur für dich – mit 8–11 m² und 1,20 m breitem Bett. Statt einer Doppelkabine mit Einzelzuschlag zahlst du hier keinen Zuschlag für die Alleinnutzung."}
@@ -1919,12 +1936,16 @@ if(who==="34")why+=" Für 3–4 Personen kommen Kabinen mit 3. und 4. Bett (Schl
 if(who==="5")why+=" Für 5 oder mehr Personen empfehlen sich zwei nebeneinanderliegende Kabinen, idealerweise mit Verbindungstür.";
 
 var DN={A:{3:"Atlantik",4:"Seestern",6:"Boje",7:"Hanse",8:"Muschel",9:"Koralle",10:"Perle",11:"Krabbe",15:"Brise"},B:{3:"Atlantik",6:"Boje",7:"Hanse",8:"Muschel",9:"Koralle",10:"Perle",11:"Krabbe"},R:{3:"Welle",6:"Koralle",7:"Seestern",8:"Muschel",9:"Krabbe",11:"Delfin",12:"Robbe",14:"Kompass",15:"Perle"}};
-var BK={A:{6:"F/G",7:"E/F",8:"D/E",9:"C/D",10:"A",11:"B/C",14:"A"},B:{6:"F/G",7:"E/F",8:"D/E",9:"C/D",10:"A",11:"B/C"},R:{6:"G/H",7:"E",8:"E",9:"D",10:"D",11:"C",12:"B",14:"A",15:"F"}};
+var BK={A:{6:"E/G",7:"D",8:"C",9:"B",10:"A",11:"F",14:"A"},B:{6:"E/G",7:"D",8:"C",9:"B",10:"A",11:"F"},R:{6:"G/H",7:"E",8:"E",9:"D",10:"D",11:"C",12:"B",14:"A",15:"F"}};
 function bd(k,d){return "Deck "+d+(DN[k][d]?" ("+DN[k][d]+(BK[k][d]?", Kat. "+BK[k][d]:"")+")":(BK[k][d]?" (Kat. "+BK[k][d]+")":""))}
 function dn(k,d){return "Deck "+d+(DN[k][d]?" ("+DN[k][d]+")":"")}
+function heck(k){var R=k==="R";
+ if(k==="B"){var o=[];if(!q)o.push([bd(k,11)+" am Heck","keine Kabine darüber – etwas hellhöriger"]);o.push([bd(k,9)+" am Heck","größerer Heckbalkon"]);o.push(["Deck 7 (Hanse) am Heck · Kombi-Balkonkabine","Balkon ca. 9 m², bis zu drei verbundene Kabinen"]);return{suite:false,o:o}}
+ if(k==="A")return{suite:true,o:[["Deck 11 (Krabbe) · Junior Suite 11201 oder 11204","die einzigen Junior Suiten am Heck"],["Deck 7 oder 8 (Hanse/Muschel) · Horizont Suite","Balkon rund 16 m²"],["Deck 9 oder 10 (Koralle/Perle) · Schöne Aussicht Suite","mittig im Heck"],["Deck 9 oder 10 · Panorama Suite","Ecklage mit großer Veranda"]]};
+ return{suite:true,o:[["Deck 7–12 oder 14 · Schöne Aussicht Suite","an den Seiten des Hecks"],["Deck 9/10 (Krabbe/Wal) · Große Freiheit Suite","zweistöckig, ganz hinten"]]}}
 function pick(k){var R=k==="R",d,a=null,pos="mittschiffs",ex="";
- var BUGT=R?"Deck 7–10 · Außenkabine im Bug":(k==="A"||k==="B"?"Deck 8 (Muschel) · Außenkabine 8000 oder 8001 im Bug":"");
- if(v==="bug"&&!/^Einzelkabine/.test(cat)&&bud==="b2"){var fam=(who==="34"||who==="5");if(R){d="7–10";ex=fam?" · Familienkabine Außen im Bug":" · Außenkabine im Bug"}else{d=8;ex=fam?" · Familienkabine Außen im Bug":" · Außenkabine 8000 oder 8001 im Bug"}pos="Fenster in Fahrtrichtung";return{t:(typeof d==="number"?dn(k,d):"Deck "+d)+ex+" · "+pos,a:null}}
+ var BUGT=R?"Deck 7–10 · Außenkabine im Bug (Kat. AA)":"Deck 8 (Muschel) · Außenkabine im Bug (Kat. AA)";
+ if(v==="bug"&&!/^Einzelkabine/.test(cat)&&bud==="b2"){var fam=(who==="34"||who==="5");if(R){d="7–10";ex=fam?" · Familienkabine Außen im Bug":" · Außenkabine im Bug (Kat. AA, für 2 Personen)"}else{d=8;ex=fam?" · Familienkabine Außen im Bug":" · Außenkabine im Bug (Kat. AA)"}pos="Fenster in Fahrtrichtung";return{t:(typeof d==="number"?dn(k,d):"Deck "+d)+ex+" · "+pos,a:null}}
  if(/^Einzelkabine/.test(cat)){if(R)d=11;else if(k==="A")d=4;else return null}
  else if(bud==="b1"){d=sea>=2?3:(q?(R?9:8):(R?8:3));a=sea>=2?(R?8:7):(q?(R?8:"7 oder 9"):null)}
  else if(bud==="b2"){d=(q&&sea<2&&k!=="B")?(R?9:8):3;a=d===3?(k==="B"?null:(R?9:8)):3}
@@ -1932,16 +1953,17 @@ function pick(k){var R=k==="R",d,a=null,pos="mittschiffs",ex="";
   if(v==="spar"){d=6;ex=R?" · Kat. G, nicht ganz vorne":" · Kat. H";pos=sea>=1?"mittschiffs":"mit Sichtbehinderung"}
   else if(v==="spa"&&sea<1){d=R?14:11;ex=" · SPA-Balkon";pos=R?"nahe Spa":"mittschiffs, nicht unter Pool/Bar"}
   else if(sea>=1){d=R?8:7;a=R?[9]:[8]}
-  else if(v==="heck"){pos="am Heck";if(R){d=8;a=[9,12]}else if(k==="A"){d=9;a=[11]}else{d=8;a=[9]}}
+  else if(v==="heck"){var H=heck(k);return{t:H.o[0][0]+(H.suite?" (Suite)":"")+" · Blick nach hinten",a:(H.o.length>1?"Alternativ: "+H.o.slice(1).map(function(x){return x[0]}).join(" · "):null)+(H.suite?" – Echte Heckkabinen sind auf diesem Schiff nur Suiten.":"")}}
   else{d=R?8:7;a=R?[9,12]:[8,9]}
  }
- else{ if(R){d=9;ex=" · Junior Suite";a="14 (Weitblick/Fernweh Suiten)"}
-  else if(k==="A"&&v==="heck"&&sea<1){d="7/8";ex=" · Horizont Suite";pos="am Heck"}
-  else{d=10;ex=" · Junior Suite";a=k==="A"?"15 (Himmel & Meer Suite)":"14 (Himmel & Meer Suite)"}}
+ else{var P=suPick(k),LL=suList(k),others=LL.filter(function(x){return x[0]!==P[0]});
+  var t0=P[1]+" · "+P[4];var al=null;if(P[0]==="js")al="Mehr Platz: "+others.slice(0,2).map(function(x){return x[1]+" ("+x[4]+")"}).join(" · ");else al="Günstiger mit allen Suiten-Vorteilen: Junior Suite ("+LL[0][4]+")";
+  return{t:t0,a:al}}
  if(bud==="b3"&&v!=="spar"&&v!=="heck"&&!(v==="spa"&&sea<1)){if(sm==="0"&&sea<1)pos="vorderer Bereich, kurz vor dem ersten Treppenhaus (Nichtraucher-Balkon)";else if(sm==="1")pos="mittschiffs (Raucher-Balkon)"}
  if(bud==="b3"&&typeof d==="number"&&!/Kat\./.test(ex)&&!/SPA/.test(ex))var t=bd(k,d)+ex+" · "+pos;else{if(/SPA/.test(ex))ex=" · SPA-Balkon, Kat. BS";var t=(typeof d==="number"?dn(k,d):"Deck "+d)+ex+" · "+pos}
  if(v==="bug"&&(bud==="b1"||bud==="b3")&&!/^Einzelkabine/.test(cat)){if(bud==="b3"){t=bd(k,R?8:7)+" · so weit vorne wie möglich (seitlich, Nichtraucher-Balkon)"}return{t:t,a:"Echter Blick nach vorne: "+BUGT}}
  var at=null;if(a){if(Array.isArray(a))at="Alternativ: "+a.map(function(x){return bud==="b3"?bd(k,x):dn(k,x)}).join(", ");else at="Alternativ: Deck "+a}
+ if(sm==="1"&&sea<1&&v!=="heck"&&((bud==="b3"&&k==="B")||bud==="b4")){var H2=heck(k);at=(at?at+" · ":"")+"Für Raucher auch schön am Heck: "+H2.o[0][0]}
  return{t:t,a:at}}
 var c=E("div","kfcat");c.appendChild(E("small",null,"Unsere Empfehlung"+(s?" für die "+s:"")));c.appendChild(E("b",null,cat));
 if(s){var pk=pick(/Relax|Flow/.test(s)?"R":/ [127]$/.test(s)?"A":"B");if(pk){var pd=E("div","kfpick");pd.appendChild(E("strong",null,"📍 "+pk.t));if(pk.a)pd.appendChild(E("span",null,pk.a));c.appendChild(pd)}}
@@ -1954,7 +1976,8 @@ function deckRec(k){var ok=[],no=[],R=k==="R";
  if(who==="1"&&bud!=="b4"&&(k==="R"||(k==="A"&&(!s||/ 7$/.test(s))))){
   if(R)ok.push(["🧍","Die Einzelkabinen (innen, außen und mit Balkon) liegen auf Deck 11 (Delfin)."+(sea>=1?" Das Deck liegt recht weit oben – bei Seekrankheit möglichst eine Einzelkabine mittschiffs wählen.":"")]);
   else ok.push(["🧍",(s?"":"Auf der Mein Schiff 7: ")+"Die Einzelkabinen innen und außen liegen auf Deck 4 (Seestern)."+(sea>=1?" Das Deck liegt tief – gut bei Seekrankheit, am besten mittschiffs.":"")+(q?" Das Deck gilt als eher lebhaft – wer sehr leicht schläft, wählt eine Kabine nicht direkt an Treppenhaus oder Aufzug.":"")]);}
- if(v==="bug"){ok.push(["🧭",(R?"Im Bug liegen auf Deck 7 bis 10 Außenkabinen und Familien-Außenkabinen":"Im Bug von Deck 8 liegen zwei Außenkabinen (8000 und 8001, bis 3 Personen) zwischen zwei Familien-Außenkabinen (bis 6 Personen)")+" – mit großem Fenster und Blick in Fahrtrichtung. Wichtig: Balkonkabinen mit Blick nach vorne gibt es auf der Mein Schiff Flotte nicht."]);
+ if(v==="bug"){ok.push(["🧭",(R?"Direkt im Bug liegen auf Deck 7 bis 10 insgesamt 14 Außenkabinen (Kat. AA, nur für 2 Personen) – daneben die Familien-Außenkabinen":k==="A"?"Im Bug von Deck 8 liegen zwei Außenkabinen (Kat. AA, bis 3 Personen) zwischen zwei Familien-Außenkabinen (bis 6 Personen)":"Die Familien-Außenkabinen (3 bis 6 Personen) schauen mit großen Fenstern zum Bug, dazu kommen zwei Außenkabinen auf Deck 8 (Kat. AA, bis 3 Personen)")+" – mit großem Fenster und Blick in Fahrtrichtung. Wichtig: Balkonkabinen mit Blick nach vorne gibt es auf der Mein Schiff Flotte nicht."]);
+  ok.push(["🎟️","Diese Kabinen gibt es nur in kleiner Zahl. Gezielt buchen kannst du sie im PRO-Tarif (Kat. AA). In PUR und PLUS bekommst du eine beliebige Außenkabine zugeteilt. Familien-Außenkabinen sind ab 3 Personen buchbar."]);
   if(sea>=1)no.push(["⚠️","Bei Seekrankheit ist der Bug die unruhigste Lage – das Auf und Ab ist dort am stärksten. Lieber mittschiffs bleiben und den Blick nach vorne vom Außendeck genießen."]);
   no.push(["⚓","Ganz vorne hört man beim An- und Ablegen Bugstrahlruder und Anker – meist früh morgens im Hafen."])}
  var ruhig=R?"Deck 8 (Muschel) und Deck 9 (Krabbe)":"Deck 7 (Hanse), 8 (Muschel) und 9 (Koralle)";
@@ -1980,7 +2003,7 @@ function deckRec(k){var ok=[],no=[],R=k==="R";
    if(q)ok.push(["😴",R?bd(k,8)+" und "+bd(k,9)+" – ringsum nur Kabinen. Auch "+bd(k,12)+" liegt hoch und ist trotzdem ruhig.":bd(k,7)+", "+bd(k,8)+" und "+bd(k,9)+" – über und unter dir liegen nur Kabinen, die ruhigste Lage an Bord."]);
    if(v==="free"||(!q&&sea<1&&!v))ok.push(["👀",(R?"Ab Deck 7 aufwärts":"Ab Deck 7 aufwärts")+" hast du in der Regel freie Sicht ohne Rettungsboote vor dem Balkon."]);
    if(v==="spa")ok.push(["🧖",R?"SPA-Balkonkabinen (Kat. BS) auf Deck 14 (Kompass) – nah am Spa und hinter den Aufzügen sehr ruhig.":"SPA-Balkonkabinen (Kat. BS) auf Deck 11 (Krabbe) mit direktem Weg zum Spa. Mittschiffs und nicht direkt unter Pool oder Bar wählen."]);
-   if(v==="heck")ok.push(["🌊",R?"Heckbalkone auf den mittleren Decks 8 bis 12 – mit Blick aufs Kielwasser.":(k==="A"?"Heckbalkone auf den Decks 9 bis 11 – am Heck der Decks 7 und 8 liegen auf diesen Schiffen die Horizont Suiten.":"Heckbalkone auf den Decks 7 bis 10 – mit Blick aufs Kielwasser.")]);
+   if(v==="heck"){var H=heck(k);ok.push(["🌊","Echte Heckkabinen mit Blick nach hinten aufs Kielwasser"+(H.suite?" sind auf diesem Schiff nur Suiten – von günstig nach teuer: ":", von günstig nach teuer: ")+H.o.map(function(x){return x[0]+" ("+x[1]+")"}).join("; ")+"."]);if(H.suite)ok.push(["💡","Wenn es eine Balkonkabine bleiben soll: Kabinen kurz vor dem Heck an der Seite liegen nah dran, schauen aber zur Seite – nicht nach hinten."])}
    no.push(["🚤",R?"Deck 6 (Koralle), wenn dir Aussicht wichtig ist: Viele Kabinen haben Rettungsboote vor dem Balkon, und die vordersten liegen an einer öffentlichen Promenade.":"Deck 6 (Boje), Kategorie H, wenn dir Aussicht wichtig ist: Dort hängen die Rettungsboote von Deck 5 vor dem Balkon."]);
   }
   if(R)no.push(["🔊","Deck 15 (Perle), wenn du Ruhe suchst: Es liegt direkt unter dem Pooldeck – Liegen, Poolbetrieb und Musik sind hörbar."]);
@@ -2003,7 +2026,7 @@ function deckRec(k){var ok=[],no=[],R=k==="R";
 function deckBox(k,title,parent){var r=deckRec(k);var bx=E("div","kfdk");bx.appendChild(E("b",null,title));
  function sub(t,arr){if(!arr.length)return;bx.appendChild(E("h5",null,t));var u=E("ul");arr.forEach(function(x){var li=E("li");li.appendChild(E("span",null,x[0]));li.appendChild(E("div",null,x[1]));u.appendChild(li)});bx.appendChild(u)}
  sub("✅ Unsere Deck-Empfehlung",r.ok);
- if(bud==="b3"){var KL=k==="R"?[["H","Deck 6 – Sichtbehinderung, vorne an der Promenade"],["G","Deck 6, einzelne vorne auf Deck 7–9 – teils Sichtbehinderung"],["F","Deck 15 – unter dem Pooldeck"],["E","Deck 7 und 8"],["D","Deck 9 und 10"],["C","Deck 11"],["B","Deck 12"],["A","Deck 14"],["BS","SPA-Balkon, Deck 14"]]:[["H","Deck 6–9 – Sichtbehinderung"],["G","Deck 6"],["F","Deck 6 und 7"],["E","Deck 7 und 8"],["D","Deck 8 und 9"],["C","Deck 9 und 11"],["B","Deck 11"],["A","Deck 10"+(k==="A"?" und 14":"")],["BS","SPA-Balkon, Deck 11"]];
+ if(bud==="b3"){var KL=k==="R"?[["H","Deck 6 – Sichtbehinderung, vorne an der Promenade"],["G","Deck 6, einzelne vorne auf Deck 7–9 – teils Sichtbehinderung"],["F","Deck 15 – unter dem Pooldeck"],["E","Deck 7 und 8"],["D","Deck 9 und 10"],["C","Deck 11"],["B","Deck 12"],["A","Deck 14"],["BS","SPA-Balkon, Deck 14"]]:[["H","Deck 6–9 – Sichtbehinderung"],["G","Deck 6"],["F","Deck 11 – unter Pooldeck bzw. Deck-Überstand"],["E","Deck 6"],["D","Deck 7"],["C","Deck 8"],["B","Deck 9"],["A","Deck 10"+(k==="A"?" und 14":"")],["BS","SPA-Balkon, Deck 11"]];
   var kd=E("details","kfkat");kd.appendChild(E("summary",null,"🏷️ Balkon-Kategorien auf "+(s?"der "+s:KN[k])+" – von günstig nach teuer"));var ku=E("ul");KL.forEach(function(x){var li=E("li");li.appendChild(E("span",null,x[0]));li.appendChild(E("div",null,x[1]));ku.appendChild(li)});kd.appendChild(ku);kd.appendChild(E("p","kfad","Faustregel: Je weiter hinten der Buchstabe im Alphabet, desto tiefer das Deck und meist desto günstiger. Kategorien laut Mein-Schiff-Einteilung, Änderungen vorbehalten."));bx.appendChild(kd)}sub("⛔ Diese Kabinen würde ich nicht nehmen",r.no);parent.appendChild(bx)}
 if(s){deckBox(kls(s),"📍 Konkret auf der "+s,pan)}
 else{pan.appendChild(E("h4",null,"Konkrete Decks je Schiff"));["A","B","R"].forEach(function(k){var d=E("details","kfov kfcls");d.appendChild(E("summary",null,"🚢 "+KN[k]));deckBox(k,"",d);pan.appendChild(d)})}
@@ -2019,7 +2042,7 @@ if(!L.length)L.push(["👍","Bei deinen Wünschen bist du bei der Lage flexibel 
 if(who==="5")L.push(["🔗","Zwei Kabinen nebeneinander, am besten mit Verbindungstür."]);
 if(q){L.push(["🥪","Ein reines Kabinendeck, bei dem über und unter dir ebenfalls nur Kabinen liegen – so bist du von Pool, Restaurants und Bühnen gut abgeschirmt."]);X.push(["⚓","Kabinen ganz vorne oder ganz hinten auf den unteren Decks: Dort hört man Anker, Bugstrahlruder bzw. Maschinen beim An- und Ablegen."])}
 if(v==="spa"||v==="free")X.push(["🏗️","Kabinen auf den obersten Kabinendecks direkt unter Decküberständen: Dort ragt das Deck darüber teils weit über den Balkon – das nimmt Sonne, Himmel und Ausblick."]);
-var G=[];if(bud==="b2"||bud==="b3"){if(sea>=1&&v!=="spar")G.push(["🚤","Warum nicht noch tiefer? Direkt darunter auf Deck 6 hängen mittschiffs die Rettungsboote vor den Balkonen. Achte im Deckplan auf den Hinweis „Sichtbehinderung“ – auf dem empfohlenen Deck ist der Blick frei, und mittschiffs bleibt es trotzdem ruhig."]);else if(v!=="free"&&v!=="spar")G.push(["🚤","Kabinen mit „Sichtbehinderung“ (z. B. durch Rettungsboote) sind im Deckplan markiert und oft günstiger – Tageslicht ja, freier Meerblick nein. Wenn dir der Ausblick wichtig ist, meide sie."])}
+var G=[];if(A.x==="2"&&bud!=="b4")G.push(["✨","Dir sind ruhige, exklusive Bereiche wichtig, wenn der Preis passt: Schon die Junior Suite enthält X-Lounge, X-Sonnendeck, Concierge und Minibar. Der Aufpreis zur Balkonkabine ist je nach Reise manchmal kleiner als gedacht – frag uns gern nach einem Vergleich."]);if(bud==="b2"||bud==="b3"){if(sea>=1&&v!=="spar")G.push(["🚤","Warum nicht noch tiefer? Direkt darunter auf Deck 6 hängen mittschiffs die Rettungsboote vor den Balkonen. Achte im Deckplan auf den Hinweis „Sichtbehinderung“ – auf dem empfohlenen Deck ist der Blick frei, und mittschiffs bleibt es trotzdem ruhig."]);else if(v!=="free"&&v!=="spar")G.push(["🚤","Kabinen mit „Sichtbehinderung“ (z. B. durch Rettungsboote) sind im Deckplan markiert und oft günstiger – Tageslicht ja, freier Meerblick nein. Wenn dir der Ausblick wichtig ist, meide sie."])}
 G.push(["🎟️","Bei Mein Schiff kannst du die genaue Kabinennummer nur im PRO-Tarif frei wählen. In PUR und PLUS buchst du die Kabinenart, die genaue Lage teilt die Reederei zu – wenn dir die Lage wichtig ist, lohnt sich PRO."]);
 if(bud==="b3"||bud==="b4"){if(sm==="0")G.push(["🚭","Seit Sommer 2025 sind auf allen Mein Schiffen die Balkone im vorderen Bereich – vom Bug bis zum ersten Treppenhaus – Nichtraucher-Balkone. Im Deckplan sind sie grün schraffiert. Weil der Fahrtwind Rauch nach hinten trägt, ist es dort für Nichtraucher am angenehmsten."+(sea>=1?" Bei Seekrankheit geht die Lage mittschiffs aber vor – dann am besten eine Kabine kurz hinter dem ersten Treppenhaus wählen.":"")]);
  else if(sm==="1")G.push(["🚬","Im vorderen Bereich (Bug bis erstes Treppenhaus, im Deckplan grün schraffiert) darf auf dem Balkon nicht geraucht werden – das wird an Bord auch kontrolliert. Wähle also mittschiffs oder hinten."+(/Einzelkabine Balkon/.test(cat)?" Achtung: Die Einzelkabinen mit Balkon haben einen Nichtraucher-Balkon.":"")]);
