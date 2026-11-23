@@ -47,6 +47,16 @@
 #uc p.ap{font-size:17px!important;font-weight:700!important;color:#fff!important;margin-bottom:12px!important}
 @keyframes ucGlow{0%,100%{box-shadow:0 0 0 rgba(125,214,255,0)}50%{box-shadow:0 0 18px rgba(125,214,255,.55)}}
 @keyframes ucShine{to{background-position:-200% 0}}
+#uc button.rq{margin-top:10px;background:none;border:1.5px solid rgba(255,255,255,.85);color:#fff;border-radius:14px;padding:11px 20px;font-family:inherit;font-weight:800;font-size:15px}
+#uc button.rq.on{display:none}
+#uc .rqf{display:none;text-align:left;margin:14px auto 0;max-width:340px;padding:16px;border-radius:16px;background:rgba(255,255,255,.1);border:1.5px solid rgba(125,214,255,.7)}#uc .rqf.on{display:block}
+#uc .rqf b{display:block;font:800 17px "Figtree",system-ui,sans-serif;margin-bottom:4px}#uc .rqf>span{display:block;font-size:13.5px;line-height:1.45;color:#CFE0FF;margin-bottom:10px}
+#uc .rqf label{display:block;font:700 13px "Figtree",system-ui,sans-serif;color:#fff;margin-top:10px}
+#uc .rqf input,#uc .rqf textarea,#uc .rqf select{display:block;width:100%;box-sizing:border-box;margin-top:4px;border-radius:10px;border:1.5px solid rgba(255,255,255,.5);background:rgba(255,255,255,.12);color:#fff;padding:9px 10px;font:500 16px "Figtree",system-ui,sans-serif}
+#uc .rqf select option{color:#0B2470}#uc .rqf textarea{resize:vertical}
+#uc .rqf .re{color:#FFB4A8;font-size:13px;min-height:18px;margin-top:8px}
+#uc .rqf button.rs{display:block;width:100%;margin-top:4px;background:#25D366;color:#073B1C;border-radius:12px;padding:12px;font-family:inherit;font-weight:800;font-size:15px}
+#uc .rqf small{display:block;margin-top:8px;font-size:12px;color:#CFE0FF;text-align:center}
 @keyframes ucSway{0%,100%{transform:skewX(0)}50%{transform:skewX(.6deg)}}
 @keyframes ucDrop{to{opacity:1;transform:none}}@keyframes ucIn{to{opacity:1;transform:none}}
 @keyframes ucFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
@@ -63,7 +73,7 @@ if(ok())return;var free=false,de=document.documentElement;de.classList.add("uclo
 function show(){if(free||document.getElementById("uc"))return;var d=document.createElement("div");d.id="uc";d.setAttribute("role","dialog");d.setAttribute("aria-label","DEIN SchiffsKompass wird zur eigenen App");
  d.innerHTML='<div class="bg"></div><div class="card"><div class="b"><div class="lg"><i></i><i></i><img src="apple-touch-icon.png" alt="DEIN SchiffsKompass"></div><div class="tx"><div class="kk2">✨ Große Ankündigung</div><h1>DEIN SchiffsKompass wird zur <span>eigenen App</span></h1><p class="ap">📱 Alles rund um die Mein Schiff Flotte – bald direkt auf deinem Handy.</p><p>Hinter dem Vorhang wird noch gewerkelt.<br><span style="white-space:nowrap">Ein kleiner Vorgeschmack:</span></p><div class="tz"></div><div class="dots"></div><p>Bald geht’s los – bis dahin findest du uns hier:</p>'+
  '<div class="s"><a href="https://www.instagram.com/deinschiffskompass" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/share/1KepjM95rm/" target="_blank" rel="noopener">Facebook</a><a href="mailto:mail@deinschiffskompass.de">✉️ E-Mail an uns</a></div>'+
- '<button type="button" class="t">🔑 Ich habe einen Testzugang</button><form><input type="password" autocomplete="current-password" placeholder="Passwort" aria-label="Passwort"><button type="submit">Öffnen</button></form><div class="e" aria-live="polite"></div></div></div></div><div class="cu l"></div><div class="cu r"></div><div class="val"></div>';
+ '<button type="button" class="t">🔑 Ich habe einen Testzugang</button><br><button type="button" class="rq">🙋 Testzugang anfragen</button><div class="rqf"><b>Testzugang anfragen</b><span>Wir suchen Tester, die mithelfen wollen. Erzähl uns kurz etwas über dich – die Anfrage geht per WhatsApp an uns.</span><label>Dein Name<input name="n" type="text" maxlength="60" autocomplete="name"></label><label>Warum möchtest du testen?<textarea name="w" rows="3" maxlength="500" placeholder="z. B. Ich reise oft mit Mein Schiff und möchte …"></textarea></label><label>Bist du schon mit Mein Schiff gereist?<select name="r"><option value="">Bitte wählen</option><option>Ja, schon öfter</option><option>Ja, einmal</option><option>Noch nicht, aber geplant</option><option>Nein</option></select></label><label>Welches Gerät nutzt du?<select name="g"><option value="">Bitte wählen</option><option>iPhone</option><option>Android-Handy</option><option>Tablet</option><option>Computer</option></select></label><label>Instagram- oder Facebook-Name (optional)<input name="i" type="text" maxlength="60"></label><div class="re" aria-live="polite"></div><button type="button" class="rs">Per WhatsApp senden</button><small>Erst wenn du in WhatsApp auf Senden tippst, wird die Nachricht verschickt.</small></div><form><input type="password" autocomplete="current-password" placeholder="Passwort" aria-label="Passwort"><button type="submit">Öffnen</button></form><div class="e" aria-live="polite"></div></div></div></div><div class="cu l"></div><div class="cu r"></div><div class="val"></div>';
  document.body.appendChild(d);var f=d.querySelector("form"),i=d.querySelector("input"),er=d.querySelector(".e");
  /* Vorhang aus einzelnen Stoffbahnen: Die vordere Kante wird zuerst gezogen, die Falten schieben sich zusammen und schwingen aus */
  var N=10;Array.prototype.forEach.call(d.querySelectorAll(".cu"),function(c){for(var k=0;k<N;k++){var st=document.createElement("s"),bb=document.createElement("b"),w=100/N;
@@ -72,6 +82,12 @@ function show(){if(free||document.getElementById("uc"))return;var d=document.cre
  function gx(){var W=d.querySelector(".cu").getBoundingClientRect().width||200;Array.prototype.forEach.call(d.querySelectorAll(".cu s"),function(st){var k=+st.getAttribute("data-k");st.style.setProperty("--gx",(k*3-k*W/N-60)+"px")})}
  gx();window.addEventListener("resize",gx);
  setTimeout(function(){d.classList.add("open")},400);
+ var rq=d.querySelector(".rq"),rf=d.querySelector(".rqf");rq.onclick=function(){rq.classList.add("on");rf.classList.add("on");rf.querySelector("input").focus()};
+ rf.querySelector(".rs").onclick=function(){function v(n){return(rf.querySelector("[name="+n+"]").value||"").trim()}var e=rf.querySelector(".re");
+  if(v("n").length<2){e.textContent="Bitte gib deinen Namen an.";return}if(v("w").length<30){e.textContent="Bitte schreib uns etwas ausführlicher, warum du testen möchtest (mindestens ein, zwei Sätze).";return}
+  if(!v("r")||!v("g")){e.textContent="Bitte beantworte noch die beiden Auswahlfragen.";return}e.textContent="";
+  var t="Hallo DEIN SchiffsKompass, ich möchte gern einen Testzugang für die App.\n\nName: "+v("n")+"\nWarum ich testen möchte: "+v("w")+"\nMit Mein Schiff gereist: "+v("r")+"\nGerät: "+v("g")+(v("i")?"\nInstagram/Facebook: "+v("i"):"");
+  window.open("https://wa.me/4915126978714?text="+encodeURIComponent(t),"_blank","noopener")};
  d.querySelector(".t").onclick=function(){f.classList.add("on");this.classList.add("on");i.focus()};
  var TZ=[["📡 Live-Daten","Wo ist dein Mein Schiff gerade? Position und Liegezeiten – jeden Tag aktuell."],["⚓ Im Hafen","Wer liegt heute noch neben deinem Schiff?"],["🔔 Push-Nachrichten","Neuer Kapitän oder Kreuzfahrtdirektor? Du erfährst es sofort aufs Handy."],["👨‍✈️ An Bord","Neues von Kapitän und Crew – immer auf dem aktuellen Stand."],["🧭 Deine Kabine","Ein Kompass für deine Kabine – bis zur Sonnenseite."],["⏳ Vorfreude","Dein ganz persönlicher Countdown bis zum Ablegen."]],tz=d.querySelector(".tz"),dt=d.querySelector(".dots"),n=0;
  TZ.forEach(function(){dt.appendChild(document.createElement("b"))});
