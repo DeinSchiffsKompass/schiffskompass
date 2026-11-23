@@ -826,7 +826,7 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==und
   var CREW=[
     {n:"Mein Schiff 1",kap:"Jens Troier",kapSeit:"09.11.2026",kd:"Roman Schneeberger",kdSeit:"12.11.2026"},
     {n:"Mein Schiff 2",kap:"Jan Fortun",kapSeit:"13.11.2026",kd:"Max Kenntemich",kdSeit:"14.08.2026"},
-    {n:"Mein Schiff 3",kap:"Günter Batzner",kapSeit:"",kd:"Sonja Karas",kdSeit:"25.10.2026",note:"In der Werft"},
+    {n:"Mein Schiff 3",kap:"Günter Batzner",kapSeit:"",kapInfo:"für den Werftaufenthalt und bis 01.12.2026",kd:"Sonja Karas",kdSeit:"25.10.2026",note:"In der Werft"},
     {n:"Mein Schiff 4",kap:"Panagiotis Varotsos",kapSeit:"11.10.2026",kd:"Dominik Spickermann",kdSeit:"15.11.2026"},
     {n:"Mein Schiff 5",kap:"Ioannis Anastasiou",kapSeit:"08.10.2026",kd:"Martin Büto",kdSeit:"11.11.2026"},
     {n:"Mein Schiff 6",kap:"Aleksandar Pejnović",kapSeit:"18.10.2026",kd:"Janina Kemmerer",kdSeit:"11.11.2026"},
@@ -853,8 +853,8 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==und
   function e(t,c,x){var n=document.createElement(t);if(c)n.className=c;if(x!==undefined)n.textContent=x;return n}
   CREW.forEach(function(c){var card=e("div","cc"),h=e("h3",null,c.n);card.appendChild(h);
     var re=e("p","re","TUI Cruises");if(c.note){var tg=e("span","tg",c.note);re.appendChild(tg)}card.appendChild(re);
-    var nw=UPD.length?UPD[0]:null,dl=e("dl");[["Kapitän",c.kap,c.kapSeit,"kap"],["Kreuzfahrtdirektor",c.kd,c.kdSeit,"kd"]].forEach(function(r){var row=e("div",(nw&&nw.s===c.n&&nw.r===r[3])?"r new":"r");var dt=e("dt",null,r[0]);var im=e("img","ep");im.src=IMG[r[3]];im.alt="";dt.appendChild(im);row.appendChild(dt);
-      var dd=e("dd",r[1]?null:"nn",r[1]||"kein Eintrag");if(r[1]&&r[2])dd.appendChild(e("span","si","seit "+r[2]));row.appendChild(dd);dl.appendChild(row)});
+    var nw=UPD.length?UPD[0]:null,dl=e("dl");[["Kapitän",c.kap,c.kapSeit,"kap",c.kapInfo],["Kreuzfahrtdirektor",c.kd,c.kdSeit,"kd",c.kdInfo]].forEach(function(r){var row=e("div",(nw&&nw.s===c.n&&nw.r===r[3])?"r new":"r");var dt=e("dt",null,r[0]);var im=e("img","ep");im.src=IMG[r[3]];im.alt="";dt.appendChild(im);row.appendChild(dt);
+      var dd=e("dd",r[1]?null:"nn",r[1]||"kein Eintrag");if(r[1]&&r[2])dd.appendChild(e("span","si","seit "+r[2]));if(r[1]&&r[4])dd.appendChild(e("span","si",r[4]));row.appendChild(dd);dl.appendChild(row)});
     card.appendChild(dl);g.appendChild(card)});
   nt.textContent="Ein Update erfolgt immer bei Wechseln, die bestätigt und von uns verifiziert wurden.";
   if(!UPD.length)u.appendChild(e("p","none","Noch keine Änderungen eingetragen."));
@@ -998,10 +998,10 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
     var dl=c.querySelector(".rows");if(!dl)return;
     var row=document.createElement("div");row.className="row";
     var dt=document.createElement("dt");dt.textContent="Crew";var dd=document.createElement("dd");dd.className="mit crw";
-    function line(l,v,k,sn){var sp=document.createElement("span");sp.className="mi";sp.style.cssText="display:flex;align-items:center;gap:8px";
+    function line(l,v,k,sn,inf){var sp=document.createElement("span");sp.className="mi";sp.style.cssText="display:flex;align-items:center;gap:8px";
       var IM=window.CREWIMG||{};if(IM[k]){var im=document.createElement("img");im.src=IM[k];im.alt="";im.style.cssText="width:9px;height:27px;object-fit:cover;flex:none";sp.appendChild(im)}
-      var tx=document.createElement("span");tx.textContent=l+": "+v;if(sn){var si=document.createElement("small");si.style.cssText="display:block;color:var(--muted);font-size:13px";si.textContent="seit "+sn;tx.appendChild(si)}sp.appendChild(tx);dd.appendChild(sp)}
-    if(cr.kap)line("Kapitän",cr.kap,"kap",cr.kapSeit);if(cr.kd)line("Kreuzfahrtdirektor",cr.kd,"kd",cr.kdSeit);
+      var tx=document.createElement("span");tx.textContent=l+": "+v;if(sn){var si=document.createElement("small");si.style.cssText="display:block;color:var(--muted);font-size:13px";si.textContent="seit "+sn;tx.appendChild(si)}if(inf){var si2=document.createElement("small");si2.style.cssText="display:block;color:var(--muted);font-size:13px";si2.textContent=inf;tx.appendChild(si2)}sp.appendChild(tx);dd.appendChild(sp)}
+    if(cr.kap)line("Kapitän",cr.kap,"kap",cr.kapSeit,cr.kapInfo);if(cr.kd)line("Kreuzfahrtdirektor",cr.kd,"kd",cr.kdSeit,cr.kdInfo);
     if(!dd.firstChild)dd.textContent="–";
     row.appendChild(dt);row.appendChild(dd);
     var ree=null;Array.prototype.forEach.call(dl.querySelectorAll(".row"),function(r){var t=r.querySelector("dt");if(t&&t.textContent==="Tag")ree=r});
@@ -1359,7 +1359,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-23b"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-23c"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
