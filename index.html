@@ -1372,7 +1372,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-23h"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-23i"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -1753,8 +1753,11 @@ window.SKopen=open;window.addEventListener("resize",function(){[].forEach.call(d
 
 
 
+
+
 <!--PUSH-ADDON-START-->
 <style id="push-addon-css">
+.tile.pushtile p.psdp{font-size:12.5px;line-height:1.45;color:#B9CBEA;margin:8px 0 0}.tile.pushtile p.psdp u{color:#7DD6FF;cursor:pointer}
 .pshint{font-size:13px;line-height:1.45;color:var(--muted);margin:6px 0 0}
 .pushtile .ring{transform-origin:100px 58px;animation:psring 3.2s ease-in-out infinite}
 @keyframes psring{0%,62%,100%{transform:rotate(0)}66%{transform:rotate(14deg)}72%{transform:rotate(-12deg)}78%{transform:rotate(8deg)}84%{transform:rotate(-5deg)}90%{transform:rotate(2deg)}}
@@ -1769,9 +1772,9 @@ var ios=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIn
 var standalone=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;
 var supported=("serviceWorker" in navigator)&&("PushManager" in window)&&("Notification" in window);
 var tile=document.querySelector(".pushtile");if(!tile)return;
-var h=tile.querySelector("h3"),p=tile.querySelector("p"),g=tile.querySelector(".go2"),hint=document.createElement("p");hint.className="pshint";hint.hidden=true;p.parentNode.insertBefore(hint,g);
-function ui(){if(on()&&supported&&Notification.permission==="granted"){h.textContent="Push-Nachrichten aktiv ✓";p.textContent="Du erfährst Kapitäns- und Kreuzfahrtdirektor-Wechsel auf der Mein Schiff Flotte als Erstes. Du kannst die Nachrichten hier jederzeit wieder abbestellen.";g.textContent="Abbestellen →"}
-else{h.textContent="Push-Nachrichten";p.textContent="Erhalte eine Push-Nachricht, sobald auf der Mein Schiff Flotte ein Kapitän oder Kreuzfahrtdirektor wechselt.";g.textContent="Aktivieren →"}}
+var h=tile.querySelector("h3"),p=tile.querySelector("p"),g=tile.querySelector(".go2"),hint=document.createElement("p");hint.className="pshint";hint.hidden=true;p.parentNode.insertBefore(hint,g);var dp=document.createElement("p");dp.className="psdp";p.parentNode.insertBefore(dp,hint);
+function ui(){if(on()&&supported&&Notification.permission==="granted"){h.textContent="Push-Nachrichten aktiv ✓";p.textContent="Du erfährst Kapitäns- und Kreuzfahrtdirektor-Wechsel auf der Mein Schiff Flotte als Erstes. Du kannst die Nachrichten hier jederzeit wieder abbestellen.";g.textContent="Abbestellen →";dp.innerHTML="Du kannst deine Einwilligung jederzeit hier widerrufen. Details in der <u data-ds=\"1\">Datenschutzerklärung</u>."}
+else{h.textContent="Push-Nachrichten";p.textContent="Erhalte eine Push-Nachricht, sobald auf der Mein Schiff Flotte ein Kapitän oder Kreuzfahrtdirektor wechselt.";g.textContent="Aktivieren →";dp.innerHTML="🔒 Mit „Aktivieren“ willigst du ein, dass dein Gerät über OneSignal (USA) für Push-Nachrichten angemeldet wird. Widerruf jederzeit über „Abbestellen“. Mehr in der <u data-ds=\"1\">Datenschutzerklärung</u>."}}
 function msg(t){hint.textContent=t;hint.hidden=!t}
 var loading=null;
 var OSref=null,inited=false;
@@ -1787,7 +1790,7 @@ var pr;try{pr=Notification.requestPermission()}catch(e){pr=null}
 Promise.resolve(pr).then(function(perm){perm=perm||Notification.permission;if(perm!=="granted"){msg(perm==="denied"?"Benachrichtigungen wurden nicht erlaubt.":"Benachrichtigungen wurden noch nicht erlaubt.");ui();return}
 set(true);return sdk().then(function(OS){return OS.User.PushSubscription.optIn().then(function(){try{OS.User.addTags({crew:"1"})}catch(e){}msg("");ui()})})}).catch(function(e){set(false);var d=e&&(e.message||e.toString())||"";msg("Das hat leider nicht geklappt. Bitte versuche es später noch einmal."+(d?" (Fehler: "+String(d).slice(0,140)+")":""));ui()})}
 function disable(){msg("Einen Moment …");sdk().then(function(OS){return OS.User.PushSubscription.optOut()}).catch(function(){}).then(function(){set(false);msg("Benachrichtigungen sind abbestellt.");ui()})}
-tile.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();if(on()&&supported&&Notification.permission==="granted")disable();else enable()},true);
+tile.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();if(e.target&&e.target.closest&&e.target.closest("[data-ds]")){location.hash="#datenschutz";return}if(on()&&supported&&Notification.permission==="granted")disable();else enable()},true);
 ui();
 if(on()&&supported){sdk().catch(function(){})}
 }catch(e){}})();
