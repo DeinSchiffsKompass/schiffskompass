@@ -1372,7 +1372,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-23d"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-23e"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -1750,6 +1750,7 @@ window.SKopen=open;window.addEventListener("resize",function(){[].forEach.call(d
 </script>
 <!--SK-ADDON-END-->
 
+
 <!--PUSH-ADDON-START-->
 <style id="push-addon-css">
 .pshint{font-size:13px;line-height:1.45;color:var(--muted);margin:6px 0 0}
@@ -1771,13 +1772,15 @@ function ui(){if(on()&&supported&&Notification.permission==="granted"){h.textCon
 else{h.textContent="Push-Nachrichten";p.textContent="Erhalte eine Push-Nachricht, sobald auf der Mein Schiff Flotte ein Kapitän oder Kreuzfahrtdirektor wechselt.";g.textContent="Aktivieren →"}}
 function msg(t){hint.textContent=t;hint.hidden=!t}
 var loading=null;
-function sdk(){if(loading)return loading;loading=new Promise(function(res,rej){window.OneSignalDeferred=window.OneSignalDeferred||[];var s=document.createElement("script");s.src=SDK;s.defer=true;s.onerror=function(){rej(new Error("sdk"))};document.head.appendChild(s);
-window.OneSignalDeferred.push(function(OS){OS.init({appId:APP,serviceWorkerPath:"push-sw.js",serviceWorkerParam:{scope:"/"},notifyButton:{enable:false},promptOptions:{slidedown:{prompts:[]}},welcomeNotification:{disable:false}}).then(function(){res(OS)},rej)})});return loading}
+function sdk(){if(loading)return loading;loading=new Promise(function(res,rej){setTimeout(function(){rej(new Error("Zeitüberschreitung beim Verbinden mit OneSignal"))},20000);window.OneSignalDeferred=window.OneSignalDeferred||[];var s=document.createElement("script");s.src=SDK;s.defer=true;s.onerror=function(){rej(new Error("OneSignal konnte nicht geladen werden"))};document.head.appendChild(s);
+window.OneSignalDeferred.push(function(OS){OS.init({appId:APP,serviceWorkerPath:"push-sw.js",serviceWorkerParam:{scope:"/"},notifyButton:{enable:false},promptOptions:{slidedown:{prompts:[]}},welcomeNotification:{disable:false}}).then(function(){res(OS)},rej)})});loading.catch(function(){loading=null});return loading}
 function enable(){if(!supported){msg(ios?"Auf dem iPhone funktionieren Benachrichtigungen nur in der installierten App (ab iOS 16.4). Installiere zuerst die App über „Teilen → Zum Home-Bildschirm“ und öffne sie dann von dort.":"Dein Browser unterstützt leider keine Benachrichtigungen.");return}
 if(ios&&!standalone){msg("Auf dem iPhone funktionieren Benachrichtigungen nur in der installierten App. Installiere sie über „Teilen → Zum Home-Bildschirm“ und tippe dann in der App hier auf „Aktivieren“.");return}
 if(Notification.permission==="denied"){msg("Du hast Benachrichtigungen für diese Seite blockiert. Du kannst sie in den Einstellungen deines Browsers bzw. Handys wieder erlauben.");return}
 msg("Einen Moment …");g.textContent="…";
-set(true);sdk().then(function(OS){return OS.Notifications.requestPermission().then(function(){if(OS.Notifications.permission){return OS.User.PushSubscription.optIn().then(function(){try{OS.User.addTags({crew:"1"})}catch(e){}msg("");ui()})}else{set(false);msg("Benachrichtigungen wurden nicht erlaubt.");ui()}})}).catch(function(){set(false);msg("Das hat leider nicht geklappt. Bitte versuche es später noch einmal.");ui()})}
+var pr;try{pr=Notification.requestPermission()}catch(e){pr=null}
+Promise.resolve(pr).then(function(perm){perm=perm||Notification.permission;if(perm!=="granted"){msg(perm==="denied"?"Benachrichtigungen wurden nicht erlaubt.":"Benachrichtigungen wurden noch nicht erlaubt.");ui();return}
+set(true);return sdk().then(function(OS){return OS.User.PushSubscription.optIn().then(function(){try{OS.User.addTags({crew:"1"})}catch(e){}msg("");ui()})})}).catch(function(e){set(false);var d=e&&(e.message||e.toString())||"";msg("Das hat leider nicht geklappt. Bitte versuche es später noch einmal."+(d?" (Fehler: "+String(d).slice(0,140)+")":""));ui()})}
 function disable(){msg("Einen Moment …");sdk().then(function(OS){return OS.User.PushSubscription.optOut()}).catch(function(){}).then(function(){set(false);msg("Benachrichtigungen sind abbestellt.");ui()})}
 tile.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();if(on()&&supported&&Notification.permission==="granted")disable();else enable()},true);
 ui();
