@@ -3061,11 +3061,26 @@ var KK_AN=false;if(KK_AN&&!hook())document.addEventListener("DOMContentLoaded",h
 @media(max-width:400px){.nav .links a{font-size:13.5px!important;letter-spacing:-.015em}.nav .links a[data-v=buchen]{padding:7px 11px!important;margin-left:4px!important}}
 html,body{overflow-x:hidden}@supports (overflow-x:clip){html,body{overflow-x:clip}}
 .hero h1{font-size:clamp(30px,9vw,76px)!important;overflow-wrap:break-word}
+html{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
+@media(max-width:560px){.nav .links a{padding:10px 5px!important}.nav b,.nav b small{overflow:hidden}}
 .rgcard .rgbox{margin:0 0 14px;text-align:left}.rgcard .rgbox summary{display:none}.rgbox,.rgbox p,.rgbox li{text-align:left}.rgbox h5{margin:16px 0 6px;font:800 15px var(--body);color:var(--ink)}.rgbox ul{margin:0;padding-left:20px}.rgbox li{margin:6px 0;line-height:1.5}.rgbox summary{font:800 17px var(--body);color:var(--ink);cursor:pointer;list-style:none}.rgbox summary::-webkit-details-marker{display:none}.rgbox .kfad{font-size:13px;color:var(--muted);margin:8px 0 4px}.rgup{margin-top:18px}.rgup .rgbox{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
 .cdbsp{margin:18px 0 22px;text-align:center}.cdbsp img{width:100%;max-width:420px;height:auto;border-radius:16px;box-shadow:0 10px 28px rgba(7,26,79,.16)}.cdbsp figcaption{margin-top:8px;font-size:13px;color:var(--muted)}
 .bhwrap{padding-top:14px;padding-bottom:0;margin-bottom:-22px;position:relative;z-index:1}.backhome{display:inline-flex;align-items:center;gap:6px;color:#0A6FD8;font:700 15px var(--body);text-decoration:none;padding:6px 0}.backhome::before{content:"";width:7px;height:7px;border-left:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin-right:2px}.backhome:hover{text-decoration:underline}
 #kfsheet .kfpdf{display:block;width:100%;margin-top:16px;border:none;background:#D62828;color:#fff;border-radius:14px;padding:13px;font:800 15px var(--body);cursor:pointer;box-shadow:0 6px 16px rgba(214,40,40,.28)}#kfsheet .kfpdf:hover,#kfsheet .kfpdf:focus-visible{background:#B71F1F}#kfsheet .kfpdf:disabled{opacity:.6}
 </style>
+<script id="fit-addon">
+/* Kopfzeile passt sich an: Schrift wird verkleinert, bis Titel und Menü in eine Zeile passen (z. B. bei vergrößerter Schrift im Browser) */
+(function(){try{
+function shrink(el,box,min){if(!el)return;el.style.removeProperty("font-size");var fs=parseFloat(getComputedStyle(el).fontSize),n=0;box=box||el;while(box.scrollWidth>box.clientWidth+1&&fs>min&&n<80){fs-=0.5;el.style.setProperty("font-size",fs+"px","important");n++}}
+function fitLinks(){var L=document.querySelector(".nav .links");if(!L)return;var A=L.querySelectorAll("a");[].forEach.call(A,function(a){a.style.removeProperty("font-size")});if(window.innerWidth>560)return;
+ var fs=parseFloat(getComputedStyle(A[0]).fontSize),n=0;while(L.scrollWidth>L.clientWidth+1&&fs>10&&n<60){fs-=0.5;[].forEach.call(A,function(a){a.style.setProperty("font-size",fs+"px","important")});n++}}
+function fit(){var b=document.querySelector(".nav b");if(b){var sm=b.querySelector("small");if(sm)sm.style.removeProperty("font-size");b.style.removeProperty("font-size");if(window.innerWidth<=560){shrink(b,b,12);if(sm)shrink(sm,sm,8)}}fitLinks()}
+var t;function later(){clearTimeout(t);t=setTimeout(fit,60)}
+if(document.readyState!=="loading")fit();else document.addEventListener("DOMContentLoaded",fit);
+window.addEventListener("load",fit);window.addEventListener("resize",later);window.addEventListener("orientationchange",later);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+}catch(e){}})();
+</script>
 <script id="nav-addon">
 /* Navigation mit Aufklappmenüs je Reiter: Flotte, Meine Reise, Wissenswert, Buchen. Logo führt zur Startseite. */
 (function(){try{
