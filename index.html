@@ -1603,7 +1603,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-25k"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-25l"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -2772,7 +2772,7 @@ function iconize(root){var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT
  ns.forEach(function(t){var f=document.createDocumentFragment(),s=t.nodeValue,last=0;KRX.lastIndex=0;var m;while(m=KRX.exec(s)){if(m.index>last)f.appendChild(document.createTextNode(s.slice(last,m.index)));f.appendChild(kicon(KM[m[1]]||KM[m[1].replace(/\uFE0F/g,"")]));last=KRX.lastIndex;
   if(s.charAt(last)===" ")last++;}if(last<s.length)f.appendChild(document.createTextNode(s.slice(last)));t.parentNode.replaceChild(f,t)})}
 
-var _rnd=render;render=function(){_rnd();iconize(pan)};
+window.KFicon=kicon;var _rnd=render;render=function(){_rnd();iconize(pan)};
 var PRE={};function open(p){PRE=(p&&typeof p==="object"&&!p.target)?p:{};A={};for(var k in PRE)A[k]=PRE[k];step=0;render();sh.hidden=false;document.documentElement.style.overflow="hidden"}
 /* Kabinen-Finder vorübergehend offline: KF_AN auf true setzen, dann ist die Kachel wieder sichtbar und öffnet den Finder */
 var KF_AN=true;if(!KF_AN){var hs=document.createElement("style");hs.textContent=".kftile{display:none!important}";document.head.appendChild(hs)}
@@ -3103,6 +3103,7 @@ var KK_AN=false;if(KK_AN&&!hook())document.addEventListener("DOMContentLoaded",h
 @keyframes navdd{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 .navdd a{display:block;padding:13px 18px;color:#0B2470;font:600 16px/1.3 var(--body);text-decoration:none;border-top:1px solid #EEF3F8}
 .navdd a:first-child{border-top:none}
+.navdd .ki{display:inline-flex;vertical-align:-.25em;margin-right:.5em;color:#0A6FD8}.navdd .ki svg{width:1.25em;height:1.25em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .navdd .navh{padding:12px 18px 4px;font:800 12px/1.2 var(--body);letter-spacing:.06em;text-transform:uppercase;color:#56658A;border-top:1px solid #EEF3F8}.navdd .navh+a{border-top:none}.navdd .navh~a{padding-left:28px}
 .navdd a:hover,.navdd a:focus-visible{background:#F3F7F9;color:#0A6FD8}
 @media(max-width:560px){
@@ -3151,7 +3152,7 @@ function go(h){if(location.hash==="#"+h)window.dispatchEvent(new HashChangeEvent
 function series(){var S=[];[].forEach.call(document.querySelectorAll("#v-tipps .treihe"),function(x){var n=x.textContent.replace(/\s*\(.*\)$/,"");if(S.indexOf(n)<0)S.push(n)});return S}
 var M={
  flotte:function(){return[["Alle Schiffe heute",function(){go("flotte")}],["Kapitäne & Crew",function(){go("flotte");jump("fleetupd")}],["Crew-Alarm",function(){go("start");setTimeout(function(){tile(".pushtile")},60)}]]},
- reise:function(){return[["Reise-Countdown",function(){go("countdown")}],["Kabinen-Finder",function(){go("kabinen")}],["Reisen mit …",null],["🧍 Allein reisen",function(){go("allein")}],["👫 Zu zweit",function(){go("zuzweit")}],["👨‍👩‍👧 Mit Kindern",function(){go("kinder")}],["🌅 Reisen im besten Alter",function(){go("bestalter")}],["♿ Barrierefrei reisen",function(){go("barrierefrei")}]]},
+ reise:function(){return[["Reise-Countdown",function(){go("countdown")}],["Kabinen-Finder",function(){go("kabinen")}],["Reisen mit …",null],["Allein reisen",function(){go("allein")},"person"],["Zu zweit",function(){go("zuzweit")},"couple"],["Mit Kindern",function(){go("kinder")},"fam4"],["Reisen im besten Alter",function(){go("bestalter")},"sun"],["Barrierefrei reisen",function(){go("barrierefrei")},"access"]]},
  tipps:function(){return[["Alle Tipps & Reels",function(){go("tipps")}]].concat(series().map(function(n){return[n.replace(/,.*$/,""),function(){go("tipps");jump(null,n)}]}))},
  buchen:function(){return[["Kreuzfahrt buchen",function(){go("buchen")}],["Beratung per WhatsApp",WA],["E-Mail an uns","mailto:mail@deinschiffskompass.de"]]}};
 var dd=document.createElement("div");dd.className="navdd";dd.setAttribute("role","menu");document.body.appendChild(dd);var cur=null,curA=null;
@@ -3159,7 +3160,7 @@ function close(){dd.classList.remove("on");cur=null;curA=null;[].forEach.call(hd
 function place(){if(!curA)return;var r=curA.getBoundingClientRect(),h=hd.getBoundingClientRect();dd.style.top=(h.bottom+6)+"px";
  if(window.innerWidth>560){var w=dd.offsetWidth,l=Math.min(r.left,window.innerWidth-w-12);dd.style.left=Math.max(12,l)+"px"}else dd.style.left="12px"}
 function open(a){var m=a.getAttribute("data-m");if(cur===m){close();return}close();cur=m;curA=a;a.classList.add("open");a.setAttribute("aria-expanded","true");dd.innerHTML="";
- M[m]().forEach(function(it){if(it[1]===null){var hh=document.createElement("div");hh.className="navh";hh.textContent=it[0];dd.appendChild(hh);return}var b=document.createElement("a");b.textContent=it[0];b.setAttribute("role","menuitem");
+ M[m]().forEach(function(it){if(it[1]===null){var hh=document.createElement("div");hh.className="navh";hh.textContent=it[0];dd.appendChild(hh);return}var b=document.createElement("a");b.textContent=it[0];if(it[2]&&window.KFicon){try{b.insertBefore(window.KFicon(it[2]),b.firstChild)}catch(x){}}b.setAttribute("role","menuitem");
   if(typeof it[1]==="string"){b.href=it[1];if(/^https/.test(it[1])){b.target="_blank";b.rel="noopener"}b.addEventListener("click",close)}
   else{b.href="#";b.addEventListener("click",function(e){e.preventDefault();close();it[1]()})}dd.appendChild(b)});dd.classList.add("on");place()}
 hd.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest(".links a[data-m]");if(!a)return;e.preventDefault();e.stopPropagation();open(a)});
