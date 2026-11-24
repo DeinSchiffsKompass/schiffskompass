@@ -2757,6 +2757,38 @@ var KK_AN=false;if(KK_AN&&!hook())document.addEventListener("DOMContentLoaded",h
 </script>
 <!--KF-ADDON-END-->
 
+<style id="tslide-css">
+/* Startseite: Kacheln als Slider */
+.tilesec .tiles{display:flex!important;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:2px;padding:4px 2px 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+.tilesec .tiles::-webkit-scrollbar{display:none}
+.tilesec .tiles>.tile{flex:0 0 calc((100% - 28px)/3);scroll-snap-align:start;grid-column:auto!important;display:flex!important;flex-direction:column;align-items:flex-start;gap:6px;min-height:100%}
+.tilesec .tiles>.tile>*{grid-column:auto!important}
+.tilesec .tiles>.tile .sym,.tilesec .tiles>.tile .gl{width:110px!important;height:110px!important;margin:0 0 6px!important;grid-row:auto!important;align-self:flex-start}
+.tilesec .tiles>.tile .go2,.tilesec .tiles>.tile .go3{margin-top:auto}
+@media(max-width:900px){.tilesec .tiles>.tile{flex-basis:calc((100% - 14px)/2)}}
+@media(max-width:600px){.tilesec .tiles>.tile{flex-basis:86%}.tilesec .tiles>.tile .sym,.tilesec .tiles>.tile .gl{width:96px!important;height:96px!important}}
+.tsnav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:6px}
+.tsdots{display:flex;gap:7px}.tsdots button{width:8px;height:8px;border-radius:50%;border:none;padding:0;background:#C9D6E5;cursor:pointer}.tsdots button.on{background:#0A6FD8;width:20px;border-radius:4px}
+.tsarr{width:38px;height:38px;border-radius:50%;border:1.5px solid #D9E3EC;background:#fff;color:#0B2470;font:700 18px/1 var(--body);cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.tsarr:disabled{opacity:.35;cursor:default}
+@media(max-width:600px){.tsarr{display:none}}
+</style>
+<script id="tslide-addon">
+/* Kacheln der Startseite als Slider mit Punkten und Pfeilen */
+(function(){try{var T=document.querySelector(".tilesec .tiles");if(!T)return;
+ var nav=document.createElement("div");nav.className="tsnav";var pv=document.createElement("button"),nx=document.createElement("button"),dots=document.createElement("div");
+ pv.className=nx.className="tsarr";pv.type=nx.type="button";pv.textContent="‹";nx.textContent="›";pv.setAttribute("aria-label","Zurück");nx.setAttribute("aria-label","Weiter");dots.className="tsdots";
+ nav.appendChild(pv);nav.appendChild(dots);nav.appendChild(nx);T.parentNode.insertBefore(nav,T.nextSibling);
+ function items(){return[].filter.call(T.children,function(c){return c.offsetParent!==null})}
+ function step(){var I=items();return I.length>1?I[1].offsetLeft-I[0].offsetLeft:T.clientWidth}
+ function idx(){return Math.round(T.scrollLeft/step())}
+ function build(){var I=items(),pvw=Math.max(1,Math.round(T.clientWidth/step())),n=Math.max(1,I.length-pvw+1);I=I.slice(0,n);dots.innerHTML="";nav.style.display=n>1?"":"none";I.forEach(function(it,i){var b=document.createElement("button");b.type="button";b.setAttribute("aria-label",(it.querySelector("h3")||{}).textContent||("Kachel "+(i+1)));b.onclick=function(){T.scrollTo({left:i*step(),behavior:"smooth"})};dots.appendChild(b)});upd()}
+ function upd(){var i=idx(),B=dots.children,max=T.scrollWidth-T.clientWidth;if(T.scrollLeft>=max-4)i=B.length-1;for(var k=0;k<B.length;k++)B[k].className=k===i?"on":"";pv.disabled=T.scrollLeft<=4;nx.disabled=T.scrollLeft>=max-4}
+ pv.onclick=function(){T.scrollBy({left:-step(),behavior:"smooth"})};nx.onclick=function(){T.scrollBy({left:step(),behavior:"smooth"})};
+ var tm;T.addEventListener("scroll",function(){clearTimeout(tm);tm=setTimeout(upd,60)},{passive:true});window.addEventListener("resize",build);
+ build();setTimeout(build,800);
+}catch(e){}})();
+</script>
 <style id="nav-addon-css">
 .nav .links a{white-space:nowrap}
 .nav .links a[data-m]::after{content:"";display:inline-block;width:6px;height:6px;margin-left:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-3px) rotate(45deg);transition:transform .2s;opacity:.7}
