@@ -653,6 +653,56 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
     <p class="hint">Die Empfehlung ist eine Orientierung ohne Gewähr. Sie beruht auf den Deckplänen und Kabinenbeschreibungen von TUI Cruises, unseren eigenen Erfahrungen an Bord und den Erfahrungen vieler Reisender. Ob eine passende Kabine auf deiner Reise noch frei ist, siehst du bei der Buchung – oder du fragst uns, ob wir dir eine Wunschkabine in deiner Wunschlage noch buchen können.</p>
   </div>
 </div></div>
+<div id="v-allein" class="view" hidden><div class="wrap book">
+  <p class="eyebrow">Meine Reise · Reisen mit …</p>
+  <h1>Allein an Bord – frei, entspannt und so gesellig, wie du magst</h1>
+  <p>Ob erste Soloreise oder schon erfahren: Hier findest du, worauf es bei Kabine, Preis, Kontakten an Bord und Landgängen ankommt.</p>
+  <div class="card rgcard"><div class="rgtips" data-g="solo"></div>
+    <div class="bkbtns"><a class="cta ctapulse" href="#" data-open="kabinen" data-preset='{"who":"1"}'>Passende Kabine finden <span class="g3arr" aria-hidden="true">→</span></a></div>
+    <p class="hint">Fragen zu deiner Reise? <a href="https://wa.me/4915126978714" target="_blank" rel="noopener">Schreib uns per WhatsApp</a> – wir beraten dich gern persönlich.</p>
+  </div>
+  <div class="rgtips rgup" data-g="upgrade"></div>
+</div></div>
+<div id="v-zuzweit" class="view" hidden><div class="wrap book">
+  <p class="eyebrow">Meine Reise · Reisen mit …</p>
+  <h1>Zu zweit an Bord – eure Kabine, eure Momente</h1>
+  <p>Ob Paar, Freunde oder Geschwister: Tipps zu Kabine, Lage, besonderen Momenten und zur Buchung.</p>
+  <div class="card rgcard"><div class="rgtips" data-g="duo"></div>
+    <div class="bkbtns"><a class="cta ctapulse" href="#" data-open="kabinen" data-preset='{"who":"2"}'>Passende Kabine finden <span class="g3arr" aria-hidden="true">→</span></a></div>
+    <p class="hint">Fragen zu deiner Reise? <a href="https://wa.me/4915126978714" target="_blank" rel="noopener">Schreib uns per WhatsApp</a> – wir beraten dich gern persönlich.</p>
+  </div>
+  <div class="rgtips rgup" data-g="upgrade"></div>
+</div></div>
+<div id="v-kinder" class="view" hidden><div class="wrap book">
+  <p class="eyebrow">Meine Reise · Reisen mit …</p>
+  <h1>Mit Kindern an Bord – entspannt als Familie reisen</h1>
+  <p>Vom Baby bis zum Teenager: Schlafaufteilung, Kids-Club, Sicherheit und Landgänge – nach Alter sortiert.</p>
+  <div class="card rgcard"><div class="rgtips" data-g="kids"></div>
+    <div class="bkbtns"><a class="cta ctapulse" href="#" data-open="kabinen" data-preset='null'>Passende Kabine finden <span class="g3arr" aria-hidden="true">→</span></a></div>
+    <p class="hint">Fragen zu deiner Reise? <a href="https://wa.me/4915126978714" target="_blank" rel="noopener">Schreib uns per WhatsApp</a> – wir beraten dich gern persönlich.</p>
+  </div>
+  <div class="rgtips rgup" data-g="upgrade"></div>
+</div></div>
+<div id="v-bestalter" class="view" hidden><div class="wrap book">
+  <p class="eyebrow">Meine Reise · Reisen mit …</p>
+  <h1>Reisen im besten Alter – mit Ruhe und Komfort</h1>
+  <p>Ruhige Lage, kurze Wege, entspannte Landgänge: Tipps für alle, die ihre Reise in Ruhe genießen möchten.</p>
+  <div class="card rgcard"><div class="rgtips" data-g="best"></div>
+    <div class="bkbtns"><a class="cta ctapulse" href="#" data-open="kabinen" data-preset='null'>Passende Kabine finden <span class="g3arr" aria-hidden="true">→</span></a></div>
+    <p class="hint">Fragen zu deiner Reise? <a href="https://wa.me/4915126978714" target="_blank" rel="noopener">Schreib uns per WhatsApp</a> – wir beraten dich gern persönlich.</p>
+  </div>
+  <div class="rgtips rgup" data-g="upgrade"></div>
+</div></div>
+<div id="v-barrierefrei" class="view" hidden><div class="wrap book">
+  <p class="eyebrow">Meine Reise · Reisen mit …</p>
+  <h1>Barrierefrei reisen – gut vorbereitet an Bord</h1>
+  <p>Mit Rollstuhl, Rollator, Gehhilfe oder anderen Beeinträchtigungen: worauf du bei Kabine, Bordleben, Landgang und Anreise achten solltest.</p>
+  <div class="card rgcard"><div class="rgtips" data-g="acc"></div>
+    <div class="bkbtns"><a class="cta ctapulse" href="#" data-open="kabinen" data-preset='null'>Passende Kabine finden <span class="g3arr" aria-hidden="true">→</span></a></div>
+    <p class="hint">Fragen zu deiner Reise? <a href="https://wa.me/4915126978714" target="_blank" rel="noopener">Schreib uns per WhatsApp</a> – wir beraten dich gern persönlich.</p>
+  </div>
+  <div class="rgtips rgup" data-g="upgrade"></div>
+</div></div>
 <div id="v-impressum" class="view" hidden><div class="wrap imp">
   <p class="eyebrow">Rechtliches</p>
   <h1>Impressum</h1>
@@ -1037,7 +1087,7 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==und
   if(use!==k)$("sthl").textContent+=" Für "+(T.tom?"morgen":"heute")+" ist noch nichts recherchiert, das ist der letzte Stand.";
 })();
 (function router(){
-  var V=["start","flotte","tipps","buchen","countdown","kabinen","impressum","datenschutz"];
+  var V=["start","flotte","tipps","buchen","countdown","kabinen","allein","zuzweit","kinder","bestalter","barrierefrei","impressum","datenschutz"];
   function show(){var h=(location.hash||"").replace("#","");if(V.indexOf(h)<0)h="start";
     V.forEach(function(v){$("v-"+v).hidden=v!==h});
     Array.prototype.forEach.call(document.querySelectorAll(".nav .links a"),function(a){if(a.getAttribute("data-v")===h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
@@ -2043,6 +2093,67 @@ window.SKopen=open;window.addEventListener("resize",function(){[].forEach.call(d
 #kfsheet .kfcat .ki svg,#kfsheet .kfpick .ki svg{stroke:currentColor}
 </style>
 <script id="kf-addon">
+window.SKT=(function(){
+/* Tipps je Reisegruppe – eine Quelle für Kabinen-Finder und Rubrikseiten. c = Kontext aus dem Finder; leer = alles zeigen (Rubrikseite) */
+var K={baby:["Mitreisen ist meist ab 6 Monaten möglich; bei mehr als drei Seetagen am Stück oft erst ab 12 Monaten – maßgeblich sind die Bedingungen der jeweiligen Reise.","Babybett, Babyphone und Hochstuhl vorab reservieren und bestätigen lassen – dabei auch klären, ob und wo das Babybett in der Kabine Platz hat.","Windeln und Babynahrung gibt es an Bord nicht regulär zu kaufen – ausreichend mitnehmen.","Kinder mit Windel dürfen nicht in Pools und Whirlpools, auch nicht mit Schwimmwindel.","Platz für den Kinderwagen bedenken: Abstellfläche prüfen, Tür und Fluchtweg nicht zustellen.","Ausflüge nach dem Schlafrhythmus planen – bereits bezahlte, nicht genutzte Ausflüge kosten trotzdem."],
+  klein:["Für Kinder unter 3 Jahren gibt es das Nest – einen Spielbereich zusammen mit einer Begleitperson, keine Abgabebetreuung.","Individuelle Betreuung ist nur begrenzt und gegen Gebühr auf Anfrage möglich; die Eltern bleiben dabei an Bord.","Ein Hochbett nur ab passendem Alter nutzen; Rausfallschutz an Bord erfragen.","Kinder mit Windel dürfen nicht in Pools und Whirlpools, auch nicht mit Schwimmwindel.","Kurse und Workshops nach den tatsächlichen Fähigkeiten auswählen – bei sehr kleinen Kindern machen oft die Eltern den Großteil."],
+  vor:["Der Kids-Club ist ab 3 Jahren da. Voraussetzungen sind meist Anmeldung, Einverständnis der Eltern, keine Windeln, ausreichender Impfschutz und Deutsch- oder Englischkenntnisse.","Die Eingewöhnung zählt: Der Club ist ein Angebot, kein Muss – Geschwister können ganz unterschiedlich darauf reagieren.","Eine ruhige Kabine hilft beim Mittagsschlaf und als Rückzug nach einem trubeligen Tag.","Bei zwei Kabinen die Verbindungstür und die zulässige Kinderbelegung vorher klären."],
+  schul:["Ab dem Schulalter zählen Sport, Pool, Freunde und Workshops. In den Ferien gibt es auf ausgewählten Reisen auch ein kostenpflichtiges Übernachtungsangebot ab 6 Jahren (mit Anmeldung).","In den Ferien sind mehr Gleichaltrige an Bord, aber auch mehr Andrang an Buffet und Pool – Stoßzeiten meiden.","Gemeinsame Familienzeit ist genauso viel wert wie der Club – manche Familien nutzen ihn kaum."],
+  teen:["Programm und Treffpunkt für Teenager hängen von Reisezeit und Schiff ab – außerhalb der Ferien sind oft nur wenige Gleichaltrige an Bord.","Ein eigener Schlafbereich und ein ausreichend langes Bett sind wichtig – Zusatzbetten können zu klein sein. Oft passen zwei Kabinen mit Verbindungstür besser.","Internet-Kosten und Handyregeln vorher besprechen und Ausflüge gemeinsam aussuchen."]};
+var RT={nor:"Norwegen: kurze Stadtrunden, Spielplätze und wetterfeste Kleidung – Fjordpassagen sind ein schönes gemeinsames Erlebnis an Deck.",isl:"Island: wetterfeste Kleidung und kurze Touren einplanen.",ost:"Ostsee: kurze Stadtrunden, Spielplätze und wetterfeste Kleidung einplanen.",west:"Westeuropa: Wetter wechselt schnell – kurze Touren und Pausen einplanen.",mm:"Mittelmeer: Hitze und lange Busfahrten beachten; Altstadt, Strand und Bootstour abwechseln.",adr:"Adria: Hitze und lange Busfahrten beachten; Altstadt, Strand und Bootstour abwechseln.",gr:"Griechenland: Hitze beachten; Strand und kurze Ausflüge abwechseln.",kan:"Kanaren und Madeira: viele Spaziergänge und Strandtage möglich, aber teils steile Wege.",kar:"Karibik: Schatten, sichere Badeplätze und kurze Transfers wählen; Altersgrenzen bei Boots- und Tierausflügen beachten.",tra:"Transreise: Viele Seetage machen Bordangebot, Kontakt zu Gleichaltrigen und Rückzug besonders wichtig – das Mindestalter prüfen.",welt:"Lange Reisen: Viele Seetage machen Bordangebot und Rückzug besonders wichtig – das Mindestalter prüfen.",usa:"USA und Kanada: lange Wege an Land und Wetterwechsel einplanen.",ori:"Orient: Hitze, lange Flüge und Transferzeiten bedenken.",asi:"Asien: Hitze, lange Flüge und Transferzeiten bedenken.",afr:"Afrika: lange Transfers und Hitze bedenken; Ausflüge mit Altersgrenzen abgleichen."};
+var AL={baby:"👶 Baby (unter 1 Jahr)",klein:"🧸 Kleinkind (1–2 Jahre)",vor:"🎈 3–5 Jahre",schul:"⚽ 6–11 Jahre",teen:"🎧 Teenager (12–17 Jahre)"};
+var RN={nor:"Norwegen",isl:"Island",ost:"Ostsee",west:"Westeuropa",mm:"Westliches Mittelmeer",adr:"Adria",gr:"Griechenland",kan:"Kanaren und Madeira",kar:"Karibik",tra:"Transatlantik",welt:"Weltreise",usa:"USA und Kanada",ori:"Orient",asi:"Asien",afr:"Afrika"};
+function kids(c){c=c||{};var AGE=c.kd?["👶 Für euer Alter",K[c.kd]||[]]:null;
+ var G2=[["🛏️ Kabine",["Entscheidend ist die tatsächliche Schlafaufteilung: Jedes Kind braucht einen passenden Schlafplatz. Bei 2+1 reicht oft eine Standardkabine mit Zusatzbett, bei 2+2 lohnt der Vergleich Schlafsofa bzw. Hochbett gegen zwei Kabinen, ab 2+3 eine große Familienkabine, eine Suite oder Kabinen mit Verbindungstür.","Familienkabinen gibt es mit Balkon und – auf der Relax und Flow – als große Außenkabinen für bis zu sechs Personen. Die zulässige Belegung immer im Buchungssystem bestätigen lassen.","Wer früh schlafende Kinder hat, meidet Kabinen über oder unter Theater, Bars und unter dem Pooldeck – Proben und Abendprogramm können bis spät hörbar sein.","Kurze Wege zu Kids-Club, Pool, Restaurant und Aufzug machen den Alltag leichter – im Deckplan nachsehen."]],
+  AGE,
+  ["🦺 Sicherheit",(c.bal!==false?["Balkontür gesichert halten, keine Möbel an die Reling schieben und Kinder nie unbeaufsichtigt auf dem Balkon lassen."]:[]).concat(["Am und im Wasser Kinder ständig beaufsichtigen; Kinder unter 12 nicht allein an Bord lassen.","Reiseapotheke mitnehmen; das Bordhospital ersetzt keine Kinderklinik – Versicherung mit Rücktransport prüfen. Allergien und besonderen Betreuungsbedarf vor der Buchung klären."])],
+  ["⚓ Landgänge",[(c.route&&RT[c.route]?RT[c.route]+" ":"")+"Vor jedem Ausflug Mindestalter, Transferdauer, Kinderwagen und Stornierung prüfen. Kindersitze gibt es bei örtlichen Veranstaltern nicht überall; im Tenderhafen die Mitnahme des Buggys erfragen."]]];
+ G2=G2.filter(Boolean);
+ if(!c.kd){Object.keys(AL).forEach(function(k,i){G2.splice(1+i,0,[AL[k],K[k]])});G2.push(["🗺️ Je nach Fahrtgebiet",Object.keys(RT).filter(function(k){return k!=="west"&&k!=="welt"}).map(function(k){return RT[k]})])}
+ return{sum:"👨‍👩‍👧 Mit Kindern reisen: worauf ihr achten solltet",note:"Allgemeine Hinweise aus Erfahrungen von Familien und den Angaben der Reederei. Betreuung, Altersgrenzen und Angebote können sich ändern – für die konkrete Reise vorab bestätigen lassen.",sec:G2}}
+function acc(c){c=c||{};var ac=c.ac;var R1=["Für Gäste, die dauerhaft auf den Rollstuhl angewiesen sind, gibt es spezielle barrierefreie Kabinen – innen, außen und mit Balkon. Eine Standardkabine passt meist nur mit einem faltbaren Rollstuhl, der nicht ständig genutzt wird.","Kabinentüren haben keine elektrische Öffnung und können schwer sein; auch Balkontüren brauchen Kraft. Wer wenig Handkraft hat, sollte das vorab klären.","Viel Fläche heißt nicht automatisch genug Rangierraum: Enge Stellen gibt es oft an Tür, Schrank und Bett.","Im Bad lohnt der Blick auf Transferseite, Haltegriffe (fest oder schwenkbar), Höhe von WC und Duschsitz und erreichbare Ablagen.","Steckdosen am Bett können knapp sein – wichtig zum Laden eines E-Rollstuhls."],R2=["In einer Standardkabine bleibt mit Rollator oft nur wenig Bewegungsfläche; gefaltet passt er meist in den Schrank oder neben die Couch.","Ein Bett am Fenster schafft mehr Platz im Raum, kurze Wege zum Aufzug sparen Kraft."];
+ var KAB=ac===2?["🛏️ Kabine",R1]:ac===3?["🛏️ Kabine",R2]:null;
+ var B=[
+ KAB,
+ ["🚢 An Bord",["Die Aufzüge sind rollstuhlgeeignet, meist passt ein Rollstuhl pro Fahrt. Einzelne obere Bereiche, etwa Teile des Sonnendecks, sind nur über Treppen erreichbar.","Teppichböden kosten beim Fahren Kraft – kurze Wege zu Aufzug und Restaurants sind viel wert.","Buffets können hoch aufgebaut und schwer selbst erreichbar sein. Die Crew hilft, Bedienrestaurants und reservierte Tische sind eine gute Alternative; Tische mit Mittelsäule lassen sich schlecht unterfahren.","Einen Poollifter gibt es nicht auf jedem Schiff – vorher nachfragen."]],
+ ["⚓ Landgang und Anreise",["Steigung und Stufen der Gangway ändern sich je nach Hafen und Wasserstand. Hilfe gibt es, ein Landgang ist aber nicht immer möglich.","In Tenderhäfen kann ein Landgang mit Rollstuhl ganz entfallen – Tenderboote sind meist nur bei selbstständigem Ein- und Ausstieg nutzbar. Bei Routen mit mehreren Tenderhäfen lohnt es sich, das Bordprogramm einzuplanen.","Ausflüge mit der Kennzeichnung „Extraleicht“ sind für eingeschränkte Mobilität gedacht, bedeuten aber nicht automatisch einen rollstuhlgerechten Bus. Manche organisieren Touren mit geeigneten Fahrzeugen lieber selbst.","Kopfsteinpflaster, enge Gassen und starker Regen können Landgänge erschweren.","Beim Transfer vorab klären, ob das Fahrzeug eine Rampe hat und man im Rollstuhl bleiben kann. Bei Flug über TUI kann ein angemeldeter barrierefreier Transfer möglich sein.","E-Rollstuhl oder Scooter vorher anmelden (keine Flüssigbatterien). Leih-Hilfsmittel kosten extra und sind nicht fest reservierbar.","Was bei wetter- oder barrierebedingt ausfallenden Ausflügen erstattet wird, am besten vorher schriftlich klären."]],
+ ["🧩 Weitere Beeinträchtigungen",["Sehbehinderung: An Kabinenschildern gibt es keine Brailleschrift und keine Großtastentelefone; Tenderfahrten sind nicht garantiert.","Hörbehinderung: Untertitel, visuelle Alarme und weitere Hilfen direkt beim Spezialservice der Reederei erfragen.","Demenz, Autismus oder Reizempfindlichkeit: Ruhige Rückzugsorte, planbare Abläufe und Begleitung bedenken – eine Kabine auf einem ruhigen Kabinendeck hilft.","Medizinische Geräte wie CPAP oder Sauerstoff vorher anmelden. Es gibt ein Bordhospital, aber keine spezialisierte Dauerbetreuung."]]];B=B.filter(Boolean);
+ if(!ac){B.splice(0,0,["🛏️ Kabine mit Rollstuhl",R1],["🦯 Kabine mit Rollator oder Gehhilfe",R2])}
+ return{sum:"♿ Barrierefrei reisen: worauf du achten solltest",note:"Allgemeine Hinweise aus Erfahrungen von Reisenden und den Angaben der Reederei. Sie ersetzen keine individuelle Klärung – Kabine, Hilfsmittel, Begleitung und Landgänge am besten vor der Buchung mit dem Spezialservice von TUI Cruises abstimmen und schriftlich bestätigen lassen. Hilfsbereite Crew im Einzelfall ist kein garantierter Assistenzdienst.",sec:B}}
+function solo(c){c=c||{};var s=c.s||"";var SG=!s||/ 7$|Relax|Flow/.test(s);var B=[
+ ["🛏️ Kabine und Preis",[(SG?"Vergleiche immer beide Wege: eine echte Einzelkabine"+(s?"":" (nur auf der Mein Schiff 7, Relax und Flow)")+" und eine reguläre Kabine zur Alleinnutzung. Je nach Reise und Aktion kann die reguläre Kabine sogar günstiger sein – und sie bietet mehr Platz.":"Auf der "+s+" buchst du eine reguläre Kabine zur Alleinnutzung. Der Einzelzuschlag schwankt je nach Reise und Termin – Preise mehrerer Termine zu vergleichen lohnt sich."),
+  "Such im Buchungssystem gleich mit einer Person: Dann siehst du, welche Kabinen für dich allein buchbar sind und was sie wirklich kosten. Bei hoher Auslastung ist die Alleinbelegung manchmal nicht mehr freigegeben – früh schauen lohnt sich.",
+  "Größe, Bett, Tageslicht, Ruhe und Privatsphäre sind oft wichtiger als das Etikett „Einzelkabine“. Wer viel Zeit in der Kabine verbringt, fühlt sich in einer kompakten Kabine schnell eingeengt; wer den ganzen Tag unterwegs ist, braucht wenig Platz.",
+  "In PUR und PLUS teilt die Reederei die Kabine zu. Wenn dir Ruhe, Seite oder Lage wichtig sind, wählst du im PRO-Tarif selbst."]],
+ ["🤝 Kontakte an Bord",["Zu Reisebeginn gibt es ein Kennenlerntreffen für Alleinreisende und abends reservierte Plätze an einem gemeinsamen Tisch zu Beginn des Service. Zeit und Restaurant stehen im Tagesprogramm – auf den neuen Schiffen kann das Restaurant abweichen.",
+  "Alles ist freiwillig: Wer lieber allein isst, bekommt auch einen Einzelplatz – am besten im Bedienrestaurant oder vorab am Empfang ansprechen.",
+  "Ausflüge, Sport wie Shuffleboard oder Volleyball und Kurse sind unkomplizierte Gelegenheiten für Gespräche – viele Alleinreisende lernen die meisten Leute bei Landgängen kennen.",
+  "Am Buffet: Nachbarn oder den Service kurz bitten, den Platz freizuhalten, und keine Wertsachen liegen lassen."]],
+ ["⚓ Landgänge",["Rückkehrzeit, Treffpunkt und Notfallnummer des Schiffs notieren, Offline-Karte, Ausweis und etwas Bargeld dabeihaben.",
+  "Bei weiter entfernten Sehenswürdigkeiten sind organisierte Ausflüge praktisch – Transfer und Rückkehr sind geregelt, und du bist in Gesellschaft. Näher gelegene Altstädte lassen sich gut auf eigene Faust erkunden."].concat(/kar|tra|usa|asi|ori|afr|welt/.test(c.route||"")?["Bei Fernreisen mit Flug lohnt sich die Anreise am Vortag – dann bist du entspannt, auch wenn der Flug sich verspätet."]:[])],
+ ["🩺 Gut vorbereitet",["Einen Notfallkontakt hinterlegen und eine Vertrauensperson über den Reiseplan informieren. Medikamente in ausreichender Menge mitnehmen, Kranken- und Rücktransportversicherung prüfen.",
+  "Niemand muss Kontakte eingehen oder Privates teilen. Unerwünschtes Verhalten kannst du jederzeit beim Bordpersonal melden."]]];
+ return{sum:"🧍 Allein reisen: worauf du achten solltest",note:"Allgemeine Hinweise aus Erfahrungen von Alleinreisenden und den Angaben der Reederei. Angebote wie das Kennenlerntreffen können je nach Schiff und Reise abweichen.",sec:B}}
+function duo(c){c=c||{};return{sum:"💑 Zu zweit reisen: worauf ihr achten solltet",note:"Allgemeine Hinweise aus unseren eigenen Erfahrungen an Bord, Erfahrungen von Reisenden und den Angaben der Reederei.",sec:[
+ ["🛏️ Kabine",["Ein Balkon lohnt sich zu zweit besonders: Kaffee am Morgen, Sonnenuntergang und das Einlaufen in den Hafen erlebt ihr ganz für euch.","Wem Ruhe wichtig ist: ein reines Kabinendeck mittschiffs – nicht direkt unter Pooldeck oder Buffet und nicht über Theater oder Bars.","In Außen- und Balkonkabinen steht das Bett je nach Kabine am Fenster oder im Raum. Auf der Mein Schiff 1 bis 7 steht es am Fenster, wenn die Kabinentür vom Flur aus gesehen rechts liegt, auf der Relax und Flow bei Tür links.","Lage, Seite und Bettposition wählt ihr nur im PRO-Tarif selbst. In PUR und PLUS teilt die Reederei die Kabine zu."]],
+ ["✨ Besondere Momente",["Blick nach hinten auf Kielwasser und Sonnenuntergang: Je nach Schiff gibt es dafür Heck-Balkonkabinen oder Suiten am Heck.","Ab der Junior Suite habt ihr X-Lounge, X-Sonnendeck und Concierge – deutlich ruhiger als Pool und Buffet.","Für Landblick, Sonne oder Schatten lohnt die passende Schiffsseite – der Kabinen-Finder sagt euch, welche Seite zu eurer Route passt."]],
+ ["🎟️ Buchung",["Frühbucher- und Aktionspreise lohnen sich oft – vergleicht ruhig mehrere Termine derselben Route.","Reist ihr mit Freunden oder einem zweiten Paar, sind zwei Kabinen mit Verbindungstür eine schöne Lösung."]]]}}
+function best(c){c=c||{};return{sum:"🌅 Reisen im besten Alter: worauf du achten solltest",note:"Allgemeine Hinweise aus Erfahrungen von Reisenden und den Angaben der Reederei. Wer einen Rollator oder Rollstuhl nutzt, findet mehr unter „Barrierefrei reisen“.",sec:[
+ ["🛏️ Kabine",["Je tiefer und je näher an der Schiffsmitte, desto weniger spürst du Schwankungen – ideal bei Bewegungsempfindlichkeit.","Kurze Wege zum Aufzug sparen Kraft – aber nicht direkt daneben, dort ist mehr Betrieb.","Ein Bett am Fenster schafft mehr Platz im Raum – praktisch, wenn eine Gehhilfe mitreist.","Kabinen- und Balkontüren können schwer sein. Wer wenig Kraft in den Händen hat, klärt das am besten vorab."]],
+ ["🚢 An Bord",["Bedienrestaurants und reservierte Tische sind eine entspannte Alternative zum Buffet.","Seetage bewusst als Ruhetage einplanen – Bordprogramm, Spa und Lesen statt Programm im Minutentakt."]],
+ ["⚓ Landgänge",["Ausflüge mit der Kennzeichnung „Extraleicht“ sind für eingeschränkte Mobilität gedacht.","Steigung und Stufen der Gangway ändern sich je nach Hafen und Wasserstand. In Tenderhäfen geht es mit kleinen Booten an Land – dafür muss man sicher ein- und aussteigen können.","Kopfsteinpflaster, enge Gassen und Hitze können Landgänge anstrengend machen – Pausen und Schatten einplanen."]],
+ ["🩺 Gut vorbereitet",["Medikamente in ausreichender Menge im Handgepäck mitnehmen. Es gibt ein Bordhospital, aber keine spezialisierte Dauerbetreuung – Kranken- und Rücktransportversicherung prüfen.","Medizinische Geräte wie CPAP oder Sauerstoff vorher anmelden."]]]}}
+function upgrade(c){c=c||{};var multi=!!c.multi;var B=["Mit dem Mein Schiff Upgrade Programm kannst du bei ausgewählten Reisen nach der Buchung auf eine höhere Kabinenkategorie bieten – zum Beispiel von innen nach außen, von außen auf Balkon oder vom Balkon in die Suite.",
+ "Die Einladung kommt per E-Mail, frühestens 125 Tage vor Abreise. Du bietest einen Aufpreis pro Kabine, mindestens das angezeigte Mindestgebot. Bieten können Reisende ab 18 Jahren.",
+ "Bezahlt wird nur, wenn dein Gebot angenommen wird. Bis spätestens 3 Tage vor Abreise kannst du es ändern oder zurückziehen; Bescheid bekommst du spätestens 2 Tage vor Abreise. Ein angenommenes Upgrade lässt sich nicht mehr ablehnen.",
+ "Du bekommst die Leistungen der neuen Kategorie – mit der Junior Suite oder Suite zum Beispiel die X-Lounge. Es gelten weiter die Bedingungen deines gebuchten Tarifs.",
+ "Wichtig: Die neue Kabine wird zugeteilt. Deck, Seite, Lage und Bettposition kannst du nicht wählen. Wenn dir eine bestimmte Lage wichtig ist, buchst du deine Wunschkabine besser direkt."];
+ if(multi)B.push("Buchungen mit mehreren Kabinen sind beim Upgrade Programm derzeit ausgeschlossen – und verbundene Kabinen wären danach ohnehin nicht garantiert.");
+ B.push("Unabhängig davon kannst du jederzeit regulär in eine höhere Kategorie umbuchen – frag uns einfach, wir schauen, was auf deiner Reise noch frei ist.");
+ return{sum:"⬆️ Unser Tipp: später noch eine höhere Kategorie bekommen",note:"Stand November 2026. Das Upgrade Programm gilt nur für ausgewählte Reisen und Buchungen; die Bedingungen der Reederei können sich ändern.",sec:[[null,B]]}}
+function box(t,E){var dt=E("details","kfov kfhf");dt.appendChild(E("summary",null,t.sum));dt.appendChild(E("p","kfad",t.note));
+ t.sec.forEach(function(g){if(!g[1]||!g[1].length)return;if(g[0])dt.appendChild(E("h5",null,g[0]));var u=E("ul");g[1].forEach(function(x){var li=E("li");li.appendChild(E("div",null,x));u.appendChild(li)});dt.appendChild(u)});return dt}
+return{kids:kids,acc:acc,solo:solo,duo:duo,best:best,upgrade:upgrade,box:box}})();
 (function(){try{
 var SH=["Mein Schiff 1","Mein Schiff 2","Mein Schiff 3","Mein Schiff 4","Mein Schiff 5","Mein Schiff 6","Mein Schiff 7","Mein Schiff Relax","Mein Schiff Flow"];
 var BOOK="https://unserschiff.com/?advisor=16808";
@@ -2151,14 +2262,14 @@ function pdfDl(btn){var o=btn.textContent;btn.textContent="PDF wird erstellt …
   else{var a=document.createElement("a");a.href=url;a.download=nm;document.body.appendChild(a);a.click();a.remove()}
   setTimeout(function(){URL.revokeObjectURL(url)},60000)}catch(e){alert("Das PDF konnte leider nicht erstellt werden.")}btn.textContent=o;btn.disabled=false}
  if(window.KFpdfBuild)go();else{var sc=document.createElement("script");sc.src="js/kf-pdf.js?v=3";sc.onload=go;sc.onerror=function(){btn.textContent=o;btn.disabled=false;alert("Das PDF konnte leider nicht geladen werden.")};document.head.appendChild(sc)}}
-function render(){pan.innerHTML="";while(step<Q.length&&!vis(step))step++;if(step>=Q.length){result();return}var q=Q[step];var nv=0,pos=0;for(var i=0;i<Q.length;i++)if(vis(i)){nv++;if(i<=step)pos=nv}head("Kabinen-Finder",Math.round((pos-1)/nv*100));
+function render(){pan.innerHTML="";while(step<Q.length&&(!vis(step)||PRE.hasOwnProperty(Q[step].k)))step++;if(step>=Q.length){result();return}var q=Q[step];var nv=0,pos=0;for(var i=0;i<Q.length;i++)if(vis(i)){nv++;if(i<=step)pos=nv}head("Kabinen-Finder",Math.round((pos-1)/nv*100));
 var OPTS=q.of?q.of.call(q):q.o;pan.appendChild(E("p","kfq",q.q));pan.appendChild(E("p","kfsub",(q.s?q.s+" · ":"")+"Frage "+pos+" von "+nv));var g=E("div","kfopts");
 if(q.multi){var SEL=(A[q.k]||"").split(",").filter(Boolean);OPTS.forEach(function(o){var on=o[0]?SEL.indexOf(o[0])>=0:false;var b=E("button","kfo kfm"+(on?" on":""));b.type="button";b.setAttribute("aria-pressed",on?"true":"false");b.appendChild(E("span","e",o[1]));var t=E("span");t.appendChild(document.createTextNode(o[2]));if(o[3])t.appendChild(E("small",null,o[3]));b.appendChild(t);
  b.onclick=function(){if(!o[0]){A[q.k]="";step++;render();pan.scrollTop=0;return}var i=SEL.indexOf(o[0]);if(i>=0)SEL.splice(i,1);else{SEL.push(o[0]);var X={sonne:"schatten",schatten:"sonne"}[o[0]];if(X&&SEL.indexOf(X)>=0)SEL.splice(SEL.indexOf(X),1)}A[q.k]=SEL.join(",");var st=pan.scrollTop;render();pan.scrollTop=st};g.appendChild(b)});pan.appendChild(g);
  var nx=E("button","kfnext",SEL.length?"Weiter ("+SEL.length+" ausgewählt) →":"Weiter →");nx.type="button";nx.style.cssText="display:block;width:100%;margin-top:12px";nx.onclick=function(){A[q.k]=SEL.join(",");step++;render();pan.scrollTop=0};pan.appendChild(nx)}
 else{
 OPTS.forEach(function(o){var b=E("button","kfo"+(A[q.k]===o[0]?" on":""));b.type="button";b.appendChild(E("span","e",o[1]));var t=E("span");t.appendChild(document.createTextNode(o[2]));if(o[3])t.appendChild(E("small",null,o[3]));b.appendChild(t);b.onclick=function(){A[q.k]=o[0];if(q.k==="x"&&o[0]==="1")A.budget="b4";if(q.k==="budget"||q.k==="x"||q.k==="ship")delete A.view;step++;render();pan.scrollTop=0};g.appendChild(b)});pan.appendChild(g)}
-if(step>0){var n=E("div","kfnav"),bk=E("button","kfback","← Zurück");bk.onclick=function(){step--;while(step>0&&!vis(step))step--;render()};n.appendChild(bk);pan.appendChild(n)}}
+var first=0;while(first<Q.length&&(!vis(first)||PRE.hasOwnProperty(Q[first].k)))first++;if(step>first){var n=E("div","kfnav"),bk=E("button","kfback","← Zurück");bk.onclick=function(){step--;while(step>0&&(!vis(step)||PRE.hasOwnProperty(Q[step].k)))step--;render()};n.appendChild(bk);pan.appendChild(n)}}
 function result(){head("Deine Wunschkabine",100);var s=A.ship,big=(s==="Mein Schiff Relax"||s==="Mein Schiff Flow"),who=A.who,bud=A.budget,sea=+A.sea,q=A.quiet==="1",acc=+A.acc,v=A.view,sm=A.smoke;if(A.sleep==="tuer"&&(who==="34"||who==="5"))who="v";var PD=null;
 var cat,why,alt=null;
 if(bud==="b1"){cat="Innenkabine";why="Die günstigste Art, an Bord zu sein. Da du die Kabine vor allem zum Schlafen nutzt, sparst du hier am meisten – dunkel und ruhig schläft es sich zudem sehr gut.";if(sea>=2)alt="Wenn du sehr empfindlich bist, kann ein Fenster mit Blick zum Horizont helfen – dann ist eine Außenkabine die bessere Wahl."}
@@ -2375,47 +2486,11 @@ function list(t,arr){if(!arr.length)return;pan.appendChild(E("h4",null,t));var u
  L.push(["🛏️",tx]);
  G.push(["🛏️","So prüfst du die Bettposition: Im Deckplan auf meinschiff.com zeigt die Kabinenansicht, wo das Bett steht. Ausnahmen gibt es bei einzelnen Kabinen am Bug und Heck, bei Familien- und Kombikabinen. Eine bestimmte Kabine – und damit Bettposition und Richtung – kannst du nur im PRO-Tarif fest buchen."])})();
 list("Die ideale Lage",L);list("Lieber meiden",X);list("Gut zu wissen",G);
-(function(){if(who!=="1")return;var SG=!s||/ 7$|Relax|Flow/.test(s);var B=[
- ["🛏️ Kabine und Preis",[(SG?"Vergleiche immer beide Wege: eine echte Einzelkabine"+(s?"":" (nur auf der Mein Schiff 7, Relax und Flow)")+" und eine reguläre Kabine zur Alleinnutzung. Je nach Reise und Aktion kann die reguläre Kabine sogar günstiger sein – und sie bietet mehr Platz.":"Auf der "+s+" buchst du eine reguläre Kabine zur Alleinnutzung. Der Einzelzuschlag schwankt je nach Reise und Termin – Preise mehrerer Termine zu vergleichen lohnt sich."),
-  "Such im Buchungssystem gleich mit einer Person: Dann siehst du, welche Kabinen für dich allein buchbar sind und was sie wirklich kosten. Bei hoher Auslastung ist die Alleinbelegung manchmal nicht mehr freigegeben – früh schauen lohnt sich.",
-  "Größe, Bett, Tageslicht, Ruhe und Privatsphäre sind oft wichtiger als das Etikett „Einzelkabine“. Wer viel Zeit in der Kabine verbringt, fühlt sich in einer kompakten Kabine schnell eingeengt; wer den ganzen Tag unterwegs ist, braucht wenig Platz.",
-  "In PUR und PLUS teilt die Reederei die Kabine zu. Wenn dir Ruhe, Seite oder Lage wichtig sind, wählst du im PRO-Tarif selbst."]],
- ["🤝 Kontakte an Bord",["Zu Reisebeginn gibt es ein Kennenlerntreffen für Alleinreisende und abends reservierte Plätze an einem gemeinsamen Tisch zu Beginn des Service. Zeit und Restaurant stehen im Tagesprogramm – auf den neuen Schiffen kann das Restaurant abweichen.",
-  "Alles ist freiwillig: Wer lieber allein isst, bekommt auch einen Einzelplatz – am besten im Bedienrestaurant oder vorab am Empfang ansprechen.",
-  "Ausflüge, Sport wie Shuffleboard oder Volleyball und Kurse sind unkomplizierte Gelegenheiten für Gespräche – viele Alleinreisende lernen die meisten Leute bei Landgängen kennen.",
-  "Am Buffet: Nachbarn oder den Service kurz bitten, den Platz freizuhalten, und keine Wertsachen liegen lassen."]],
- ["⚓ Landgänge",["Rückkehrzeit, Treffpunkt und Notfallnummer des Schiffs notieren, Offline-Karte, Ausweis und etwas Bargeld dabeihaben.",
-  "Bei weiter entfernten Sehenswürdigkeiten sind organisierte Ausflüge praktisch – Transfer und Rückkehr sind geregelt, und du bist in Gesellschaft. Näher gelegene Altstädte lassen sich gut auf eigene Faust erkunden."].concat(/kar|tra|usa|asi|ori|afr|welt/.test(A.route||"")?["Bei Fernreisen mit Flug lohnt sich die Anreise am Vortag – dann bist du entspannt, auch wenn der Flug sich verspätet."]:[])],
- ["🩺 Gut vorbereitet",["Einen Notfallkontakt hinterlegen und eine Vertrauensperson über den Reiseplan informieren. Medikamente in ausreichender Menge mitnehmen, Kranken- und Rücktransportversicherung prüfen.",
-  "Niemand muss Kontakte eingehen oder Privates teilen. Unerwünschtes Verhalten kannst du jederzeit beim Bordpersonal melden."]]];
- var dt=E("details","kfov kfhf");dt.appendChild(E("summary",null,"🧍 Allein reisen: worauf du achten solltest"));
- dt.appendChild(E("p","kfad","Allgemeine Hinweise aus Erfahrungen von Alleinreisenden und den Angaben der Reederei. Angebote wie das Kennenlerntreffen können je nach Schiff und Reise abweichen."));
- B.forEach(function(g){dt.appendChild(E("h5",null,g[0]));var u=E("ul");g[1].forEach(function(x){var li=E("li");li.appendChild(E("div",null,x));u.appendChild(li)});dt.appendChild(u)});
- pan.appendChild(dt)})();
-(function(){var kd=A.kids;if(!kd||!(who==="34"||who==="5"||who==="v"))return;
- var K={baby:["Mitreisen ist meist ab 6 Monaten möglich; bei mehr als drei Seetagen am Stück oft erst ab 12 Monaten – maßgeblich sind die Bedingungen der jeweiligen Reise.","Babybett, Babyphone und Hochstuhl vorab reservieren und bestätigen lassen – dabei auch klären, ob und wo das Babybett in der Kabine Platz hat.","Windeln und Babynahrung gibt es an Bord nicht regulär zu kaufen – ausreichend mitnehmen.","Kinder mit Windel dürfen nicht in Pools und Whirlpools, auch nicht mit Schwimmwindel.","Platz für den Kinderwagen bedenken: Abstellfläche prüfen, Tür und Fluchtweg nicht zustellen.","Ausflüge nach dem Schlafrhythmus planen – bereits bezahlte, nicht genutzte Ausflüge kosten trotzdem."],
-  klein:["Für Kinder unter 3 Jahren gibt es das Nest – einen Spielbereich zusammen mit einer Begleitperson, keine Abgabebetreuung.","Individuelle Betreuung ist nur begrenzt und gegen Gebühr auf Anfrage möglich; die Eltern bleiben dabei an Bord.","Ein Hochbett nur ab passendem Alter nutzen; Rausfallschutz an Bord erfragen.","Kinder mit Windel dürfen nicht in Pools und Whirlpools, auch nicht mit Schwimmwindel.","Kurse und Workshops nach den tatsächlichen Fähigkeiten auswählen – bei sehr kleinen Kindern machen oft die Eltern den Großteil."],
-  vor:["Der Kids-Club ist ab 3 Jahren da. Voraussetzungen sind meist Anmeldung, Einverständnis der Eltern, keine Windeln, ausreichender Impfschutz und Deutsch- oder Englischkenntnisse.","Die Eingewöhnung zählt: Der Club ist ein Angebot, kein Muss – Geschwister können ganz unterschiedlich darauf reagieren.","Eine ruhige Kabine hilft beim Mittagsschlaf und als Rückzug nach einem trubeligen Tag.","Bei zwei Kabinen die Verbindungstür und die zulässige Kinderbelegung vorher klären."],
-  schul:["Ab dem Schulalter zählen Sport, Pool, Freunde und Workshops. In den Ferien gibt es auf ausgewählten Reisen auch ein kostenpflichtiges Übernachtungsangebot ab 6 Jahren (mit Anmeldung).","In den Ferien sind mehr Gleichaltrige an Bord, aber auch mehr Andrang an Buffet und Pool – Stoßzeiten meiden.","Gemeinsame Familienzeit ist genauso viel wert wie der Club – manche Familien nutzen ihn kaum."],
-  teen:["Programm und Treffpunkt für Teenager hängen von Reisezeit und Schiff ab – außerhalb der Ferien sind oft nur wenige Gleichaltrige an Bord.","Ein eigener Schlafbereich und ein ausreichend langes Bett sind wichtig – Zusatzbetten können zu klein sein. Oft passen zwei Kabinen mit Verbindungstür besser.","Internet-Kosten und Handyregeln vorher besprechen und Ausflüge gemeinsam aussuchen."]};
- var RT={nor:"Norwegen: kurze Stadtrunden, Spielplätze und wetterfeste Kleidung – Fjordpassagen sind ein schönes gemeinsames Erlebnis an Deck.",isl:"Island: wetterfeste Kleidung und kurze Touren einplanen.",ost:"Ostsee: kurze Stadtrunden, Spielplätze und wetterfeste Kleidung einplanen.",west:"Westeuropa: Wetter wechselt schnell – kurze Touren und Pausen einplanen.",mm:"Mittelmeer: Hitze und lange Busfahrten beachten; Altstadt, Strand und Bootstour abwechseln.",adr:"Adria: Hitze und lange Busfahrten beachten; Altstadt, Strand und Bootstour abwechseln.",gr:"Griechenland: Hitze beachten; Strand und kurze Ausflüge abwechseln.",kan:"Kanaren und Madeira: viele Spaziergänge und Strandtage möglich, aber teils steile Wege.",kar:"Karibik: Schatten, sichere Badeplätze und kurze Transfers wählen; Altersgrenzen bei Boots- und Tierausflügen beachten.",tra:"Transreise: Viele Seetage machen Bordangebot, Kontakt zu Gleichaltrigen und Rückzug besonders wichtig – das Mindestalter prüfen.",welt:"Lange Reisen: Viele Seetage machen Bordangebot und Rückzug besonders wichtig – das Mindestalter prüfen.",usa:"USA und Kanada: lange Wege an Land und Wetterwechsel einplanen.",ori:"Orient: Hitze, lange Flüge und Transferzeiten bedenken.",asi:"Asien: Hitze, lange Flüge und Transferzeiten bedenken.",afr:"Afrika: lange Transfers und Hitze bedenken; Ausflüge mit Altersgrenzen abgleichen."};
- var G2=[["🛏️ Kabine",["Entscheidend ist die tatsächliche Schlafaufteilung: Jedes Kind braucht einen passenden Schlafplatz. Bei 2+1 reicht oft eine Standardkabine mit Zusatzbett, bei 2+2 lohnt der Vergleich Schlafsofa bzw. Hochbett gegen zwei Kabinen, ab 2+3 eine große Familienkabine, eine Suite oder Kabinen mit Verbindungstür.","Familienkabinen gibt es mit Balkon und – auf der Relax und Flow – als große Außenkabinen für bis zu sechs Personen. Die zulässige Belegung immer im Buchungssystem bestätigen lassen.","Wer früh schlafende Kinder hat, meidet Kabinen über oder unter Theater, Bars und unter dem Pooldeck – Proben und Abendprogramm können bis spät hörbar sein.","Kurze Wege zu Kids-Club, Pool, Restaurant und Aufzug machen den Alltag leichter – im Deckplan nachsehen."]],
-  ["👶 Für euer Alter",K[kd]||[]],
-  ["🦺 Sicherheit",(bud==="b3"||bud==="b4"?["Balkontür gesichert halten, keine Möbel an die Reling schieben und Kinder nie unbeaufsichtigt auf dem Balkon lassen."]:[]).concat(["Am und im Wasser Kinder ständig beaufsichtigen; Kinder unter 12 nicht allein an Bord lassen.","Reiseapotheke mitnehmen; das Bordhospital ersetzt keine Kinderklinik – Versicherung mit Rücktransport prüfen. Allergien und besonderen Betreuungsbedarf vor der Buchung klären."])],
-  ["⚓ Landgänge",[(RT[A.route]?RT[A.route]+" ":"")+"Vor jedem Ausflug Mindestalter, Transferdauer, Kinderwagen und Stornierung prüfen. Kindersitze gibt es bei örtlichen Veranstaltern nicht überall; im Tenderhafen die Mitnahme des Buggys erfragen."]]];
- var dt=E("details","kfov kfhf");dt.appendChild(E("summary",null,"👨‍👩‍👧 Mit Kindern reisen: worauf ihr achten solltet"));
- dt.appendChild(E("p","kfad","Allgemeine Hinweise aus Erfahrungen von Familien und den Angaben der Reederei. Betreuung, Altersgrenzen und Angebote können sich ändern – für die konkrete Reise vorab bestätigen lassen."));
- G2.forEach(function(g){if(!g[1].length)return;dt.appendChild(E("h5",null,g[0]));var u=E("ul");g[1].forEach(function(x){var li=E("li");li.appendChild(E("div",null,x));u.appendChild(li)});dt.appendChild(u)});
- pan.appendChild(dt)})();
-(function(){var ac=+A.acc;if(ac!==2&&ac!==3)return;var B=[
- ["🛏️ Kabine",ac===2?["Für Gäste, die dauerhaft auf den Rollstuhl angewiesen sind, gibt es spezielle barrierefreie Kabinen – innen, außen und mit Balkon. Eine Standardkabine passt meist nur mit einem faltbaren Rollstuhl, der nicht ständig genutzt wird.","Kabinentüren haben keine elektrische Öffnung und können schwer sein; auch Balkontüren brauchen Kraft. Wer wenig Handkraft hat, sollte das vorab klären.","Viel Fläche heißt nicht automatisch genug Rangierraum: Enge Stellen gibt es oft an Tür, Schrank und Bett.","Im Bad lohnt der Blick auf Transferseite, Haltegriffe (fest oder schwenkbar), Höhe von WC und Duschsitz und erreichbare Ablagen.","Steckdosen am Bett können knapp sein – wichtig zum Laden eines E-Rollstuhls."]:["In einer Standardkabine bleibt mit Rollator oft nur wenig Bewegungsfläche; gefaltet passt er meist in den Schrank oder neben die Couch.","Ein Bett am Fenster schafft mehr Platz im Raum, kurze Wege zum Aufzug sparen Kraft."]],
- ["🚢 An Bord",["Die Aufzüge sind rollstuhlgeeignet, meist passt ein Rollstuhl pro Fahrt. Einzelne obere Bereiche, etwa Teile des Sonnendecks, sind nur über Treppen erreichbar.","Teppichböden kosten beim Fahren Kraft – kurze Wege zu Aufzug und Restaurants sind viel wert.","Buffets können hoch aufgebaut und schwer selbst erreichbar sein. Die Crew hilft, Bedienrestaurants und reservierte Tische sind eine gute Alternative; Tische mit Mittelsäule lassen sich schlecht unterfahren.","Einen Poollifter gibt es nicht auf jedem Schiff – vorher nachfragen."]],
- ["⚓ Landgang und Anreise",["Steigung und Stufen der Gangway ändern sich je nach Hafen und Wasserstand. Hilfe gibt es, ein Landgang ist aber nicht immer möglich.","In Tenderhäfen kann ein Landgang mit Rollstuhl ganz entfallen – Tenderboote sind meist nur bei selbstständigem Ein- und Ausstieg nutzbar. Bei Routen mit mehreren Tenderhäfen lohnt es sich, das Bordprogramm einzuplanen.","Ausflüge mit der Kennzeichnung „Extraleicht“ sind für eingeschränkte Mobilität gedacht, bedeuten aber nicht automatisch einen rollstuhlgerechten Bus. Manche organisieren Touren mit geeigneten Fahrzeugen lieber selbst.","Kopfsteinpflaster, enge Gassen und starker Regen können Landgänge erschweren.","Beim Transfer vorab klären, ob das Fahrzeug eine Rampe hat und man im Rollstuhl bleiben kann. Bei Flug über TUI kann ein angemeldeter barrierefreier Transfer möglich sein.","E-Rollstuhl oder Scooter vorher anmelden (keine Flüssigbatterien). Leih-Hilfsmittel kosten extra und sind nicht fest reservierbar.","Was bei wetter- oder barrierebedingt ausfallenden Ausflügen erstattet wird, am besten vorher schriftlich klären."]],
- ["🧩 Weitere Beeinträchtigungen",["Sehbehinderung: An Kabinenschildern gibt es keine Brailleschrift und keine Großtastentelefone; Tenderfahrten sind nicht garantiert.","Hörbehinderung: Untertitel, visuelle Alarme und weitere Hilfen direkt beim Spezialservice der Reederei erfragen.","Demenz, Autismus oder Reizempfindlichkeit: Ruhige Rückzugsorte, planbare Abläufe und Begleitung bedenken – eine Kabine auf einem ruhigen Kabinendeck hilft.","Medizinische Geräte wie CPAP oder Sauerstoff vorher anmelden. Es gibt ein Bordhospital, aber keine spezialisierte Dauerbetreuung."]]];
- var dt=E("details","kfov kfhf");dt.appendChild(E("summary",null,"♿ Barrierefrei reisen: worauf du achten solltest"));
- dt.appendChild(E("p","kfad","Allgemeine Hinweise aus Erfahrungen von Reisenden und den Angaben der Reederei. Sie ersetzen keine individuelle Klärung – Kabine, Hilfsmittel, Begleitung und Landgänge am besten vor der Buchung mit dem Spezialservice von TUI Cruises abstimmen und schriftlich bestätigen lassen. Hilfsbereite Crew im Einzelfall ist kein garantierter Assistenzdienst."));
- B.forEach(function(g){var h=E("h5",null,g[0]);dt.appendChild(h);var u=E("ul");g[1].forEach(function(x){var li=E("li"),d=E("div",null,x);li.appendChild(d);u.appendChild(li)});dt.appendChild(u)});
- pan.appendChild(dt)})();
+if(who==="1")pan.appendChild(SKT.box(SKT.solo({s:s,route:A.route}),E));
+if(who==="2")pan.appendChild(SKT.box(SKT.duo({s:s}),E));
+if(A.kids&&(who==="34"||who==="5"||who==="v"))pan.appendChild(SKT.box(SKT.kids({kd:A.kids,bal:bud==="b3"||bud==="b4",route:A.route}),E));
+if(acc===2||acc===3)pan.appendChild(SKT.box(SKT.acc({ac:acc}),E));
+if(acc===1&&who!=="34"&&who!=="5"&&who!=="v")pan.appendChild(SKT.box(SKT.best({}),E));
 (function(){var cs=HFR[A.route];if(!cs||bud==="b1")return;var SN={B:"Backbord",S:"Steuerbord","2":"beide Seiten",v:"vom Bug, beide Seiten",h:"vom Heck, beide Seiten",b:"eher Backbord",s:"eher Steuerbord"},n=0;
  var dt=E("details","kfov kfhf");var body=E("div");
  cs.forEach(function(c){var R=HF[c]||[],fix=R.filter(function(r){return r[1]!=="x"}),var_=R.filter(function(r){return r[1]==="x"});if(!R.length)return;
@@ -2426,16 +2501,7 @@ list("Die ideale Lage",L);list("Lieber meiden",X);list("Gut zu wissen",G);
  if(!n)return;dt.appendChild(E("summary",null,"📍 Sehenswürdigkeiten: welche Seite beim Ein- und Auslaufen ("+n+")"));
  dt.appendChild(E("p","kfad","Diese Angaben beruhen auf Erfahrungen von Reisenden und geografischen Ableitungen. Welche Seite passt, hängt davon ab, welcher Hafen – und bei großen Städten welcher Hafen bzw. Anleger – angelaufen wird, welchen Kurs das Schiff fährt und wie es anlegt. Abweichungen sind jederzeit möglich. Die Ausfahrt ist als Gegenrichtung derselben Passage gedacht."));
  dt.appendChild(body);pan.appendChild(dt)})();
-(function(){var multi=who==="v"||(who==="5"&&A.sleep!=="eine");var B=["Mit dem Mein Schiff Upgrade Programm kannst du bei ausgewählten Reisen nach der Buchung auf eine höhere Kabinenkategorie bieten – zum Beispiel von innen nach außen, von außen auf Balkon oder vom Balkon in die Suite.",
- "Die Einladung kommt per E-Mail, frühestens 125 Tage vor Abreise. Du bietest einen Aufpreis pro Kabine, mindestens das angezeigte Mindestgebot. Bieten können Reisende ab 18 Jahren.",
- "Bezahlt wird nur, wenn dein Gebot angenommen wird. Bis spätestens 3 Tage vor Abreise kannst du es ändern oder zurückziehen; Bescheid bekommst du spätestens 2 Tage vor Abreise. Ein angenommenes Upgrade lässt sich nicht mehr ablehnen.",
- "Du bekommst die Leistungen der neuen Kategorie – mit der Junior Suite oder Suite zum Beispiel die X-Lounge. Es gelten weiter die Bedingungen deines gebuchten Tarifs.",
- "Wichtig: Die neue Kabine wird zugeteilt. Deck, Seite, Lage und Bettposition kannst du nicht wählen. Wenn dir eine bestimmte Lage wichtig ist, buchst du deine Wunschkabine besser direkt."];
- if(multi)B.push("Buchungen mit mehreren Kabinen sind beim Upgrade Programm derzeit ausgeschlossen – und verbundene Kabinen wären danach ohnehin nicht garantiert.");
- B.push("Unabhängig davon kannst du jederzeit regulär in eine höhere Kategorie umbuchen – frag uns einfach, wir schauen, was auf deiner Reise noch frei ist.");
- var dt=E("details","kfov kfhf");dt.appendChild(E("summary",null,"⬆️ Unser Tipp: später noch eine höhere Kategorie bekommen"));
- dt.appendChild(E("p","kfad","Stand November 2026. Das Upgrade Programm gilt nur für ausgewählte Reisen und Buchungen; die Bedingungen der Reederei können sich ändern."));
- var u=E("ul");B.forEach(function(x){var li=E("li");li.appendChild(E("div",null,x));u.appendChild(li)});dt.appendChild(u);pan.appendChild(dt)})();
+pan.appendChild(SKT.box(SKT.upgrade({multi:who==="v"||(who==="5"&&A.sleep!=="eine")}),E));
 if(alt){pan.appendChild(E("h4",null,"Unser Tipp"));pan.appendChild(E("p",null,alt)).style.cssText="margin:0;font-size:14px;line-height:1.45"}
 if(s){var dk=E("a",null,"🗺️ Deckplan der "+s+" bei Mein Schiff ansehen →");dk.href="https://www.meinschiff.com/de/flotte/"+s.toLowerCase().replace(/ /g,"-")+"/decks";dk.target="_blank";dk.rel="noopener";dk.style.cssText="display:block;text-align:center;margin-top:16px;border:1.5px solid var(--accent);border-radius:14px;color:var(--accent);font:800 15px var(--body);padding:12px;text-decoration:none";pan.appendChild(dk);pan.appendChild(E("p","kfad","Dort siehst du auf jedem Deck, wo Pool, Theater, Restaurants und die Kabinen liegen."))}
 var pdb=E("button","kfpdf","Empfehlung als PDF herunterladen");pdb.type="button";pdb.onclick=function(){pdfDl(pdb)};pan.appendChild(pdb);
@@ -2535,11 +2601,12 @@ function iconize(root){var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT
   if(s.charAt(last)===" ")last++;}if(last<s.length)f.appendChild(document.createTextNode(s.slice(last)));t.parentNode.replaceChild(f,t)})}
 
 var _rnd=render;render=function(){_rnd();iconize(pan)};
-function open(){A={};step=0;render();sh.hidden=false;document.documentElement.style.overflow="hidden"}
+var PRE={};function open(p){PRE=(p&&typeof p==="object"&&!p.target)?p:{};A={};for(var k in PRE)A[k]=PRE[k];step=0;render();sh.hidden=false;document.documentElement.style.overflow="hidden"}
 /* Kabinen-Finder vorübergehend offline: KF_AN auf true setzen, dann ist die Kachel wieder sichtbar und öffnet den Finder */
 var KF_AN=true;if(!KF_AN){var hs=document.createElement("style");hs.textContent=".kftile{display:none!important}";document.head.appendChild(hs)}
 else document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest(".kftile");if(t){e.preventDefault();e.stopPropagation();open()}},true);
 window.KFopen=open;
+[].forEach.call(document.querySelectorAll(".rgtips"),function(el){var t=SKT[el.getAttribute("data-g")]({});var b=SKT.box(t,E);b.open=true;b.className="kfov kfhf rgbox";el.appendChild(b)});
 }catch(e){}})();
 </script>
 <style id="kk-style">
@@ -2864,6 +2931,7 @@ var KK_AN=false;if(KK_AN&&!hook())document.addEventListener("DOMContentLoaded",h
 @keyframes navdd{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 .navdd a{display:block;padding:13px 18px;color:#0B2470;font:600 16px/1.3 var(--body);text-decoration:none;border-top:1px solid #EEF3F8}
 .navdd a:first-child{border-top:none}
+.navdd .navh{padding:12px 18px 4px;font:800 12px/1.2 var(--body);letter-spacing:.06em;text-transform:uppercase;color:#56658A;border-top:1px solid #EEF3F8}.navdd .navh+a{border-top:none}.navdd .navh~a{padding-left:28px}
 .navdd a:hover,.navdd a:focus-visible{background:#F3F7F9;color:#0A6FD8}
 @media(max-width:560px){
  .nav .links{display:flex!important;justify-content:space-between;align-items:center;gap:0!important;padding:6px 2px 8px}
@@ -2875,6 +2943,7 @@ var KK_AN=false;if(KK_AN&&!hook())document.addEventListener("DOMContentLoaded",h
  .navdd a{padding:15px 18px;font-size:16.5px}
 }
 @media(max-width:350px){.nav .links a{font-size:13px!important}.nav .links a[data-v=buchen]{padding:6px 10px!important}}
+.rgcard .rgbox{margin:0 0 14px;text-align:left}.rgcard .rgbox summary{display:none}.rgbox,.rgbox p,.rgbox li{text-align:left}.rgbox h5{margin:16px 0 6px;font:800 15px var(--body);color:var(--ink)}.rgbox ul{margin:0;padding-left:20px}.rgbox li{margin:6px 0;line-height:1.5}.rgbox summary{font:800 17px var(--body);color:var(--ink);cursor:pointer;list-style:none}.rgbox summary::-webkit-details-marker{display:none}.rgbox .kfad{font-size:13px;color:var(--muted);margin:8px 0 4px}.rgup{margin-top:18px}.rgup .rgbox{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
 .cdbsp{margin:18px 0 22px;text-align:center}.cdbsp img{width:100%;max-width:420px;height:auto;border-radius:16px;box-shadow:0 10px 28px rgba(7,26,79,.16)}.cdbsp figcaption{margin-top:8px;font-size:13px;color:var(--muted)}
 .bhwrap{padding-top:14px;padding-bottom:0;margin-bottom:-22px;position:relative;z-index:1}.backhome{display:inline-flex;align-items:center;gap:6px;color:#0A6FD8;font:700 15px var(--body);text-decoration:none;padding:6px 0}.backhome::before{content:"";width:7px;height:7px;border-left:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin-right:2px}.backhome:hover{text-decoration:underline}
 #kfsheet .kfpdf{display:block;width:100%;margin-top:16px;border:none;background:#D62828;color:#fff;border-radius:14px;padding:13px;font:800 15px var(--body);cursor:pointer;box-shadow:0 6px 16px rgba(214,40,40,.28)}#kfsheet .kfpdf:hover,#kfsheet .kfpdf:focus-visible{background:#B71F1F}#kfsheet .kfpdf:disabled{opacity:.6}
@@ -2892,7 +2961,7 @@ function go(h){if(location.hash==="#"+h)window.dispatchEvent(new HashChangeEvent
 function series(){var S=[];[].forEach.call(document.querySelectorAll("#v-tipps .treihe"),function(x){var n=x.textContent.replace(/\s*\(.*\)$/,"");if(S.indexOf(n)<0)S.push(n)});return S}
 var M={
  flotte:function(){return[["Alle Schiffe heute",function(){go("flotte")}],["Kapitäne & Crew",function(){go("flotte");jump("fleetupd")}],["Crew-Alarm",function(){go("start");setTimeout(function(){tile(".pushtile")},60)}]]},
- reise:function(){return[["Reise-Countdown",function(){go("countdown")}],["Kabinen-Finder",function(){go("kabinen")}]]},
+ reise:function(){return[["Reise-Countdown",function(){go("countdown")}],["Kabinen-Finder",function(){go("kabinen")}],["Reisen mit …",null],["Allein reisen",function(){go("allein")}],["Zu zweit",function(){go("zuzweit")}],["Mit Kindern",function(){go("kinder")}],["Reisen im besten Alter",function(){go("bestalter")}],["Barrierefrei reisen",function(){go("barrierefrei")}]]},
  tipps:function(){return[["Alle Tipps & Reels",function(){go("tipps")}]].concat(series().map(function(n){return[n.replace(/,.*$/,""),function(){go("tipps");jump(null,n)}]}))},
  buchen:function(){return[["Kreuzfahrt buchen",function(){go("buchen")}],["Beratung per WhatsApp",WA],["E-Mail an uns","mailto:mail@deinschiffskompass.de"]]}};
 var dd=document.createElement("div");dd.className="navdd";dd.setAttribute("role","menu");document.body.appendChild(dd);var cur=null,curA=null;
@@ -2900,7 +2969,7 @@ function close(){dd.classList.remove("on");cur=null;curA=null;[].forEach.call(hd
 function place(){if(!curA)return;var r=curA.getBoundingClientRect(),h=hd.getBoundingClientRect();dd.style.top=(h.bottom+6)+"px";
  if(window.innerWidth>560){var w=dd.offsetWidth,l=Math.min(r.left,window.innerWidth-w-12);dd.style.left=Math.max(12,l)+"px"}else dd.style.left="12px"}
 function open(a){var m=a.getAttribute("data-m");if(cur===m){close();return}close();cur=m;curA=a;a.classList.add("open");a.setAttribute("aria-expanded","true");dd.innerHTML="";
- M[m]().forEach(function(it){var b=document.createElement("a");b.textContent=it[0];b.setAttribute("role","menuitem");
+ M[m]().forEach(function(it){if(it[1]===null){var hh=document.createElement("div");hh.className="navh";hh.textContent=it[0];dd.appendChild(hh);return}var b=document.createElement("a");b.textContent=it[0];b.setAttribute("role","menuitem");
   if(typeof it[1]==="string"){b.href=it[1];if(/^https/.test(it[1])){b.target="_blank";b.rel="noopener"}b.addEventListener("click",close)}
   else{b.href="#";b.addEventListener("click",function(e){e.preventDefault();close();it[1]()})}dd.appendChild(b)});dd.classList.add("on");place()}
 hd.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest(".links a[data-m]");if(!a)return;e.preventDefault();e.stopPropagation();open(a)});
@@ -2908,8 +2977,8 @@ document.addEventListener("click",function(e){if(cur&&!dd.contains(e.target)&&!h
 document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});
 window.addEventListener("resize",place);window.addEventListener("scroll",function(){if(cur)place()},{passive:true});window.addEventListener("hashchange",close);
 document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-open]");if(!b)return;e.preventDefault();var w=b.getAttribute("data-open");
- if(w==="kabinen"){if(window.KFopen)window.KFopen();else tile(".kftile")}else if(w==="countdown")tile(".cdtile")});
-["flotte","tipps","buchen","countdown","kabinen","impressum","datenschutz"].forEach(function(v){var el=document.getElementById("v-"+v);if(!el||el.querySelector(".bhwrap"))return;var w=document.createElement("div");w.className="wrap bhwrap";var a=document.createElement("a");a.href="#start";a.className="backhome";a.textContent="Zurück zur Startseite";w.appendChild(a);el.insertBefore(w,el.firstChild)});
+ if(w==="kabinen"){var pr=null;try{pr=JSON.parse(b.getAttribute("data-preset")||"null")}catch(x){}if(window.KFopen)window.KFopen(pr);else tile(".kftile")}else if(w==="countdown")tile(".cdtile")});
+["flotte","tipps","buchen","countdown","kabinen","allein","zuzweit","kinder","bestalter","barrierefrei","impressum","datenschutz"].forEach(function(v){var el=document.getElementById("v-"+v);if(!el||el.querySelector(".bhwrap"))return;var w=document.createElement("div");w.className="wrap bhwrap";var a=document.createElement("a");a.href="#start";a.className="backhome";a.textContent="Zurück zur Startseite";w.appendChild(a);el.insertBefore(w,el.firstChild)});
 var img=hd.querySelector("img");function home(){close();go("start")}
 if(img){img.setAttribute("role","link");img.setAttribute("aria-label","Zur Startseite");img.tabIndex=0;img.addEventListener("click",home);img.addEventListener("keydown",function(e){if(e.key==="Enter")home()})}
 var t=hd.querySelector("b");if(t)t.addEventListener("click",home);
