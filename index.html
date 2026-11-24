@@ -1603,7 +1603,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-25h"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-25i"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -2354,7 +2354,7 @@ function cabCheck(){var P=cabParse(s,A.cabno);if(!P.ok)return;var n=P.n,d=P.d,r=
  if(KC)ct=/Innen/.test(KC)?"b1":/Suite/.test(KC)?"b4":/Außen/.test(KC)?"b2":"b3";if(!ct&&EX){ct=/Innen/.test(EX[0])?"b1":/Meerblick|Außen/.test(EX[0])?"b2":/Suite/.test(EX[0])?"b4":"b3"}
  var unk=!ct,typ=KC||{b1:"Innenkabine",b2:"Außenkabine",b3:"Balkonkabine",b4:"Suite"}[ct]||"Kabine",out=unk||ct!=="b1",balk=unk||ct==="b3"||ct==="b4";A.ctype=ct;
  cat="Kabine "+n;var dn=DNM[k][d]?" ("+DNM[k][d]+")":"";
- var c=E("div","kfcat");c.appendChild(E("small",null,"Dein Kabinen-Check für die "+s));c.appendChild(E("b",null,cat));c.appendChild(E("div","kfocc","🛏️ "+(unk?"Deck "+d+dn:typ+" · Deck "+d+dn)));
+ var c=E("div","kfcat");c.appendChild(E("small",null,"Dein Kabinen-Check für die "+s));c.appendChild(E("b",null,cat));var NSR=/n/.test(KF)&&/Balkon|Veranda|Suite/.test(KC);c.appendChild(E("div","kfocc","🛏️ "+(unk?"Deck "+d+dn:typ+" · Deck "+d+dn)+(NSR?" · 🚭 Nichtraucherbalkon":"")));
  var KD0=(typeof KDK[s]==="object"&&KDK[s][String(n)])||null;if(KD0&&KD0[5]!==undefined&&KD0[5]!==""){posTxt=["ganz vorne","vorderer Bereich","mittschiffs","hinterer Bereich","ganz hinten"][+KD0[5]];pos=[0,0,1,2,2][+KD0[5]];edge=false;small=true}
  var pd=E("div","kfpick");pd.appendChild(E("strong",null,"📍 "+sideTxt+" · "+posTxt+(small?"":" (grob geschätzt)")));c.appendChild(pd);
  /* Umgebung */
@@ -2368,7 +2368,7 @@ function cabCheck(){var P=cabParse(s,A.cabno);if(!P.ok)return;var n=P.n,d=P.d,r=
  if(EXA){aU=up?kdT(KD[0]):null;aD=dw?kdT(KD[1]):null}
  var LOUD=/Theater|Bar|Nachtclub|Casino|Restaurant|Buffet|Pool|Bühne|Arena|Kinder|Grill|Promenade|Sonnendeck|Joggingstrecke|Lounge|Shops|Schaubühne|La Cage|Taverna|Fischmarkt|Freiheit|X-Panorama|X-Coast|Sport/,TECH=/Technik|Tender-Einstiege|Landungsbr|Crewbereiche/;
  var PP={"ganz vorne":"ganz vorne","vorderer Bereich":"im vorderen Bereich","mittschiffs":"mittschiffs","hinterer Bereich":"im hinteren Bereich","ganz hinten":"ganz hinten"}[posTxt];
- var why="Deine "+typ+" liegt auf Deck "+d+dn+" an "+side+", "+PP+"."+(aU===KAB&&aD===KAB?" Über und unter dir liegen Kabinen.":"");
+ var why="Deine "+typ+" liegt auf Deck "+d+dn+" an "+side+", "+PP+"."+(NSR?" Dein Balkon ist ein Nichtraucherbalkon.":"")+(aU===KAB&&aD===KAB?" Über und unter dir liegen Kabinen.":"");
  c.appendChild(E("p",null,why));pan.appendChild(c);
  (function(){var S=CEX[s]||{},nb=[];Object.keys(S).forEach(function(x){var m=+x;if(m!==n&&Math.floor(m/1000)===d&&m%2===n%2&&Math.abs(m-n)<=6)nb.push(m)});nb.sort(function(a,b){return Math.abs(a-n)-Math.abs(b-n)});
   if(!EX&&!nb.length)return;pan.appendChild(E("h4",null,"Erfahrungen von Gästen"));var u=E("ul","kf-info");
@@ -2407,7 +2407,7 @@ function cabCheck(){var P=cabParse(s,A.cabno);if(!P.ok)return;var n=P.n,d=P.d,r=
  if(!edge&&pos!==2&&!(EXA&&KD[4]))G.push(["🛗","Wie weit es bis zum nächsten Aufzug ist, zeigt der Deckplan – die Treppenhäuser liegen "+(R?"vorne, in der Mitte und hinten":"vorne und etwa in der Schiffsmitte")+"."]);
  if(edge)G.push(["🛗","Deine Kabine liegt vermutlich nicht weit von einem Treppenhaus mit Aufzügen – kurze Wege, aber auch etwas mehr Durchgangsverkehr."]);
  /* Rauchen */
- if(balk&&/[ns]/.test(KF)){var nk=KS||0;if(/n/.test(KF)){if(nk>=5||!nk)(sm==="1"?L:G).push(["🚭","Dein Balkon ist laut Deckplan ein Nichtraucherbalkon, und die nächsten Raucherbalkone sind mehrere Kabinen entfernt – mit Rauch von Nachbarbalkonen ist nicht zu rechnen."]);else (sm==="1"?X:G).push(["🚭","Dein Balkon ist laut Deckplan ein Nichtraucherbalkon. Die Raucherbalkone beginnen aber schon "+(nk===1?"direkt bei der Nachbarkabine Richtung Heck":"etwa "+nk+" Kabinen weiter Richtung Heck")+" – bei ungünstigem Wind kann vereinzelt Rauch herüberziehen."])}
+ if(balk&&/[ns]/.test(KF)){var nk=KS||0;if(/n/.test(KF)){if(nk>=5||!nk)L.unshift(["🚭","Dein Balkon ist laut Deckplan ein Nichtraucherbalkon, und die nächsten Raucherbalkone sind mehrere Kabinen entfernt – mit Rauch von Nachbarbalkonen ist nicht zu rechnen."]);else{L.unshift(["🚭","Dein Balkon ist laut Deckplan ein Nichtraucherbalkon."]);G.push(["🌬️","Die Raucherbalkone beginnen allerdings schon "+(nk===1?"direkt bei der Nachbarkabine Richtung Heck":"etwa "+nk+" Kabinen weiter Richtung Heck")+" – bei ungünstigem Wind kann vereinzelt Rauch herüberziehen."])}}
   else (sm==="1"?X:G).push(["🚬","Dein Balkon liegt laut Deckplan nicht im Nichtraucherbereich – auf deinem und den Nachbarbalkonen darf geraucht werden. Bei ungünstigem Wind kann Rauch herüberziehen."+(nk&&nk<=4?" Die Nichtraucherbalkone beginnen "+(nk===1?"direkt nebenan Richtung Bug.":"etwa "+nk+" Kabinen weiter Richtung Bug."):"")])}
  /* Seite, Route, Sonne, Wind */
  if(out){var rg=RG[A.route],dd=rg&&rg.d&&A.rdir&&A.rdir!=="rund"?rg.d[A.rdir]:null,W=(A.swish||"").split(",").filter(Boolean);
