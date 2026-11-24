@@ -2020,6 +2020,30 @@ window.SKopen=open;window.addEventListener("resize",function(){[].forEach.call(d
 (function(){try{
 var SH=["Mein Schiff 1","Mein Schiff 2","Mein Schiff 3","Mein Schiff 4","Mein Schiff 5","Mein Schiff 6","Mein Schiff 7","Mein Schiff Relax","Mein Schiff Flow"];
 var BOOK="https://unserschiff.com/?advisor=16808";
+/* Backbord oder Steuerbord je Fahrtgebiet: geografische Faustregeln für küstennahe Abschnitte (Stand 24.11.2026) */
+var DE={nord:"⬆️",sued:"⬇️",ost:"➡️",west:"⬅️",uhr:"🔃",gegen:"🔄"};
+var RG={
+ nor:{e:"🏔️",n:"Norwegen & Nordkap",d:{nord:{l:"Nordwärts",land:"Steuerbord",meer:"Backbord"},sued:{l:"Südwärts",land:"Backbord",meer:"Steuerbord"}},t:"In den Fjorden gibt es auf beiden Seiten Landschaft. Geirangerfjord: Bei der Einfahrt liegen die Sieben Schwestern an Backbord, der Freier an Steuerbord – bei der Ausfahrt umgekehrt."},
+ isl:{e:"🌋",n:"Island",d:{uhr:{l:"Im Uhrzeigersinn um die Insel",land:"Steuerbord",meer:"Backbord"},gegen:{l:"Gegen den Uhrzeigersinn",land:"Backbord",meer:"Steuerbord"}},t:"Zwischenetappen und Kurswechsel können die Seite ändern."},
+ ost:{e:"🏝️",n:"Ostsee & Schären",t:"Keine pauschal bessere Seite. In den Stockholmer Schären liegen auf beiden Seiten Inseln, Wälder und Häuser – Heckkabinen können einen Panoramablick bieten."},
+ west:{e:"🇵🇹",n:"Westeuropa (Atlantikküste)",d:{sued:{l:"Südwärts",land:"Backbord",meer:"Steuerbord"},nord:{l:"Nordwärts",land:"Steuerbord",meer:"Backbord"}},t:"Oft fährt das Schiff weit vor der Küste. Lissabon: Bei der Einfahrt über den Tejo liegen Torre de Belém und Entdeckerdenkmal an Backbord, Cristo Rei an Steuerbord – bei der Ausfahrt umgekehrt."},
+ mm:{e:"☀️",n:"Westliches Mittelmeer",d:{ost:{l:"Ostwärts (z. B. Spanien → Italien)",land:"Backbord",meer:"Steuerbord"},west:{l:"Westwärts (z. B. Italien → Spanien)",land:"Steuerbord",meer:"Backbord"}},t:"Gilt für Strecken entlang der Nordküste; viele Etappen laufen nachts oder weit vor der Küste. Straße von Gibraltar ostwärts: Spanien und der Felsen an Backbord, Marokko an Steuerbord. Straße von Messina südwärts: Sizilien an Steuerbord, das Festland an Backbord."},
+ adr:{e:"⛵",n:"Adria",d:{sued:{l:"Südwärts",land:"Backbord",meer:"Steuerbord"},nord:{l:"Nordwärts",land:"Steuerbord",meer:"Backbord"}},t:"Gilt entlang der kroatischen Küste; an Italiens Adriaküste ist es umgekehrt. In der Bucht von Kotor lohnen beide Seiten."},
+ gr:{e:"🏛️",n:"Griechische Inseln & östliches Mittelmeer",t:"Keine pauschale Seite – Inselpassagen, Meerengen und Tageszeit entscheiden. Bosporus Richtung Schwarzes Meer: europäisches Ufer an Backbord, asiatisches an Steuerbord."},
+ kan:{e:"🌺",n:"Kanaren & Madeira",t:"Bei Inselrundreisen wechselt der Kurs ständig – Lage und Ruhe der Kabine sind meist wichtiger als die Seite. Im Hafen hängt der Blick vom Liegeplatz ab."},
+ kar:{e:"🌴",n:"Karibik & Mittelamerika",tr:1,t:"Keine allgemeingültige Seite. Ein schattiger Balkon kann wegen der Wärme angenehmer sein."},
+ tra:{e:"🌊",n:"Transatlantik",d:{west:{l:"Europa → Karibik / New York",land:"meist kein Landblick",meer:"beide Seiten"},ost:{l:"Karibik / New York → Europa",land:"meist kein Landblick",meer:"beide Seiten"}},t:"Auf der Hochsee ist der Landblick meist unerheblich – hier geht es vor allem um Sonne oder Schatten."},
+ usa:{e:"🗽",n:"USA & Kanada",d:{nord:{l:"Nordwärts",land:"Backbord",meer:"Steuerbord"},sued:{l:"Südwärts",land:"Steuerbord",meer:"Backbord"}},t:"Gilt entlang der Ostküste. Beim Einlaufen nach New York liegt die Freiheitsstatue an Backbord. Im Saguenay-Fjord lohnen beide Seiten."},
+ asi:{e:"🏯",n:"Südostasien",tr:1,d:{nord:{l:"Richtung Hongkong",land:"Backbord",meer:"Steuerbord"},sued:{l:"Richtung Singapur",land:"Steuerbord",meer:"Backbord"}},t:"Gilt entlang der Küste Vietnams; an der Westküste Malaysias ist es umgekehrt (nordwärts Steuerbord). In der Halong-Bucht lohnen beide Seiten."},
+ ori:{e:"🕌",n:"Orient",tr:1,t:"Keine pauschale Empfehlung – der konkrete Kurs entscheidet, und die Schiffe legen mal mit der einen, mal mit der anderen Seite an."},
+ afr:{e:"🦁",n:"Afrika",d:{nord:{l:"Nordwärts (z. B. Kapstadt → Walvis Bay)",land:"Steuerbord",meer:"Backbord"},sued:{l:"Südwärts (z. B. entlang Westafrikas)",land:"Backbord",meer:"Steuerbord"}},t:"Gilt entlang der Westküste. Auf Hochseeabschnitten kann die Küste außer Sicht liegen."}};
+function otherSide(x){return x==="Backbord"?"Steuerbord":x==="Steuerbord"?"Backbord":x}
+function sunTxt(dk,sh){/* Nordhalbkugel außerhalb der Tropen: Sonne im Süden */var sp=sh==="schatten";
+ if(dk==="ost")return{side:sp?"Backbord":"Steuerbord",tx:sp?"Ostwärts liegt der Schatten eher an Backbord – die Sonne steht im Süden, also an Steuerbord.":"Ostwärts scheint die Sonne eher an Steuerbord."};
+ if(dk==="west")return{side:sp?"Steuerbord":"Backbord",tx:sp?"Westwärts liegt der Schatten eher an Steuerbord – die Sonne steht an Backbord.":"Westwärts scheint die Sonne eher an Backbord."};
+ if(dk==="nord")return{side:"",tx:"Nordwärts hast du an Steuerbord eher die Morgensonne, an Backbord die Nachmittags- und Abendsonne"+(sp?" – Schatten am Vormittag also an Backbord, am Nachmittag an Steuerbord.":".")};
+ if(dk==="sued")return{side:"",tx:"Südwärts hast du an Backbord eher die Morgensonne, an Steuerbord die Nachmittags- und Abendsonne"+(sp?" – Schatten am Vormittag also an Steuerbord, am Nachmittag an Backbord.":".")};
+ return null}
 var Q=[
  {k:"ship",q:"Auf welchem Schiff möchtest du reisen?",s:"Wenn du es noch nicht weißt, wähle „Noch offen“.",o:[["","🧭","Noch offen"]].concat(SH.map(function(n){return[n,"🚢",n]}))},
  {k:"who",q:"Wer reist mit?",o:[["1","🧍","Ich reise allein"],["2","👫","Zu zweit","Paar oder Freunde"],["34","👨‍👩‍👧","Familie / 3–4 Personen","in einer Kabine"],["v","🔗","Zwei Kabinen mit Verbindungstür","z. B. Eltern und Kinder 2+2 oder zwei Paare"],["5","👨‍👩‍👧‍👦","5 oder mehr Personen","mehrere Kabinen"]]},
@@ -2036,6 +2060,9 @@ var Q=[
  {k:"smoke",q:"Rauchst du – oder stört dich Rauch?",s:"In den Kabinen ist Rauchen generell verboten (auch E-Zigaretten). Auf vielen Balkonen ist es erlaubt.",o:[["0","🚭","Nichtraucher – Rauch stört mich"],["1","🚬","Ich rauche","auch mal auf dem Balkon"],["2","🤷","Egal"]]},
  {k:"acc",q:"Brauchst du eine barrierefreie Kabine oder kurze Wege?",o:[["0","🚶","Nein"],["1","🛗","Kurze Wege zum Aufzug wären schön"],["2","♿","Ja, barrierefrei (z. B. Rollstuhl)"]]},
  {k:"view",q:"Hast du einen Wunsch zur Lage?",VO:[["","🤷","Egal / keine Vorliebe"],["heck","🌊","Blick nach hinten (Heck)","Kielwasser und Sonnenuntergänge"],["bug","🧭","Blick nach vorne (Fahrtrichtung)","Einlaufen in den Hafen von vorne erleben"],["spa","🧖","Nähe Spa & Pooldeck"],["pub","🍽️","Nähe zu Restaurants & öffentlichen Bereichen","kurze Wege zu Restaurants, Bars und Theater"],["free","👀","Freie Sicht ist mir wichtig","keine Rettungsboote vor dem Fenster"],["spar","💰","Sichtbehinderung ist okay","Hauptsache günstiger – z. B. Balkon mit Rettungsboot davor"]],of:function(){var b=A.budget,k=A.ship?kcl(A.ship):null;return this.VO.filter(function(o){if(o[0]==="bug")return b==="b2";if(o[0]==="heck")return b==="b4"||(b==="b3"&&k!=="A"&&k!=="R");if(A.who==="1"&&A.single&&A.single!=="0"&&/^(bug|heck|spar)$/.test(o[0]))return false;if(o[0]==="spar")return b==="b2"||b==="b3";return true})}},
+ {k:"route",when:function(){return A.budget&&A.budget!=="b1"},q:"Wohin geht deine Reise?",s:"Damit wir dir sagen können, ob eher Backbord (links) oder Steuerbord (rechts in Fahrtrichtung) zu dir passt.",of:function(){return Object.keys(RG).map(function(k){return[k,RG[k].e,RG[k].n]}).concat([["","🤷","Weiß ich noch nicht"]])}},
+ {k:"rdir",when:function(){return A.route&&RG[A.route]&&RG[A.route].d},q:"In welche Richtung fährt das Schiff überwiegend?",s:"Bei Rundreisen mit Hin- und Rückweg wähle „Beides“.",of:function(){var d=RG[A.route].d;return Object.keys(d).map(function(k){return[k,DE[k]||"🧭",d[k].l]}).concat([["rund","🔄","Beides / Rundreise"]])}},
+ {k:"swish",when:function(){return!!A.route},q:"Was ist dir bei der Schiffsseite wichtig?",o:[["land","🏔️","Landblick","Küste, Inseln und Landschaft"],["meer","🌊","Meerblick","freier Blick aufs offene Meer"],["sonne","☀️","Mehr Sonne","auf Balkon bzw. am Fenster"],["schatten","🌴","Mehr Schatten","z. B. bei warmen Temperaturen"],["","🤷","Egal"]]},
  {k:"bed",when:function(){return(A.budget==="b2"||A.budget==="b3")&&!(A.single&&A.single!=="0")&&A.view!=="bug"},q:"Wo soll das Bett stehen?",s:"In Außen- und Balkonkabinen steht das Bett je nach Kabine am Fenster oder im Raum – dann steht die Couch am Fenster.",o:[["fen","🌅","Bett am Fenster","morgens direkt aufs Meer schauen"],["raum","🛋️","Bett im Raum","Couch am Fenster, Bett näher am Bad"],["","🤷","Egal"]]},
  {k:"dir",when:function(){return(A.budget==="b2"||A.budget==="b3")&&!(A.single&&A.single!=="0")&&A.view!=="bug"},q:"In welche Richtung möchtest du schlafen?",s:"Das Bett steht längs zum Schiff – je nach Kabine zeigen deine Füße zum Bug oder zum Heck.",o:[["vor","⬆️","In Fahrtrichtung","Füße zeigen zum Bug"],["rueck","⬇️","Entgegen der Fahrtrichtung","Füße zeigen zum Heck"],["","🤷","Egal"]]}
 ];
@@ -2230,6 +2257,18 @@ if(sm==="1"&&bud!=="b3"&&bud!=="b4")G.push(["🚬","Ohne eigenen Balkon rauchst 
 if(v==="heck"&&sea<1)G.push(["🌫️","Auf Heckbalkonen kann sich je nach Wind und Fahrt Ruß aus dem Schornstein niederschlagen – Polster und Füße werden dann schnell grau. Nicht jede Reise ist betroffen, aber gut zu wissen."]);
 
 function list(t,arr){if(!arr.length)return;pan.appendChild(E("h4",null,t));var u=E("ul",/meiden/.test(t)?"kf-bad":/Gut zu wissen/.test(t)?"kf-info":"kf-good");arr.forEach(function(x){var li=E("li");li.appendChild(E("span",null,x[0]));li.appendChild(E("div",null,x[1]));u.appendChild(li)});pan.appendChild(u)}
+(function(){var r=RG[A.route];if(!r||bud==="b1")return;var dk=A.rdir&&A.rdir!=="rund"?A.rdir:"",dd=dk&&r.d?r.d[dk]:null,w=A.swish||"",tx="",side="";
+ if(!r.d||A.rdir==="rund"){tx=r.n+": "+(A.rdir==="rund"?"Auf Hin- und Rückweg gleichen sich die Seiten aus – eine feste bessere Seite gibt es nicht. ":"")+r.t}
+ else if(!dd){tx=r.n+": "+r.t}
+ else{var lab=r.n+", "+dd.l.replace(/ \(.*\)$/,"").toLowerCase();
+  if(w==="land"){side=dd.land;tx=lab+": Für Landblick eher "+dd.land+"."}
+  else if(w==="meer"){side=dd.meer;tx=lab+": Für Meerblick eher "+dd.meer+"."}
+  else if(w==="sonne"||w==="schatten"){var st=sunTxt(dk,w);side=st&&st.side||"";tx=lab+": "+(st?st.tx:"")+(r.tr?" In den Tropen kann die Sonne je nach Jahreszeit auch im Norden stehen.":"")}
+  else tx=lab+": Landblick eher "+dd.land+", Meerblick eher "+dd.meer+"."
+  tx+=" "+r.t}
+ if(side&&A.dir&&!big&&(side==="Backbord"||side==="Steuerbord")){var need=(side==="Steuerbord")===(A.dir==="vor")?"fen":"raum";tx+=" Auf "+side+" schläfst du "+(A.dir==="vor"?"in Fahrtrichtung":"entgegen der Fahrtrichtung")+" mit Bett "+(need==="fen"?"am Fenster":"im Raum")+(A.bed&&A.bed!==need?" – das passt nicht ganz zu deinem Wunsch „Bett "+(A.bed==="fen"?"am Fenster":"im Raum")+"“, hier musst du abwägen.":".")}
+ L.push(["🧭",tx]);
+ G.push(["🧭","Die beste Schiffsseite ist keine feste Eigenschaft der Kabine: Sie hängt vom tatsächlichen Kurs, der Nähe zur Küste, der Tageszeit und dem Liegeplatz ab. Im Hafen ist die Landseite nicht automatisch besser – dort können auch Container, Kräne oder ein Nachbarschiff im Blick liegen. Bei Rundreisen mit wechselndem Kurs hat eine ruhige, gut gelegene Kabine meist Vorrang."])})();
 (function(){var bp=A.bed||"",dr=A.dir||"";if(!(bud==="b2"||bud==="b3")||/^Einzelkabine/.test(cat)||v==="bug")return;if(!bp&&!dr)return;
  var KR=s?(big?"R":"A"):null,tx="";
  function sideFor(b,d){return(b==="fen")===(d==="vor")?"Steuerbord":"Backbord"}
