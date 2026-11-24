@@ -481,6 +481,12 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
   <div class="g3info" aria-live="polite"></div>
 </div></div></section>
 <!--GLOBUS-END-->
+<section class="newssec"><div class="wrap">
+  <div class="nshead"><h2>News</h2><a class="nsall" href="#tipps">Alle Tipps &amp; Reels →</a></div>
+  <p class="sub">Unsere neuesten Tipps und Reels rund um die Mein Schiff Flotte.</p>
+  <div class="nslide" id="nslide" aria-label="Neueste Tipps und Reels"></div>
+  <div class="tsnav nsnav"><button class="tsarr nsprev" type="button" aria-label="Zurück">‹</button><div class="tsdots nsdots"></div><button class="tsarr nsnext" type="button" aria-label="Weiter">›</button></div>
+</div></section>
 <section class="tilesec"><div class="wrap">
   <div class="tiles">
     <a class="tile main" href="#flotte"><canvas id="globe" class="gl" width="160" height="160" aria-hidden="true"></canvas><h3>Flotte</h3><p>Alle 9 Schiffe mit Zeiten, Wetter und Wellenhöhe live. Und welche anderen Schiffe liegen noch mit im Hafen?</p><span class="go2">Ansehen →</span></a>
@@ -588,15 +594,9 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
 </svg></div><h3>Kreuzfahrt buchen</h3><p>Du willst selbst an Bord? Finde mit unserem Partner deine nächste Reise.</p><span class="go2">Zum Angebot →</span></a>
     </div>
 </div></section>
-<section class="newssec"><div class="wrap">
-  <div class="nshead"><h2>News</h2><a class="nsall" href="#tipps">Alle Tipps &amp; Reels →</a></div>
-  <p class="sub">Unsere neuesten Tipps und Reels rund um die Mein Schiff Flotte.</p>
-  <div class="nslide" id="nslide" aria-label="Neueste Tipps und Reels"></div>
-  <div class="tsnav nsnav"><button class="tsarr nsprev" type="button" aria-label="Zurück">‹</button><div class="tsdots nsdots"></div><button class="tsarr nsnext" type="button" aria-label="Weiter">›</button></div>
-</div></section>
 <style id="news-css">
 .newssec{padding:0 0 26px}.newssec>.wrap{background:linear-gradient(135deg,#0B2470 0%,#0A3D91 60%,#0A6FD8 100%);border-radius:22px;padding:22px 18px 16px;box-shadow:0 10px 28px rgba(7,26,79,.22)}.newssec h2{color:#fff}.newssec .sub{color:#CFE0FF!important}.newssec .nsall{color:#7DD6FF!important}.newssec .tsdots button{background:rgba(255,255,255,.35)}.newssec .tsdots button.on{background:#fff}.newssec .tsarr{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);color:#fff}
-@media(max-width:600px){.newssec>.wrap{border-radius:0;margin:0;padding:20px 16px 14px}}.nshead{display:flex;align-items:baseline;justify-content:space-between;gap:12px}.newssec h2{margin:0}.nsall{color:#0A6FD8;font-weight:800;text-decoration:none;white-space:nowrap;font-size:15px}.newssec .sub{margin:4px 0 12px;color:var(--muted)}
+.newssec{padding-top:18px}@media(max-width:600px){.newssec>.wrap{border-radius:22px;margin:0 14px;padding:20px 14px 14px}}.nshead{display:flex;align-items:baseline;justify-content:space-between;gap:12px}.newssec h2{margin:0}.nsall{color:#0A6FD8;font-weight:800;text-decoration:none;white-space:nowrap;font-size:15px}.newssec .sub{margin:4px 0 12px;color:var(--muted)}
 .nslide{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}.nslide::-webkit-scrollbar{display:none}
 .ncard{flex:0 0 calc((100% - 14px)/2);scroll-snap-align:start;display:flex;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 6px 18px rgba(7,26,79,.08);min-width:0}
 .ncard{align-items:flex-start}.ncard .nimg{flex:0 0 34%;max-width:190px;background:#061B55;display:flex;align-items:center;align-self:stretch}.ncard .nimg img{width:100%;height:auto;object-fit:contain;display:block}.ncard .nb{align-self:stretch}
@@ -605,14 +605,14 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
 .ncard h3{margin:0;font-size:17px;line-height:1.3;color:var(--ink)}
 .ncard .tbtns{margin-top:auto;display:flex;gap:8px}.ncard .tbtn{font-size:14px;padding:9px 10px}
 @media(max-width:900px){.ncard{flex-basis:100%}}
-@media(max-width:600px){.ncard{gap:12px}.ncard .nimg{flex-basis:36%}.ncard h3{font-size:16px}.ncard .tbtn{font-size:13px;padding:8px 6px}}
+@media(max-width:600px){.ncard{gap:12px}.ncard .nimg{flex-basis:42%}.ncard h3{font-size:16px}.ncard .tbtn{font-size:13px;padding:8px 6px}}
 </style>
 <script id="news-addon">
 document.addEventListener("DOMContentLoaded",function(){try{
 var T=(window.SKTIPPS||[]).slice(-6).reverse(),box=document.getElementById("nslide");if(!box||!T.length)return;
 function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function btn(u,n,c){return u?'<a class="tbtn '+c+'" href="'+esc(u)+'" target="_blank" rel="noopener">'+n+'</a>':''}
-box.innerHTML=T.map(function(t){return '<article class="ncard">'+(t.bild?'<a class="nimg" href="'+esc(t.ig||t.fb||"#tipps")+'"'+(t.ig||t.fb?' target="_blank" rel="noopener"':'')+'><img src="'+esc(t.bild)+'" alt="'+esc(t.titel)+'" loading="lazy" decoding="async"></a>':'')+'<div class="nb">'+(t.datum?'<span class="nd">'+esc(t.datum)+'</span>':'')+(t.reihe?'<span class="treihe">'+esc(t.reihe)+'</span>':'')+'<h3>'+esc(t.titel)+'</h3><div class="tbtns">'+btn(t.ig,"Instagram","ig")+btn(t.fb,"Facebook","fb")+'</div></div></article>'}).join("");
+box.innerHTML=T.map(function(t){return '<article class="ncard">'+(t.bild?'<a class="nimg" href="'+esc(t.ig||t.fb||"#tipps")+'"'+(t.ig||t.fb?' target="_blank" rel="noopener"':'')+'><img src="'+esc(t.bild)+'" alt="'+esc(t.titel)+'" decoding="async"></a>':'')+'<div class="nb">'+(t.datum?'<span class="nd">'+esc(t.datum)+'</span>':'')+(t.reihe?'<span class="treihe">'+esc(t.reihe)+'</span>':'')+'<h3>'+esc(t.titel)+'</h3><div class="tbtns">'+btn(t.ig,"Instagram","ig")+btn(t.fb,"Facebook","fb")+'</div></div></article>'}).join("");
 var C=[].slice.call(box.children),dots=document.querySelector(".nsdots"),pv=document.querySelector(".nsprev"),nx=document.querySelector(".nsnext");
 function per(){return C.length>1&&C[0].offsetWidth*1.9<box.clientWidth?2:1}
 function pages(){return Math.max(1,Math.ceil(C.length/per()))}
