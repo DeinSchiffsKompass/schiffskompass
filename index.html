@@ -2111,7 +2111,7 @@ function pick(k){var R=k==="R",d,a=null,pos="mittschiffs",ex="";
  else{var P=suPick(k),LL=suList(k),others=LL.filter(function(x){return x[0]!==P[0]});
   var t0=P[1]+" · "+P[4];var al=null;if(who==="5"){al=P[0]==="two"?(LL.length?"Oder eine große Suite für bis zu 6 Personen: "+LL.map(function(x){return x[1]+" ("+x[4]+")"}).join(" · "):"Auf diesem Schiff gibt es keine Suite für 5 oder mehr Personen."):"Oder zwei Junior Suiten nebeneinander ("+SUC[k][0][4]+")";return{t:t0,a:al}}if(P[0]==="js")al="Mehr Platz: "+others.slice(0,2).map(function(x){return x[1]+" ("+x[4]+", "+(x[2].match(/bis \d Personen/)||[""])[0]+")"}).join(" · ");else al="Günstiger mit allen Suiten-Vorteilen: Junior Suite ("+LL[0][4]+")";
   return{t:t0,a:al}}
- if(v==="pub"&&bud!=="b4"&&!/^Einzelkabine/.test(cat))pos=sea>=1?"mittschiffs, nahe dem mittleren Treppenhaus":"mittschiffs bis Richtung Heck, nahe dem mittleren oder hinteren Treppenhaus";
+ if(v==="pub"&&bud!=="b4"&&!/^Einzelkabine/.test(cat))pos="mittschiffs, nahe dem mittleren Treppenhaus – kurze Wege zu den Restaurants und zum Theater";
  if(bud==="b3"&&v!=="spar"&&v!=="heck"&&v!=="pub"&&!(v==="spa"&&sea<1)){if(sm==="0"&&sea<1)pos="vorderer Bereich, kurz vor dem ersten Treppenhaus (Nichtraucher-Balkon)";else if(sm==="1")pos="mittschiffs (Raucher-Balkon)"}
  if(bud==="b3"&&typeof d==="number"&&!/Kat\./.test(ex)&&!/SPA/.test(ex)&&!/^Einzelkabine/.test(cat))var t=bd(k,d)+ex+" · "+pos;else{if(/SPA/.test(ex))ex=" · SPA-Balkon, Kat. BS";var t=(typeof d==="number"?dn(k,d):"Deck "+d)+ex+" · "+pos}
  if(v==="bug"&&(bud==="b1"||bud==="b3")&&!/^Einzelkabine/.test(cat)){if(bud==="b3"){t=bd(k,R?8:7)+" · so weit vorne wie möglich (seitlich, Nichtraucher-Balkon)"}return{t:t,a:"Echter Blick nach vorne: "+BUGT}}
@@ -2180,7 +2180,7 @@ function deckRec(k){var ok=[],no=[],R=k==="R";
    if(sea>=1)no.push(["⚠️","Bei Seekrankheit oder Bewegungsempfindlichkeit sind die Himmel & Meer Suiten weit oben am Bug nicht ideal – eine Junior Suite auf Deck 10 mittschiffs ist ruhiger."]);
    if(q)no.push(["🔊","Junior Suiten auf Deck 11 direkt unter Pooldeck oder Buffet."]);}
  }
- if(v==="pub"){ok.push(["🍽️","Kabinen mittschiffs oder im hinteren Teil des Schiffs – von dort sind die Wege zu Restaurants, Bars und Theater auf den öffentlichen Decks am kürzesten."+(bud==="b3"?" Gut passen die unteren Balkondecks ("+(R?bd(k,8):bd(k,7))+"), weil sie nah an den öffentlichen Decks liegen.":"")]);
+ if(v==="pub"){ok.push(["🍽️","Kabinen mittschiffs – die Restaurants und viele Bars liegen in der Mitte und im hinteren Teil des Schiffs, das große Theater meist vorne. Aus der Mitte ist beides schnell erreichbar. Wem die Restaurants wichtiger sind, der wählt eher Richtung Heck, wem Shows wichtiger sind, eher Richtung Bug."+(bud==="b3"?" Gut passen die unteren Balkondecks ("+(R?bd(k,8):bd(k,7))+"), weil sie nah an den öffentlichen Decks liegen.":"")]);
   if(q)no.push(["🎶","Kabinen direkt über oder unter Restaurants, Bars, Theater oder Küchen – kurze Wege ja, aber lieber ein Deck Abstand, sonst hörst du abends Musik und Geschirr."])}
  if(acc===2&&R&&bud==="b3")ok.push(["♿","Barrierefreie Balkonkabinen gibt es z. B. in Kategorie G auf Deck 9 – früh anfragen."]);
  if(s&&/^Einzelkabine/.test(cat))ok=ok.filter(function(x){return x[0]==="🧍"||x[0]==="♿"});no=no.filter(function(x){return x[0]!=="⚙️"});
@@ -2199,9 +2199,8 @@ if(acc===2){L.push(["♿","Eine barrierefreie Kabine – davon gibt es pro Schif
 if(v==="heck"&&sea>=1){X.push(["⚠️","Heckkabinen: Dort sind Bewegungen und leichte Vibrationen spürbarer – bei Seekrankheit oder Bewegungsempfindlichkeit lieber mittschiffs bleiben. Kompromiss: eine Balkonkabine mittschiffs – je nach Route siehst du Sonnenuntergänge auch von der Seite."])}
 else if(v==="heck"){if(bud==="b3"||bud==="b4")L.push(["🌊","Eine Heckkabine mit Blick nach hinten aufs Kielwasser – besonders schön bei Sonnenuntergang."]);else L.push(["🌊","Kabinen am Heck – mit Balkon besonders schön, mit Blick aufs Kielwasser."])}
 if(v==="spa"){L.push(["🧖","Ein oberes Kabinendeck, damit du schnell im Spa und auf dem Pooldeck bist."]);if(q)X.push(["⚠️","Achtung: Die obersten Kabinen unter dem Pooldeck können tagsüber lauter sein."])}
-if(v==="pub"){L.push(["🍽️","Mittschiffs oder Richtung Heck auf einem unteren bis mittleren Kabinendeck – dort sind die Wege zu Restaurants, Bars und Theater am kürzesten."]);L.push(["🛗","Nahe am mittleren oder hinteren Treppenhaus bzw. Aufzug – so bist du schnell auf den öffentlichen Decks"+(q?", aber nicht direkt daneben.":".")]);
- if(sea>=1)L.push(["⚓","Bei Seegang ist die Mitte die bessere Wahl als das Heck – kurze Wege hast du von dort trotzdem."]);
- if(q)X.push(["🎶","Direkt über oder unter Restaurants, Bars und Theater – dort ist es abends lauter."])}
+if(v==="pub"){L.push(["🍽️","Mittschiffs auf einem unteren bis mittleren Kabinendeck – Restaurants und viele Bars liegen in der Mitte bis zum Heck, das große Theater meist vorne. Aus der Mitte hast du zu beidem kurze Wege."]);L.push(["🛗","Nahe am mittleren Treppenhaus bzw. Aufzug – so bist du schnell auf den öffentlichen Decks"+(q?", aber nicht direkt daneben.":".")]);
+ if(q)X.push(["🎶","Direkt über oder unter Restaurants, Bars und dem Theater vorne – dort ist es abends lauter."])}
 if(v==="free"){L.push(["👀","Eine Kabine ohne „Sichtbehinderung“ im Deckplan – also ohne Rettungsboote oder Aufbauten vor Fenster bzw. Balkon."]);X.push(["🚤","Kabinen direkt hinter den Rettungsbooten: Sie hängen meist mittschiffs vor den unteren Kabinendecks und versperren dort den Blick."])}
 if(!L.length)L.push(["👍","Bei deinen Wünschen bist du bei der Lage flexibel – das ist oft günstiger, weil du mehr Kabinen zur Auswahl hast."]);
 if(who==="5")L.push(["🔗","Zwei Kabinen nebeneinander, am besten mit Verbindungstür."]);
