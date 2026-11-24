@@ -91,7 +91,7 @@ function show(){if(free||document.getElementById("uc"))return;var d=document.cre
   var t="Hallo DEIN SchiffsKompass, ich möchte gern einen Testzugang für die App.\n\nName: "+v("n")+"\nWarum ich testen möchte: "+v("w")+"\nMit Mein Schiff gereist: "+v("r")+"\nGerät: "+v("g")+(v("i")?"\nInstagram/Facebook: "+v("i"):"");
   window.open("https://wa.me/4915126978714?text="+encodeURIComponent(t),"_blank","noopener")};
  lk.onclick=function(){lp.classList.toggle("on");if(lp.classList.contains("on"))i.focus()};
- var TZ=[["📡 Live-Daten","Wo ist dein Mein Schiff gerade? Position und Liegezeiten – jeden Tag aktuell."],["⚓ Im Hafen","Wer liegt heute noch neben deinem Schiff?"],["🔔 Push-Nachrichten","Neuer Kapitän oder Kreuzfahrtdirektor? Du erfährst es sofort aufs Handy."],["👨‍✈️ An Bord","Neues von Kapitän und Crew – immer auf dem aktuellen Stand."],["⏳ Vorfreude","Dein ganz persönlicher Countdown bis zum Ablegen."]],tz=d.querySelector(".tz"),dt=d.querySelector(".dots"),n=0;
+ var TZ=[["📡 Live-Daten","Wo ist dein Mein Schiff gerade? Position und Liegezeiten – jeden Tag aktuell."],["⚓ Im Hafen","Wer liegt heute noch neben deinem Schiff?"],["🔔 Push-Nachrichten","Neuer Kapitän oder Kreuzfahrtdirektor? Du erfährst es sofort aufs Handy."],["👨‍✈️ An Bord","Neues von Kapitän und Crew – immer auf dem aktuellen Stand."],["🧭 Deine Kabine","Finde in wenigen Fragen die Kabine, die zu dir passt."],["⏳ Vorfreude","Dein ganz persönlicher Countdown bis zum Ablegen."]],tz=d.querySelector(".tz"),dt=d.querySelector(".dots"),n=0;
  TZ.forEach(function(){dt.appendChild(document.createElement("b"))});
  function tick(){tz.innerHTML="";var sm=document.createElement("small");sm.textContent=TZ[n][0];tz.appendChild(sm);tz.appendChild(document.createTextNode(TZ[n][1]));Array.prototype.forEach.call(dt.children,function(b,k){b.className=k===n?"on":""})}
  tick();setInterval(function(){if(!document.getElementById("uc"))return;tz.classList.add("out");setTimeout(function(){n=(n+1)%TZ.length;tick();tz.classList.remove("out")},450)},3800);
@@ -2338,7 +2338,7 @@ function iconize(root){var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT
 var _rnd=render;render=function(){_rnd();iconize(pan)};
 function open(){A={};step=0;render();sh.hidden=false;document.documentElement.style.overflow="hidden"}
 /* Kabinen-Finder vorübergehend offline: KF_AN auf true setzen, dann ist die Kachel wieder sichtbar und öffnet den Finder */
-var KF_AN=false;if(!KF_AN){var hs=document.createElement("style");hs.textContent=".kftile{display:none!important}";document.head.appendChild(hs)}
+var KF_AN=true;if(!KF_AN){var hs=document.createElement("style");hs.textContent=".kftile{display:none!important}";document.head.appendChild(hs)}
 else document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest(".kftile");if(t){e.preventDefault();e.stopPropagation();open()}},true);
 window.KFopen=open;
 }catch(e){}})();
@@ -2608,7 +2608,8 @@ function draw(){var bx=box;bx.innerHTML="";bx.appendChild(E("b",null,"🧭 Kabin
 /* An das Ergebnis des Kabinen-Finders anhängen */
 function hook(){var sh=document.getElementById("kfsheet");if(!sh)return false;var pan=sh.querySelector(".kfpan");if(!pan)return false;
  new MutationObserver(function(){var c=pan.querySelector(".kfcat");if(!c||pan.querySelector(".kkbox"))return;var m=(c.querySelector("small")||{}).textContent||"",n=null;SH.forEach(function(x){if(m.indexOf(x)>=0&&(!n||x.length>n.length))n=x});ST={};build(pan,n);ST.cat=((c.querySelector("b")||{}).textContent||"");draw()}).observe(pan,{childList:true});return true}
-if(!hook())document.addEventListener("DOMContentLoaded",hook);
+/* Kabinen-Kompass vorübergehend ausgeschaltet: KK_AN auf true setzen, dann erscheint er wieder unter dem Ergebnis */
+var KK_AN=false;if(KK_AN&&!hook())document.addEventListener("DOMContentLoaded",hook);
 }catch(e){}})();
 </script>
 <!--KF-ADDON-END-->
