@@ -2787,6 +2787,15 @@ var KK_AN=false;if(KK_AN&&!hook())document.addEventListener("DOMContentLoaded",h
  pv.onclick=function(){T.scrollBy({left:-step(),behavior:"smooth"})};nx.onclick=function(){T.scrollBy({left:step(),behavior:"smooth"})};
  var tm;T.addEventListener("scroll",function(){clearTimeout(tm);tm=setTimeout(upd,60)},{passive:true});window.addEventListener("resize",build);
  build();setTimeout(build,800);
+ /* Automatisch weiterblättern: alle 5 Sekunden; nach jeder Berührung 10 Sekunden Pause; nur wenn sichtbar */
+ var AUTO=5000,PAUSE=10000,hold=0,vis=true,tmr=null,red=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+ function touch(){hold=Date.now()+PAUSE}
+ ["pointerdown","touchstart","wheel","keydown","focusin"].forEach(function(ev){T.addEventListener(ev,touch,{passive:true});nav.addEventListener(ev,touch,{passive:true})});
+ document.addEventListener("click",function(e){if(T.contains(e.target)||nav.contains(e.target))touch()},true);
+ if("IntersectionObserver" in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(T);
+ function tick(){if(red||document.hidden||!vis||Date.now()<hold||T.offsetParent===null)return;var max=T.scrollWidth-T.clientWidth;if(max<=4)return;
+  if(T.scrollLeft>=max-4)T.scrollTo({left:0,behavior:"smooth"});else T.scrollBy({left:step(),behavior:"smooth"})}
+ tmr=setInterval(tick,AUTO);
 }catch(e){}})();
 </script>
 <style id="nav-addon-css">
