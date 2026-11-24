@@ -91,7 +91,7 @@ function show(){if(free||document.getElementById("uc"))return;var d=document.cre
   var t="Hallo DEIN SchiffsKompass, ich möchte gern einen Testzugang für die App.\n\nName: "+v("n")+"\nWarum ich testen möchte: "+v("w")+"\nMit Mein Schiff gereist: "+v("r")+"\nGerät: "+v("g")+(v("i")?"\nInstagram/Facebook: "+v("i"):"");
   window.open("https://wa.me/4915126978714?text="+encodeURIComponent(t),"_blank","noopener")};
  lk.onclick=function(){lp.classList.toggle("on");if(lp.classList.contains("on"))i.focus()};
- var TZ=[["📡 Live-Daten","Wo ist dein Mein Schiff gerade? Position und Liegezeiten – jeden Tag aktuell."],["⚓ Im Hafen","Wer liegt heute noch neben deinem Schiff?"],["🔔 Push-Nachrichten","Neuer Kapitän oder Kreuzfahrtdirektor? Du erfährst es sofort aufs Handy."],["👨‍✈️ An Bord","Neues von Kapitän und Crew – immer auf dem aktuellen Stand."],["🧭 Deine Kabine","Ein Kompass für deine Kabine – bis zur Sonnenseite."],["⏳ Vorfreude","Dein ganz persönlicher Countdown bis zum Ablegen."]],tz=d.querySelector(".tz"),dt=d.querySelector(".dots"),n=0;
+ var TZ=[["📡 Live-Daten","Wo ist dein Mein Schiff gerade? Position und Liegezeiten – jeden Tag aktuell."],["⚓ Im Hafen","Wer liegt heute noch neben deinem Schiff?"],["🔔 Push-Nachrichten","Neuer Kapitän oder Kreuzfahrtdirektor? Du erfährst es sofort aufs Handy."],["👨‍✈️ An Bord","Neues von Kapitän und Crew – immer auf dem aktuellen Stand."],["⏳ Vorfreude","Dein ganz persönlicher Countdown bis zum Ablegen."]],tz=d.querySelector(".tz"),dt=d.querySelector(".dots"),n=0;
  TZ.forEach(function(){dt.appendChild(document.createElement("b"))});
  function tick(){tz.innerHTML="";var sm=document.createElement("small");sm.textContent=TZ[n][0];tz.appendChild(sm);tz.appendChild(document.createTextNode(TZ[n][1]));Array.prototype.forEach.call(dt.children,function(b,k){b.className=k===n?"on":""})}
  tick();setInterval(function(){if(!document.getElementById("uc"))return;tz.classList.add("out");setTimeout(function(){n=(n+1)%TZ.length;tick();tz.classList.remove("out")},450)},3800);
@@ -2337,7 +2337,9 @@ function iconize(root){var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT
 
 var _rnd=render;render=function(){_rnd();iconize(pan)};
 function open(){A={};step=0;render();sh.hidden=false;document.documentElement.style.overflow="hidden"}
-document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest(".kftile");if(t){e.preventDefault();e.stopPropagation();open()}},true);
+/* Kabinen-Finder vorübergehend offline: KF_AN auf true setzen, dann ist die Kachel wieder sichtbar und öffnet den Finder */
+var KF_AN=false;if(!KF_AN){var hs=document.createElement("style");hs.textContent=".kftile{display:none!important}";document.head.appendChild(hs)}
+else document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest(".kftile");if(t){e.preventDefault();e.stopPropagation();open()}},true);
 window.KFopen=open;
 }catch(e){}})();
 </script>
