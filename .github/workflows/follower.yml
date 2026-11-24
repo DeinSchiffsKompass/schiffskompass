@@ -1,0 +1,59 @@
+# Holt stündlich die Follower-Zahlen von Instagram und Facebook (Meta Graph API)
+# und schreibt sie nach data/follower.json. Committet nur, wenn sich eine Zahl geändert hat.
+# Benötigte Repository-Secrets: META_TOKEN, IG_USER_ID, FB_PAGE_ID
+name: Follower aktualisieren
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: follower
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Zahlen abrufen
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request, urllib.parse, datetime, sys
+          tok = os.environ.get("META_TOKEN", "")
+          if not tok:
+              print("Kein META_TOKEN hinterlegt – nichts zu tun."); sys.exit(0)
+          def get(obj_id):
+              if not obj_id: return None
+              url = "https://graph.facebook.com/" + urllib.parse.quote(obj_id) + "?fields=followers_count&access_token=" + urllib.parse.quote(tok)
+              try:
+                  with urllib.request.urlopen(url, timeout=20) as r:
+                      return int(json.load(r).get("followers_count"))
+              except Exception as e:
+                  print("Abruf fehlgeschlagen für", obj_id, "-", getattr(e, "code", ""), str(e)[:200]); return None
+          p = "data/follower.json"
+          try: old = json.load(open(p))
+          except Exception: old = {}
+          ig = get(os.environ.get("IG_USER_ID")); fb = get(os.environ.get("FB_PAGE_ID"))
+          new = dict(old)
+          if ig: new["ig"] = ig
+          if fb: new["fb"] = fb
+          if new.get("ig") != old.get("ig") or new.get("fb") != old.get("fb"):
+              new["stand"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+              json.dump(new, open(p, "w"), ensure_ascii=False)
+              print("Neu:", new)
+          else:
+              print("Unverändert:", old)
+          PY
+      - name: Speichern
+        run: |
+          if git diff --quiet -- data/follower.json; then exit 0; fi
+          git config user.name "Follower-Update"
+          git config user.email "actions@github.com"
+          git add data/follower.json
+          git commit -m "Follower-Zahlen aktualisiert"
+          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && break; sleep 5; done

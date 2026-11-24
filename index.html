@@ -346,7 +346,7 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
   <div class="wrap">
     <div>
       <h1 id="hh1">Moin, <em>Kreuzfahrtfans!</em></h1>
-      <p>Mehr als 50 Millionen Aufrufe und über 40.000 Follower auf Instagram und Facebook im letzten Jahr – dafür von Herzen: Danke! <span style="font-weight:800;font-style:italic;color:#fff">„Schön, dass du an Bord bist!“</span></p>
+      <p>Mehr als 50 Millionen Aufrufe und über <span id="fsum">40.000</span> Follower auf Instagram und Facebook im letzten Jahr – dafür von Herzen: Danke! <span style="font-weight:800;font-style:italic;color:#fff">„Schön, dass du an Bord bist!“</span></p>
       <p>Viele von euch wollten alles rund um die Mein Schiff Flotte an einer Stelle. Daran haben wir monatelang getüftelt und präsentieren euch stolz die kostenlose, interaktive <b>DEIN SchiffsKompass-App</b>: Schiffspositionen und Live-Position, Wind, Wetter und Welle, Crew und Crew-Updates, Liegezeiten und wer noch mit im Hafen liegt.</p>
       <p style="font-size:.9em;opacity:.92">🕗 Jeden Abend ab 20 Uhr: alle Daten für den Folgetag.</p>
       <span id="hday" hidden></span>
@@ -591,8 +591,8 @@ footer b{display:block;color:#fff;font:700 20px var(--display)}
 <section class="fol"><div class="wrap">
   <h2>Unsere Community</h2><p class="sub">Folge uns und reise mit uns von Hafen zu Hafen.</p>
   <div class="fgrid">
-    <a class="fc ig" href="https://www.instagram.com/deinschiffskompass" target="_blank" rel="noopener"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="#fff"/></svg></span><span class="num" data-n="30050">30.050</span><span class="lb">Follower auf Instagram</span><span class="go3">Folgen →</span></a>
-    <a class="fc fb" href="https://www.facebook.com/share/1KepjM95rm/" target="_blank" rel="noopener"><span class="fi"><svg viewBox="0 0 24 24" fill="#fff"><path d="M13.5 21v-7.5h2.6l.5-3.2h-3.1V8.4c0-.9.4-1.7 1.8-1.7h1.4V3.9c-.3 0-1.2-.2-2.3-.2-2.4 0-4 1.5-4 4.1v2.5H7.7v3.2h2.7V21z"/></svg></span><span class="num" data-n="9960">9.960</span><span class="lb">Follower auf Facebook</span><span class="go3">Folgen →</span></a>
+    <a class="fc ig" href="https://www.instagram.com/deinschiffskompass" target="_blank" rel="noopener"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="#fff"/></svg></span><span class="num" id="fig" data-n="30050">30.050</span><span class="lb">Follower auf Instagram</span><span class="go3">Folgen →</span></a>
+    <a class="fc fb" href="https://www.facebook.com/share/1KepjM95rm/" target="_blank" rel="noopener"><span class="fi"><svg viewBox="0 0 24 24" fill="#fff"><path d="M13.5 21v-7.5h2.6l.5-3.2h-3.1V8.4c0-.9.4-1.7 1.8-1.7h1.4V3.9c-.3 0-1.2-.2-2.3-.2-2.4 0-4 1.5-4 4.1v2.5H7.7v3.2h2.7V21z"/></svg></span><span class="num" id="ffb" data-n="9960">9.960</span><span class="lb">Follower auf Facebook</span><span class="go3">Folgen →</span></a>
   </div>
 </div></section>
 </main>
@@ -1008,12 +1008,17 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==und
   if(!UPD.length)u.appendChild(e("p","none","Noch keine Änderungen eingetragen."));
   UPD.forEach(function(x,i){var b=e("div","u");b.appendChild(e("b",null,x.d+": "));b.appendChild(document.createTextNode(x.t));u.appendChild(b)});
 })();
+(function follower(){/* stündlich aktualisierte Follower-Zahlen aus data/follower.json (GitHub Action) */
+  try{fetch("data/follower.json?t="+Math.floor(Date.now()/6e5),{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(d){if(!d)return;
+   [["fig",d.ig],["ffb",d.fb]].forEach(function(x){var e=document.getElementById(x[0]);if(e&&x[1]>0){e.setAttribute("data-n",x[1]);e.textContent=(+x[1]).toLocaleString("de-DE")}});
+   var s=document.getElementById("fsum");if(s&&d.ig>0&&d.fb>0)s.textContent=(Math.floor((d.ig+d.fb)/1000)*1000).toLocaleString("de-DE")}).catch(function(){})}catch(e){}
+})();
 (function counters(){
   var els=document.querySelectorAll(".fc .num"),rm=false;
   try{rm=matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}
   function run(){Array.prototype.forEach.call(els,function(e){var n=+e.getAttribute("data-n"),t0=null;
     if(rm){e.textContent=n.toLocaleString("de-DE");return}
-    function f(t){if(!t0)t0=t;var q=Math.min((t-t0)/1400,1),v=Math.round(n*(1-Math.pow(1-q,3)));e.textContent=v.toLocaleString("de-DE");if(q<1)requestAnimationFrame(f)}
+    function f(t){if(!t0)t0=t;var q=Math.min((t-t0)/1400,1),v=Math.round(+e.getAttribute("data-n")*(1-Math.pow(1-q,3)));e.textContent=v.toLocaleString("de-DE");if(q<1)requestAnimationFrame(f)}
     requestAnimationFrame(f)})}
   window.addEventListener("hashchange",function(){if(!location.hash||location.hash==="#start")run()});
   run();
