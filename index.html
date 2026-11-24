@@ -1603,7 +1603,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-25a"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-25b"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -2341,7 +2341,7 @@ OPTS.forEach(function(o){var b=E("button","kfo"+(A[q.k]===o[0]?" on":""));b.type
 var first=0;while(first<Q.length&&(!vis(first)||PRE.hasOwnProperty(Q[first].k)))first++;if(step>first){var n=E("div","kfnav"),bk=E("button","kfback","← Zurück");bk.onclick=function(){step--;while(step>0&&(!vis(step)||PRE.hasOwnProperty(Q[step].k)))step--;render()};n.appendChild(bk);pan.appendChild(n)}}
 /* Genaue Lage aus den Deckplänen: was liegt direkt über, unter und neben jeder Kabine (ausgewertet aus den offiziellen Deckplan-Broschüren, Stand 11/2026) */
 var KDK={},KDF={"Mein Schiff 1":"ms1","Mein Schiff 2":"ms2","Mein Schiff 3":"ms3","Mein Schiff 4":"ms4","Mein Schiff 5":"ms5","Mein Schiff 6":"ms6","Mein Schiff 7":"ms7","Mein Schiff Relax":"relax","Mein Schiff Flow":"flow"};
-function kdLoad(s,cb){var f=KDF[s];if(!f||KDK[s]){cb&&cb();return}KDK[s]="…";fetch("data/kabinen/"+f+".json").then(function(r){return r.json()}).then(function(j){KDK[s]=j;cb&&cb()}).catch(function(){KDK[s]={};cb&&cb()})}
+function kdLoad(s,cb){var f=KDF[s];if(!f||KDK[s]){cb&&cb();return}KDK[s]="…";fetch("data/kabinen/"+f+".json?v=20261125").then(function(r){return r.json()}).then(function(j){KDK[s]=j;cb&&cb()}).catch(function(){KDK[s]={};cb&&cb()})}
 function result(){var CAB=A.hascab==="1"&&!!A.cabno;if(CAB&&KDF[A.ship]&&(!KDK[A.ship]||KDK[A.ship]==="…")){head("Dein Kabinen-Check",100);pan.appendChild(E("p","kfsub","Deckplan wird geladen …"));var _s=A.ship;if(!KDK[_s])kdLoad(_s,function(){if(A.ship===_s)render()});else setTimeout(function(){if(KDK[_s]!=="…")render();else kdLoad(_s,function(){render()})},400);return}head(CAB?"Dein Kabinen-Check":"Deine Wunschkabine",100);var s=A.ship,big=(s==="Mein Schiff Relax"||s==="Mein Schiff Flow"),who=A.who,bud=A.budget,sea=+A.sea,q=A.quiet==="1",acc=+A.acc,v=A.view,sm=A.smoke;if(A.sleep==="tuer"&&(who==="34"||who==="5"))who="v";var PD=null;var T1="Die ideale Lage",T2="Lieber meiden",T3="Gut zu wissen";
 if(CAB){var L=[],X=[],G=[],cat="",alt=null,CABX=null;T1="Das spricht für deine Kabine";T2="Darauf solltest du achten";cabCheck();tail();return}
 function cabCheck(){var P=cabParse(s,A.cabno);if(!P.ok)return;var n=P.n,d=P.d,r=P.r,k=P.k,R=k==="R",f=Math.min(1,r/P.mx);
