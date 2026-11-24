@@ -61,10 +61,10 @@ window.KFpdfBuild=function(D){var d=new Doc();
  (D.sec||[]).forEach(function(s){if(s.t==="h")d.h(s.v);else if(s.t==="h2")d.h2(s.v);else if(s.t==="b")d.bullet(s.v,s.c);else if(s.t==="n")d.para(s.v,{size:8.8,color:"#56658A"});else d.para(s.v,{size:10})});
  /* Kontakt */
  d.need(120);d.y+=12;var cy=d.y;d.rect(M,cy,CW,92,"#071A4F",null,12);d.text("Du möchtest diese Kabine buchen oder hast Fragen?",M+18,cy+26,12,true,"#FFFFFF");
- d.text("Wir beraten dich persönlich – aus eigener Erfahrung an Bord.",M+18,cy+44,9.5,false,"#CFE0FF");
+ d.text("Wir schauen gern, ob deine Wunschkabine in deiner Wunschlage noch frei ist.",M+18,cy+44,9.5,false,"#CFE0FF");
  d.text("WhatsApp: +49 151 26978714   ·   E-Mail: mail@deinschiffskompass.de",M+18,cy+64,9.5,true,"#7DD6FF");d.text("www.deinschiffskompass.de",M+18,cy+80,9.5,false,"#CFE0FF");d.y=cy+104;
  /* Hinweis */
- d.para("Wichtiger Hinweis: Diese Kabinenempfehlung ist eine unverbindliche Orientierung von DEIN SchiffsKompass auf Grundlage deiner Angaben, eigener Erfahrungen, Erfahrungen von Reisenden und öffentlich verfügbarer Informationen. Sie erfolgt ohne Gewähr und ersetzt keine verbindliche Auskunft der Reederei. Deckpläne, Kategorien, Ausstattung und Regeln können sich ändern; welche Kabinen auf deiner Reise frei sind und was sie kosten, siehst du erst bei der Buchung. DEIN SchiffsKompass ist eine Fan-Seite und nicht mit TUI Cruises verbunden.",{size:8.3,color:"#56658A"});
+ d.para("Wichtiger Hinweis: Diese Kabinenempfehlung ist eine unverbindliche Orientierung von DEIN SchiffsKompass auf Grundlage deiner Angaben, der Deckpläne und Kabinenbeschreibungen von TUI Cruises, eigener Erfahrungen an Bord und der Erfahrungen von Reisenden aus unserer Community. Sie erfolgt ohne Gewähr und ersetzt keine verbindliche Auskunft der Reederei. Deckpläne, Kategorien, Ausstattung und Regeln können sich ändern; welche Kabinen auf deiner Reise frei sind und was sie kosten, siehst du erst bei der Buchung. DEIN SchiffsKompass ist eine Fan-Seite und nicht mit TUI Cruises verbunden.",{size:8.3,color:"#56658A"});
  /* Fußzeile */
  var n=d.pages.length;d.pages.forEach(function(p,i){d.cur=p;d.rect(M,PH-36,CW,0.6,"#D9E3EC");d.text("DEIN SchiffsKompass · Kabinenempfehlung · Orientierung ohne Gewähr",M,PH-22,7.8,false,"#56658A");var t="Seite "+(i+1)+" von "+n;d.text(t,PW-M-tw(t,7.8,false),PH-22,7.8,false,"#56658A")});
  return d.build()};
