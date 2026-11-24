@@ -46,13 +46,13 @@ window.KFpdfBuild=function(D){var d=new Doc();
  /* Kopf */
  d.y=0;d.rect(0,0,PW,118,"#071A4F");d.rect(0,118,PW,4,"#0A6FD8");
  if(d.img){d.rect(M-6,18,82,82,"#FFFFFF",null,14);d.op("q 74 0 0 74 "+(M-2)+" "+(PH-96)+" cm /Im1 Do Q")}
- d.text("DEIN SchiffsKompass",M+92,46,11,true,"#7DD6FF");d.text("Deine Kabinenempfehlung",M+92,72,22,true,"#FFFFFF");
+ d.text("DEIN SchiffsKompass",M+92,46,11,true,"#7DD6FF");d.text(D.check?"Dein Kabinen-Check":"Deine Kabinenempfehlung",M+92,72,22,true,"#FFFFFF");
  d.text(clean((D.ship?D.ship+" · ":"")+"erstellt am "+D.date),M+92,94,10,false,"#CFE0FF");d.y=146;
  /* Empfehlung */
  var cat=clean(D.cat),box=[];var hBox=0;d.y+=2;var y0=d.y;
- var lines=[];if(D.pick)lines.push(["b","Lage: "+D.pick]);if(D.alt)lines.push(["r",D.alt]);if(D.occ)lines.push(["r","Belegung: "+D.occ]);
+ var lines=[];if(D.pick)lines.push(["b","Lage: "+D.pick]);if(D.alt)lines.push(["r",D.alt]);if(D.occ)lines.push(["r",(D.check?"":"Belegung: ")+D.occ]);
  var inner=CW-36,hh=64;lines.forEach(function(l){hh+=wrap(clean(l[1]),10,l[0]==="b",inner).length*14+3});var whyL=wrap(clean(D.why||""),9.5,false,inner);hh+=6+whyL.length*13.4+16;
- d.rect(M,y0,CW,hh,"#EAF4FE","#BFDCF7",12);d.text("Unsere Empfehlung"+(D.ship?" für die "+D.ship:""),M+18,y0+22,9.5,true,"#0A6FD8");d.text(cat,M+18,y0+46,20,true,"#0B2470");
+ d.rect(M,y0,CW,hh,"#EAF4FE","#BFDCF7",12);d.text((D.check?"Dein Kabinen-Check":"Unsere Empfehlung")+(D.ship?" für die "+D.ship:""),M+18,y0+22,9.5,true,"#0A6FD8");d.text(cat,M+18,y0+46,20,true,"#0B2470");
  var yy=y0+64;lines.forEach(function(l){wrap(clean(l[1]),10,l[0]==="b",inner).forEach(function(t){d.text(t,M+18,yy+10,10,l[0]==="b",l[0]==="b"?"#0B2470":"#2B3A5C");yy+=14});yy+=3});
  yy+=6;whyL.forEach(function(t){d.text(t,M+18,yy+9.5,9.5,false,"#2B3A5C");yy+=13.4});d.y=y0+hh+10;
  /* Angaben */
