@@ -734,6 +734,16 @@ if(!red&&C.length>1)setInterval(function(){if(document.hidden||!vis||Date.now()<
   </div>
   <div class="rgtips rgup" data-g="upgrade"></div>
 </div></div>
+<div id="v-jung" class="view" hidden><div class="wrap book">
+  <p class="eyebrow">Meine Reise · Reisen mit …</p>
+  <h1>Junge Leute an Bord – deine Reise, dein Rhythmus</h1>
+  <p>Für alle von etwa 18 bis 25: mehrere Länder in einem Urlaub, Sport, Freunde, Musik oder einfach mal raus aus dem Alltag. Hier findest du Tipps zu Kabine, Budget und Bordleben – auch für deine erste Kreuzfahrt.</p>
+  <div class="card rgcard"><div class="rgtips" data-g="young"></div>
+    <div class="bkbtns"><a class="cta ctapulse" href="#" data-open="kabinen" data-preset='null'>Passende Kabine finden <span class="g3arr" aria-hidden="true">→</span></a></div>
+    <p class="hint">Fragen zu deiner Reise? <a href="https://wa.me/4915126978714" target="_blank" rel="noopener">Schreib uns per WhatsApp</a> – wir beraten dich gern persönlich.</p>
+  </div>
+  <div class="rgtips rgup" data-g="upgrade"></div>
+</div></div>
 <div id="v-barrierefrei" class="view" hidden><div class="wrap book">
   <p class="eyebrow">Meine Reise · Reisen mit …</p>
   <h1>Barrierefrei reisen – gut vorbereitet an Bord</h1>
@@ -1128,7 +1138,7 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==und
   if(use!==k)$("sthl").textContent+=" Für "+(T.tom?"morgen":"heute")+" ist noch nichts recherchiert, das ist der letzte Stand.";
 })();
 (function router(){
-  var V=["start","flotte","tipps","buchen","countdown","kabinen","allein","zuzweit","kinder","bestalter","barrierefrei","impressum","datenschutz"];
+  var V=["start","flotte","tipps","buchen","countdown","kabinen","allein","zuzweit","kinder","bestalter","jung","barrierefrei","impressum","datenschutz"];
   function show(){var h=(location.hash||"").replace("#","");if(V.indexOf(h)<0)h="start";
     V.forEach(function(v){$("v-"+v).hidden=v!==h});
     Array.prototype.forEach.call(document.querySelectorAll(".nav .links a"),function(a){if(a.getAttribute("data-v")===h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
@@ -1603,7 +1613,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-25l"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-25m"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -2184,6 +2194,12 @@ function best(c){c=c||{};return{sum:"🌅 Reisen im besten Alter: worauf du acht
  ["🚢 An Bord",["Bedienrestaurants und reservierte Tische sind eine entspannte Alternative zum Buffet.","Seetage bewusst als Ruhetage einplanen – Bordprogramm, Spa und Lesen statt Programm im Minutentakt."]],
  ["⚓ Landgänge",["Ausflüge mit der Kennzeichnung „Extraleicht“ sind für eingeschränkte Mobilität gedacht.","Steigung und Stufen der Gangway ändern sich je nach Hafen und Wasserstand. In Tenderhäfen geht es mit kleinen Booten an Land – dafür muss man sicher ein- und aussteigen können.","Kopfsteinpflaster, enge Gassen und Hitze können Landgänge anstrengend machen – Pausen und Schatten einplanen."]],
  ["🩺 Gut vorbereitet",["Medikamente in ausreichender Menge im Handgepäck mitnehmen. Es gibt ein Bordhospital, aber keine spezialisierte Dauerbetreuung – Kranken- und Rücktransportversicherung prüfen.","Medizinische Geräte wie CPAP oder Sauerstoff vorher anmelden."]]]}}
+function young(c){c=c||{};return{sum:"🎒 Junge Leute (18–25): worauf du achten solltest",note:"Unsere Tipps aus Erfahrungen junger Reisender und den Angaben der Reederei. An Bord ist das Publikum gemischt – wie viele Gleichaltrige mitreisen, hängt von Reise und Termin ab.",sec:[
+ ["🛏️ Kabine",["Eine Innenkabine ist keine Notlösung: Wenn du viel an Land und an Deck unterwegs bist, bleibt mehr Budget für Ausflüge und Erlebnisse – und dunkel ist es zum Ausschlafen auch.","Eine Außenkabine bringt Tageslicht, ein Balkon lohnt sich, wenn Meerblick, Morgenkaffee und eigene Ruhe für dich wichtig sind – etwa auf Norwegen-Reisen mit vielen Panoramapassagen.","Allein unterwegs: Auf der Mein Schiff 7, Relax und Flow gibt es echte Einzelkabinen. Vergleiche den Preis immer mit einer normalen Kabine zur Einzelnutzung.","Mit Freunden: auf getrennte Betten, die zugelassene Belegung und genug Stauraum achten. Zwei Kabinen nebeneinander oder mit Verbindungstür – auf MS 3 bis 6 auch Kombi-Balkonkabinen – geben jedem seinen eigenen Schlafbereich.","Lange schlafen, abends unterwegs: Kabinen mit Kabinen darüber und darunter sind am ruhigsten. Nähe zu Bars und Pool bringt kurze Wege, aber auch Geräusche."]],
+ ["🚢 An Bord",["Sport ist inklusive: Fitnessbereich, Laufstrecke, Pool und je nach Schiff eine Sportarena für Basketball oder Volleyball. Personal Training und einige Kurse kosten extra.","Shows, Live-Musik und Themenabende gibt es jeden Abend – eine tägliche Party oder eine bestimmte Musikrichtung ist aber nicht garantiert.","Neue Leute lernst du am leichtesten bei Ausflügen, Sport und gemeinsamen Aktivitäten kennen – ganz ohne Verpflichtung.","Die Mein Schiff App ist an Bord kostenlos. Internet hängt von deinem Tarif bzw. Paket ab – vorher klären, wie viel du online sein willst."]],
+ ["⚓ Routen & Reiseideen",["Kurzreisen, etwa ab Kiel nach Kopenhagen oder Skandinavien, sind ein guter Einstieg in die erste Kreuzfahrt.","Mittelmeer für Städte, Strände und Food-Spots, Norwegen für Fjorde und Wanderungen, Kanaren für Vulkane und mildes Klima, Karibik für Strand und Schnorcheln.","Themenreisen verbinden gemeinsame Interessen – angekündigt sind zum Beispiel die Millennium Cruise 2027 auf der Mein Schiff 4 mit Musik der 90er und 2000er und die Full Metal Cruise 2027 auf der Mein Schiff 6.","Adults-only-Reisen sind ab 18 und ohne Kinder – aber keine Reisen speziell für junge Leute."]],
+ ["💶 Budget & Buchung",["Viele Leistungen sind im Reisepreis enthalten – Essen, viele Getränke, Sport und Shows. Ausflüge, Internet, Spa-Anwendungen und einzelne Restaurants kosten extra.","Rechne den Gesamtpreis pro Person: Reise, Anreise und Extras zusammen. So siehst du schnell, was der Balkon im Vergleich zur Innenkabine wirklich mehr kostet.","PRO, PLUS oder PUR: Mit PRO wählst du deine Kabine selbst – wichtig, wenn ihr nebeneinander wohnen wollt. PUR ist für alle, die vor allem auf den Preis achten und die Kabine zuteilen lassen.","Einen speziellen Rabatt für junge Leute gibt es bei Mein Schiff derzeit nicht – Frühbucher- und Aktionspreise hängen von der Reise ab.","Zu dritt oder zu viert nicht einfach den Preis für zwei teilen – entscheidend sind die zugelassene Belegung und der tatsächliche Preis pro Person."]],
+ ["❓ Häufige Fragen",["Bin ich mit Anfang 20 zu jung? Nein – die Flotte ist für alle Altersgruppen da.","Muss ich einen Balkon buchen? Nein – wer viel unterwegs ist, ist mit einer Innenkabine oft genau richtig.","Muss ich jeden Abend feiern oder Programm mitmachen? Nein – du entscheidest selbst, ob Sport, Pool, Sauna, Show oder einfach Abschalten."]]]}}
 function upgrade(c){c=c||{};var multi=!!c.multi;var B=["Mit dem Mein Schiff Upgrade Programm kannst du bei ausgewählten Reisen nach der Buchung auf eine höhere Kabinenkategorie bieten – zum Beispiel von innen nach außen, von außen auf Balkon oder vom Balkon in die Suite.",
  "Die Einladung kommt per E-Mail, frühestens 125 Tage vor Abreise. Du bietest einen Aufpreis pro Kabine, mindestens das angezeigte Mindestgebot. Bieten können Reisende ab 18 Jahren.",
  "Bezahlt wird nur, wenn dein Gebot angenommen wird. Bis spätestens 3 Tage vor Abreise kannst du es ändern oder zurückziehen; Bescheid bekommst du spätestens 2 Tage vor Abreise. Ein angenommenes Upgrade lässt sich nicht mehr ablehnen.",
@@ -2194,7 +2210,7 @@ function upgrade(c){c=c||{};var multi=!!c.multi;var B=["Mit dem Mein Schiff Upgr
  return{sum:"⬆️ Unser Tipp: später noch eine höhere Kategorie bekommen",note:"Stand November 2026. Das Upgrade Programm gilt nur für ausgewählte Reisen und Buchungen; die Bedingungen der Reederei können sich ändern.",sec:[[null,B]]}}
 function box(t,E){var dt=E("details","kfov kfhf");dt.appendChild(E("summary",null,t.sum));dt.appendChild(E("p","kfad",t.note));
  t.sec.forEach(function(g){if(!g[1]||!g[1].length)return;if(g[0])dt.appendChild(E("h5",null,g[0]));var u=E("ul");g[1].forEach(function(x){var li=E("li");li.appendChild(E("div",null,x));u.appendChild(li)});dt.appendChild(u)});return dt}
-return{kids:kids,acc:acc,solo:solo,duo:duo,best:best,upgrade:upgrade,box:box}})();
+return{kids:kids,acc:acc,solo:solo,duo:duo,best:best,young:young,upgrade:upgrade,box:box}})();
 (function(){try{
 /* Kabinen-Check: Kabinennummer = Deck + dreistellige laufende Nummer; gerade = Steuerbord, ungerade = Backbord; niedrige Nummern vorne (TUI-Deckplan, Erfahrungsberichte). Lage vorne/Mitte/hinten aus den Deckplänen (data/kabinen), sonst grob geschätzt. */
 /* Erfahrungen von Gästen zu einzelnen Kabinen (redaktionell zusammengefasst, Stand 11/2026) */
@@ -2759,13 +2775,14 @@ palette:"M12 3a9 9 0 0 0 0 18c1.5 0 2-1 2-2s-1-2 0-3 2-1 3-1a4 4 0 0 0 4-4c0-4.4
 diamond:"M6 3.5h12l4 5.5-10 12L2 9z M2 9h20 M10 3.5 8 9l4 12 4-12-2-5.5",
 globe:"M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18 M3 12h18 M12 3c3 3.5 3 14.5 0 18 M12 3c-3 3.5-3 14.5 0 18",
 stairs:"M3 20h5v-5h5v-5h5V5h3",
+young:"M9 6V4.5a3 3 0 0 1 6 0V6 M6 9a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z M9 13h6v4H9z M12 13v1.5",
 fam4:"M6 3.5a2.1 2.1 0 1 1 0 4.2a2.1 2.1 0 1 1 0-4.2 M18 3.5a2.1 2.1 0 1 1 0 4.2a2.1 2.1 0 1 1 0-4.2 M9.6 10a1.6 1.6 0 1 1 0 3.2a1.6 1.6 0 1 1 0-3.2 M14.4 10a1.6 1.6 0 1 1 0 3.2a1.6 1.6 0 1 1 0-3.2 M2.2 17a3.8 3.8 0 0 1 7.6 0 M14.2 17a3.8 3.8 0 0 1 7.6 0 M7.2 20.5a2.4 2.4 0 0 1 4.8 0 M12 20.5a2.4 2.4 0 0 1 4.8 0",
 grp5:"M5 4a1.9 1.9 0 1 1 0 3.8a1.9 1.9 0 1 1 0-3.8 M12 3a1.9 1.9 0 1 1 0 3.8a1.9 1.9 0 1 1 0-3.8 M19 4a1.9 1.9 0 1 1 0 3.8a1.9 1.9 0 1 1 0-3.8 M8.5 11a1.9 1.9 0 1 1 0 3.8a1.9 1.9 0 1 1 0-3.8 M15.5 11a1.9 1.9 0 1 1 0 3.8a1.9 1.9 0 1 1 0-3.8 M1.8 11.5a3.2 3.2 0 0 1 6.4 0 M8.8 10.2a3.2 3.2 0 0 1 6.4 0 M15.8 11.5a3.2 3.2 0 0 1 6.4 0 M5 20.5a3.5 3.5 0 0 1 7 0 M12 20.5a3.5 3.5 0 0 1 7 0",
 dine:"M7 3v8 M5 3v5a2 2 0 0 0 4 0V3 M7 11v10 M17 21V3c-2.2 1.6-3.5 4.4-3.5 7.5V14H17",
 bed:"M3 18.5V6 M3 14h18v4.5 M21 14v-2.5a3 3 0 0 0-3-3h-7v5.5 M6.5 9.5a2 2 0 1 1 0 4a2 2 0 1 1 0-4",
 meh:"M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18 M8.5 14.5h7 M9 9.5h.01 M15 9.5h.01"
 };
-var KM={"🏔️":"view","🏔":"view","🌋":"view","🏝️":"palm","🏝":"palm","🇵🇹":"compass","⛵":"ship","🌺":"palm","🗽":"columns","🏯":"columns","🦁":"globe","✨":"spark","⚓":"anchor","⚠️":"warn","⚠":"warn","🚤":"lifeboat","🧭":"compass","🌊":"wave","🧍":"person","🤷":"help","🛗":"lift","🍽️":"dine","🍽":"dine","♿":"access","💰":"coin","💶":"coin","🔊":"sound","😴":"moon","🚬":"smoke","🧖":"spa","👀":"eye","🔎":"eye","🔭":"eye","📍":"pin","👑":"crown","🏰":"crown","🚢":"ship","👍":"smile","😎":"smile","🙂":"meh","🤢":"queasy","🌅":"balcony","🎶":"music","🚭":"nosmoke","🚶":"walk","🛎️":"bell","🛎":"bell","🎟️":"ticket","🎟":"ticket","⚙️":"gear","⚙":"gear","🙈":"eyeoff","🎭":"mask","🥪":"layers","🏗️":"roof","🏗":"roof","👫":"couple","👥":"couple","👨‍👩‍👧‍👦":"grp5","👨‍👩‍👧":"fam4","🤔":"help","☀️":"sun","☀":"sun","🏞️":"view","🏞":"view","☁️":"cloud","☁":"cloud","🏛️":"columns","🏛":"columns","🎨":"palette","💎":"diamond","🌍":"globe","🛏":"bed","🛋️":"sofa","🛋":"sofa","🌴":"palm","🪟":"porthole","💡":"bulb","✅":"check","🏷️":"tag","🏷":"tag","⛔":"ban","🚫":"ban","⬇️":"down","⬇":"down","⬆️":"up","⬆":"up","🔺":"bow","🔇":"mute","🚪":"door","🔗":"link","💨":"wind","🌫️":"cloud","🌫":"cloud","🗺️":"map","🗺":"map","📖":"book","🏊":"pool"};
+var KM={"🏔️":"view","🏔":"view","🌋":"view","🏝️":"palm","🏝":"palm","🇵🇹":"compass","⛵":"ship","🌺":"palm","🗽":"columns","🏯":"columns","🦁":"globe","✨":"spark","⚓":"anchor","⚠️":"warn","⚠":"warn","🚤":"lifeboat","🧭":"compass","🌊":"wave","🧍":"person","🎒":"young","🤷":"help","🛗":"lift","🍽️":"dine","🍽":"dine","♿":"access","💰":"coin","💶":"coin","🔊":"sound","😴":"moon","🚬":"smoke","🧖":"spa","👀":"eye","🔎":"eye","🔭":"eye","📍":"pin","👑":"crown","🏰":"crown","🚢":"ship","👍":"smile","😎":"smile","🙂":"meh","🤢":"queasy","🌅":"balcony","🎶":"music","🚭":"nosmoke","🚶":"walk","🛎️":"bell","🛎":"bell","🎟️":"ticket","🎟":"ticket","⚙️":"gear","⚙":"gear","🙈":"eyeoff","🎭":"mask","🥪":"layers","🏗️":"roof","🏗":"roof","👫":"couple","👥":"couple","👨‍👩‍👧‍👦":"grp5","👨‍👩‍👧":"fam4","🤔":"help","☀️":"sun","☀":"sun","🏞️":"view","🏞":"view","☁️":"cloud","☁":"cloud","🏛️":"columns","🏛":"columns","🎨":"palette","💎":"diamond","🌍":"globe","🛏":"bed","🛋️":"sofa","🛋":"sofa","🌴":"palm","🪟":"porthole","💡":"bulb","✅":"check","🏷️":"tag","🏷":"tag","⛔":"ban","🚫":"ban","⬇️":"down","⬇":"down","⬆️":"up","⬆":"up","🔺":"bow","🔇":"mute","🚪":"door","🔗":"link","💨":"wind","🌫️":"cloud","🌫":"cloud","🗺️":"map","🗺":"map","📖":"book","🏊":"pool"};
 var KRX=new RegExp("("+Object.keys(KM).sort(function(a,b){return b.length-a.length}).map(function(k){return k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}).join("|")+")\uFE0F?","g");
 function kicon(n){var ns="http://www.w3.org/2000/svg",sv=document.createElementNS(ns,"svg");sv.setAttribute("viewBox","0 0 24 24");sv.setAttribute("aria-hidden","true");var p=document.createElementNS(ns,"path");p.setAttribute("d",KI[n]);sv.appendChild(p);var sp=document.createElement("span");sp.className="ki ki-"+n;sp.appendChild(sv);return sp}
 function iconize(root){var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),ns=[],n;while(n=w.nextNode()){if(n.parentNode&&n.parentNode.closest&&n.parentNode.closest(".kfx"))continue;KRX.lastIndex=0;if(KRX.test(n.nodeValue))ns.push(n)}
@@ -3152,7 +3169,7 @@ function go(h){if(location.hash==="#"+h)window.dispatchEvent(new HashChangeEvent
 function series(){var S=[];[].forEach.call(document.querySelectorAll("#v-tipps .treihe"),function(x){var n=x.textContent.replace(/\s*\(.*\)$/,"");if(S.indexOf(n)<0)S.push(n)});return S}
 var M={
  flotte:function(){return[["Alle Schiffe heute",function(){go("flotte")}],["Kapitäne & Crew",function(){go("flotte");jump("fleetupd")}],["Crew-Alarm",function(){go("start");setTimeout(function(){tile(".pushtile")},60)}]]},
- reise:function(){return[["Reise-Countdown",function(){go("countdown")}],["Kabinen-Finder",function(){go("kabinen")}],["Reisen mit …",null],["Allein reisen",function(){go("allein")},"person"],["Zu zweit",function(){go("zuzweit")},"couple"],["Mit Kindern",function(){go("kinder")},"fam4"],["Reisen im besten Alter",function(){go("bestalter")},"sun"],["Barrierefrei reisen",function(){go("barrierefrei")},"access"]]},
+ reise:function(){return[["Reise-Countdown",function(){go("countdown")}],["Kabinen-Finder",function(){go("kabinen")}],["Reisen mit …",null],["Allein reisen",function(){go("allein")},"person"],["Zu zweit",function(){go("zuzweit")},"couple"],["Mit Kindern",function(){go("kinder")},"fam4"],["Junge Leute (18–25)",function(){go("jung")},"young"],["Reisen im besten Alter",function(){go("bestalter")},"sun"],["Barrierefrei reisen",function(){go("barrierefrei")},"access"]]},
  tipps:function(){return[["Alle Tipps & Reels",function(){go("tipps")}]].concat(series().map(function(n){return[n.replace(/,.*$/,""),function(){go("tipps");jump(null,n)}]}))},
  buchen:function(){return[["Kreuzfahrt buchen",function(){go("buchen")}],["Beratung per WhatsApp",WA],["E-Mail an uns","mailto:mail@deinschiffskompass.de"]]}};
 var dd=document.createElement("div");dd.className="navdd";dd.setAttribute("role","menu");document.body.appendChild(dd);var cur=null,curA=null;
@@ -3169,7 +3186,7 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape")close()});
 window.addEventListener("resize",place);window.addEventListener("scroll",function(){if(cur)place()},{passive:true});window.addEventListener("hashchange",close);
 document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-open]");if(!b)return;e.preventDefault();var w=b.getAttribute("data-open");
  if(w==="kabinen"){var pr=null;try{pr=JSON.parse(b.getAttribute("data-preset")||"null")}catch(x){}if(window.KFopen)window.KFopen(pr);else tile(".kftile")}else if(w==="countdown")tile(".cdtile")});
-["flotte","tipps","buchen","countdown","kabinen","allein","zuzweit","kinder","bestalter","barrierefrei","impressum","datenschutz"].forEach(function(v){var el=document.getElementById("v-"+v);if(!el||el.querySelector(".bhwrap"))return;var w=document.createElement("div");w.className="wrap bhwrap";var a=document.createElement("a");a.href="#start";a.className="backhome";a.textContent="Zurück zur Startseite";w.appendChild(a);el.insertBefore(w,el.firstChild)});
+["flotte","tipps","buchen","countdown","kabinen","allein","zuzweit","kinder","bestalter","jung","barrierefrei","impressum","datenschutz"].forEach(function(v){var el=document.getElementById("v-"+v);if(!el||el.querySelector(".bhwrap"))return;var w=document.createElement("div");w.className="wrap bhwrap";var a=document.createElement("a");a.href="#start";a.className="backhome";a.textContent="Zurück zur Startseite";w.appendChild(a);el.insertBefore(w,el.firstChild)});
 var img=hd.querySelector("img");function home(){close();go("start")}
 if(img){img.setAttribute("role","link");img.setAttribute("aria-label","Zur Startseite");img.tabIndex=0;img.addEventListener("click",home);img.addEventListener("keydown",function(e){if(e.key==="Enter")home()})}
 var t=hd.querySelector("b");if(t)t.addEventListener("click",home);
