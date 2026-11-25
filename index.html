@@ -1613,7 +1613,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-25n"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-25o"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -3169,7 +3169,7 @@ function go(h){if(location.hash==="#"+h)window.dispatchEvent(new HashChangeEvent
 function series(){var S=[];[].forEach.call(document.querySelectorAll("#v-tipps .treihe"),function(x){var n=x.textContent.replace(/\s*\(.*\)$/,"");if(S.indexOf(n)<0)S.push(n)});return S}
 var M={
  flotte:function(){return[["Alle Schiffe heute",function(){go("flotte")}],["Kapitäne & Crew",function(){go("flotte");jump("fleetupd")}],["Crew-Alarm",function(){go("start");setTimeout(function(){tile(".pushtile")},60)}]]},
- reise:function(){return[["Reise-Countdown",function(){go("countdown")}],["Kabinen-Finder",function(){go("kabinen")}],["Reisen mit …",null],["Allein reisen",function(){go("allein")},"person"],["Zu zweit",function(){go("zuzweit")},"couple"],["Mit Kindern",function(){go("kinder")},"fam4"],["Junge Leute (18–25)",function(){go("jung")},"young"],["Reisen im besten Alter",function(){go("bestalter")},"sun"],["Barrierefrei reisen",function(){go("barrierefrei")},"access"]]},
+ reise:function(){return[["Reise-Countdown",function(){go("countdown")}],["Kabinen-Finder",function(){go("kabinen")}],["Reisen mit …",null],["Allein reisen",function(){go("allein")},"person"],["Junge Leute (18–25)",function(){go("jung")},"young"],["Zu zweit",function(){go("zuzweit")},"couple"],["Mit Kindern",function(){go("kinder")},"fam4"],["Reisen im besten Alter",function(){go("bestalter")},"sun"],["Barrierefrei reisen",function(){go("barrierefrei")},"access"]]},
  tipps:function(){return[["Alle Tipps & Reels",function(){go("tipps")}]].concat(series().map(function(n){return[n.replace(/,.*$/,""),function(){go("tipps");jump(null,n)}]}))},
  buchen:function(){return[["Kreuzfahrt buchen",function(){go("buchen")}],["Beratung per WhatsApp",WA],["E-Mail an uns","mailto:mail@deinschiffskompass.de"]]}};
 var dd=document.createElement("div");dd.className="navdd";dd.setAttribute("role","menu");document.body.appendChild(dd);var cur=null,curA=null;
