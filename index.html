@@ -1613,7 +1613,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-25m"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-25n"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
@@ -2775,7 +2775,7 @@ palette:"M12 3a9 9 0 0 0 0 18c1.5 0 2-1 2-2s-1-2 0-3 2-1 3-1a4 4 0 0 0 4-4c0-4.4
 diamond:"M6 3.5h12l4 5.5-10 12L2 9z M2 9h20 M10 3.5 8 9l4 12 4-12-2-5.5",
 globe:"M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18 M3 12h18 M12 3c3 3.5 3 14.5 0 18 M12 3c-3 3.5-3 14.5 0 18",
 stairs:"M3 20h5v-5h5v-5h5V5h3",
-young:"M9 6V4.5a3 3 0 0 1 6 0V6 M6 9a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z M9 13h6v4H9z M12 13v1.5",
+young:"M12 4a2.6 2.6 0 1 1 0 5.2a2.6 2.6 0 1 1 0-5.2 M8.5 5.2C9 3 10.4 2.4 12 2.4s3 .6 3.5 2.8h3 M6.5 20a5.5 5.5 0 0 1 11 0",
 fam4:"M6 3.5a2.1 2.1 0 1 1 0 4.2a2.1 2.1 0 1 1 0-4.2 M18 3.5a2.1 2.1 0 1 1 0 4.2a2.1 2.1 0 1 1 0-4.2 M9.6 10a1.6 1.6 0 1 1 0 3.2a1.6 1.6 0 1 1 0-3.2 M14.4 10a1.6 1.6 0 1 1 0 3.2a1.6 1.6 0 1 1 0-3.2 M2.2 17a3.8 3.8 0 0 1 7.6 0 M14.2 17a3.8 3.8 0 0 1 7.6 0 M7.2 20.5a2.4 2.4 0 0 1 4.8 0 M12 20.5a2.4 2.4 0 0 1 4.8 0",
 grp5:"M5 4a1.9 1.9 0 1 1 0 3.8a1.9 1.9 0 1 1 0-3.8 M12 3a1.9 1.9 0 1 1 0 3.8a1.9 1.9 0 1 1 0-3.8 M19 4a1.9 1.9 0 1 1 0 3.8a1.9 1.9 0 1 1 0-3.8 M8.5 11a1.9 1.9 0 1 1 0 3.8a1.9 1.9 0 1 1 0-3.8 M15.5 11a1.9 1.9 0 1 1 0 3.8a1.9 1.9 0 1 1 0-3.8 M1.8 11.5a3.2 3.2 0 0 1 6.4 0 M8.8 10.2a3.2 3.2 0 0 1 6.4 0 M15.8 11.5a3.2 3.2 0 0 1 6.4 0 M5 20.5a3.5 3.5 0 0 1 7 0 M12 20.5a3.5 3.5 0 0 1 7 0",
 dine:"M7 3v8 M5 3v5a2 2 0 0 0 4 0V3 M7 11v10 M17 21V3c-2.2 1.6-3.5 4.4-3.5 7.5V14H17",
