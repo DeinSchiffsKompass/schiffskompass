@@ -815,6 +815,8 @@ if(!red&&C.length>1)setInterval(function(){if(document.hidden||!vis||Date.now()<
     <li>Öffentlich verfügbare Informationen zu Kapitänen und Kreuzfahrtdirektoren</li>
     <li>Weitere öffentlich zugängliche Fachinformationen, Presseberichte und Reiseberichte</li>
   </ul>
+  <h3>Woher stammen die Daten für „Alle Schiffe heute“ und „Kapitäne &amp; Crew“?</h3>
+  <p>Die Daten stammen aus den veröffentlichten Fahrplänen von TUI Cruises, aus Meldungen von Passagieren an Bord zu Umroutungen sowie aus frei zugänglichen Tagesprogrammen.</p>
   <p>Für die Recherche, Auswertung und Strukturierung der Daten werden teilweise KI-gestützte Verfahren eingesetzt. Die aufbereiteten Informationen werden von mir redaktionell betreut.</p>
   <p>Die dargestellten Reisezeiträume, Reisedauern, Hafenanläufe und Schiffsinformationen geben den jeweiligen Stand der zugrunde liegenden Informationen wieder. Sie stellen keine verbindlichen Angaben der Reedereien dar. Insbesondere können sich Fahrpläne, Routen, Liegezeiten, Besatzungsinformationen und andere Angaben kurzfristig ändern.</p>
 
@@ -1635,7 +1637,7 @@ function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(
    (Daten, Texte, Bilder-Verweise oder Code), und lädt sich dann einmal frisch neu. Es muss nichts von Hand hochgezählt werden.
    Verglichen wird ein Fingerabdruck: Seitenanfang bis zum Baustein snap-addon plus alle Scripts und Styles danach. */
 (function(){try{
-  var APP_VER="2026-11-25zd"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
+  var APP_VER="2026-11-26a"; /* nur noch für ältere, schon geöffnete Seitenstände, die daran ein Update erkennen; muss nicht mehr gepflegt werden */
   function h(t){var x=2166136261;for(var i=0;i<t.length;i++){x^=t.charCodeAt(i);x=Math.imul(x,16777619)}return(x>>>0).toString(36)}
   function rest(doc){var sn=doc.getElementById("snap-addon"),out=[];if(!sn)return"";
     Array.prototype.forEach.call(doc.querySelectorAll("script,style"),function(e){
